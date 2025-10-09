@@ -16,8 +16,6 @@ interface Package {
   price: number;
   currency: string | null;
   features: string[] | null;
-  duration_en: string | null;
-  duration_ar: string | null;
   _count: {
     bookings: number;
   };
@@ -59,7 +57,8 @@ const content = {
     ctaTitle: 'هل تحتاج إلى باقة مخصصة؟',
     ctaDesc: 'يمكننا إنشاء باقة مخصصة مصممة خصيصًا لاحتياجاتك',
     ctaButton: 'احصل على عرض أسعار مخصص',
-    savingsNote: 'جميع الباقات أقل بنسبة 60-80٪ من الولايات المتحدة أو المملكة المتحدة أو دول مجلس التعاون الخليجي',
+    savingsNote:
+      'جميع الباقات أقل بنسبة 60-80٪ من الولايات المتحدة أو المملكة المتحدة أو دول مجلس التعاون الخليجي',
   },
 };
 
@@ -73,8 +72,7 @@ export default function PackagesClient({ packages, locale }: Props) {
     const searchLower = searchQuery.toLowerCase();
 
     return (
-      name.toLowerCase().includes(searchLower) ||
-      description?.toLowerCase().includes(searchLower)
+      name.toLowerCase().includes(searchLower) || description?.toLowerCase().includes(searchLower)
     );
   });
 
@@ -144,7 +142,6 @@ export default function PackagesClient({ packages, locale }: Props) {
               {filteredPackages.map((pkg, index) => {
                 const name = locale === 'ar' ? pkg.name_ar : pkg.name_en;
                 const description = locale === 'ar' ? pkg.description_ar : pkg.description_en;
-                const duration = locale === 'ar' ? pkg.duration_ar : pkg.duration_en;
                 const features = pkg.features?.included || Object.values(pkg.features || {});
 
                 return (
@@ -201,18 +198,20 @@ export default function PackagesClient({ packages, locale }: Props) {
                                 {t.whatsIncluded}
                               </p>
                               <ul className="space-y-2">
-                                {features.slice(0, 4).map((feature: string | Record<string, unknown>, idx: number) => {
-                                  const featureText =
-                                    typeof feature === 'string' ? feature : feature.toString();
-                                  return (
-                                    <li key={idx} className="flex items-start gap-2 text-sm">
-                                      <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                                      <span className="text-muted-foreground line-clamp-1">
-                                        {featureText}
-                                      </span>
-                                    </li>
-                                  );
-                                })}
+                                {features
+                                  .slice(0, 4)
+                                  .map((feature: string | Record<string, unknown>, idx: number) => {
+                                    const featureText =
+                                      typeof feature === 'string' ? feature : feature.toString();
+                                    return (
+                                      <li key={idx} className="flex items-start gap-2 text-sm">
+                                        <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                                        <span className="text-muted-foreground line-clamp-1">
+                                          {featureText}
+                                        </span>
+                                      </li>
+                                    );
+                                  })}
                                 {features.length > 4 && (
                                   <li className="text-sm text-accent">
                                     +{features.length - 4} more...
@@ -223,15 +222,12 @@ export default function PackagesClient({ packages, locale }: Props) {
                           )}
 
                           {/* Duration */}
-                          {duration && (
-                            <div className="mb-4 text-sm text-muted-foreground">
-                              <span className="font-medium">{t.duration}:</span> {duration}
-                            </div>
-                          )}
 
                           {/* CTA */}
                           <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
-                            <span className="text-sm font-medium text-primary">{t.viewDetails}</span>
+                            <span className="text-sm font-medium text-primary">
+                              {t.viewDetails}
+                            </span>
                             <ArrowRight className="w-5 h-5 text-accent" />
                           </div>
                         </CardBody>

@@ -12,10 +12,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
 
-  const title =
-    locale === 'ar'
-      ? 'جميع العلاجات - شفاء الهند'
-      : 'All Treatments - Shifa AlHind';
+  const title = locale === 'ar' ? 'جميع العلاجات - شفاء الهند' : 'All Treatments - Shifa AlHind';
 
   const description =
     locale === 'ar'
@@ -57,14 +54,10 @@ export default async function TreatmentsPage({ params }: PageProps) {
       summary_ar: true,
       costMin: true,
       costMax: true,
-      category_en: true,
-      category_ar: true,
-      featuredImage: true,
     },
-    orderBy: [
-      { featured: 'desc' },
-      { updatedAt: 'desc' },
-    ],
+    orderBy: {
+      updatedAt: 'desc',
+    },
   });
 
   return <TreatmentsClient treatments={treatments} locale={locale} />;
