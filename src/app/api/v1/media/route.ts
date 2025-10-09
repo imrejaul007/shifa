@@ -1,18 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 
 // GET all media files
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
     const searchParams = request.nextUrl.searchParams;
@@ -20,7 +16,10 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    const where: any = { isArchived: false };
+    const where: {
+      isArchived: boolean;
+      tags?: { has: string };
+    } = { isArchived: false };
 
     if (tag) {
       where.tags = {
@@ -49,9 +48,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching media:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch media' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to fetch media' }, { status: 500 });
   }
 }

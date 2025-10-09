@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 
 // GET all doctors
 export async function GET(request: NextRequest) {
@@ -13,9 +12,12 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    const where: any = published
-      ? { published: true, isArchived: false }
-      : { isArchived: false };
+    const where: {
+      published?: boolean;
+      isArchived: boolean;
+      hospitalId?: string;
+      specialties?: { has: string };
+    } = published ? { published: true, isArchived: false } : { isArchived: false };
 
     if (hospitalId) {
       where.hospitalId = hospitalId;
@@ -58,23 +60,17 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching doctors:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch doctors' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to fetch doctors' }, { status: 500 });
   }
 }
 
 // POST create new doctor (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session || !['ADMIN', 'EDITOR'].includes(session.user.role)) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
@@ -108,9 +104,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating doctor:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to create doctor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to create doctor' }, { status: 500 });
   }
 }

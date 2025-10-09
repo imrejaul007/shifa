@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import sharp from 'sharp';
 
 // POST upload media file (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session || !['ADMIN', 'EDITOR'].includes(session.user.role)) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
     const formData = await request.formData();
@@ -23,10 +19,7 @@ export async function POST(request: NextRequest) {
     const tags = formData.get('tags') as string;
 
     if (!file) {
-      return NextResponse.json(
-        { success: false, error: 'No file provided' },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'No file provided' }, { status: 400 });
     }
 
     // Convert file to buffer
@@ -37,12 +30,13 @@ export async function POST(request: NextRequest) {
     const metadata = await sharp(buffer).metadata();
 
     // Generate optimized versions
-    const optimized = await sharp(buffer)
+    // TODO: These will be used when S3/CDN upload is implemented
+    const _optimized = await sharp(buffer)
       .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
       .webp({ quality: 85 })
       .toBuffer();
 
-    const thumbnail = await sharp(buffer)
+    const _thumbnail = await sharp(buffer)
       .resize(400, 300, { fit: 'cover' })
       .webp({ quality: 80 })
       .toBuffer();
@@ -68,7 +62,7 @@ export async function POST(request: NextRequest) {
         size: buffer.length,
         alt_en: alt_en || '',
         alt_ar: alt_ar || '',
-        tags: tags ? tags.split(',').map(t => t.trim()) : [],
+        tags: tags ? tags.split(',').map((t) => t.trim()) : [],
         variants: {
           optimized: `/uploads/optimized/${key}`,
           thumbnail: `/uploads/thumbnails/${key}`,
@@ -83,10 +77,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error uploading file:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to upload file' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to upload file' }, { status: 500 });
   }
 }
 

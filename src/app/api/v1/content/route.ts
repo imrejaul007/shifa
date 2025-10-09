@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 
 // GET content pages (blog posts, static pages, FAQs)
 export async function GET(request: NextRequest) {
@@ -12,13 +11,14 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    const where: any = { type };
+    const where: {
+      type: string;
+      published?: boolean;
+      isArchived: boolean;
+    } = { type, isArchived: false };
 
     if (published) {
       where.published = true;
-      where.isArchived = false;
-    } else {
-      where.isArchived = false;
     }
 
     const [pages, total] = await Promise.all([
@@ -55,13 +55,10 @@ export async function GET(request: NextRequest) {
 // POST create new content page (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session || !['ADMIN', 'EDITOR'].includes(session.user.role)) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
