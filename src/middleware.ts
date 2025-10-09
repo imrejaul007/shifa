@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { auth } from '@/lib/auth';
 
 const locales = ['en', 'ar'];
 const defaultLocale = 'en';
@@ -45,9 +44,12 @@ export default async function middleware(request: NextRequest) {
 
   // Protect admin routes
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
-    const session = await auth();
+    // Check for auth token in cookies (NextAuth session token)
+    const sessionToken =
+      request.cookies.get('authjs.session-token') ||
+      request.cookies.get('__Secure-authjs.session-token');
 
-    if (!session) {
+    if (!sessionToken) {
       const url = new URL('/admin/login', request.url);
       url.searchParams.set('callbackUrl', pathname);
       return NextResponse.redirect(url);
