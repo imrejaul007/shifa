@@ -12,10 +12,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
 
-  const title =
-    locale === 'ar'
-      ? 'الأطباء الخبراء - شفاء الهند'
-      : 'Expert Doctors - Shifa AlHind';
+  const title = locale === 'ar' ? 'الأطباء الخبراء - شفاء الهند' : 'Expert Doctors - Shifa AlHind';
 
   const description =
     locale === 'ar'
@@ -53,14 +50,12 @@ export default async function DoctorsPage({ params }: PageProps) {
       slug: true,
       name_en: true,
       name_ar: true,
-      specialty_en: true,
-      specialty_ar: true,
+      specialties: true,
       bio_en: true,
       bio_ar: true,
       qualifications: true,
-      experience: true,
       languages: true,
-      image: true,
+      profileImage: true,
       telemedicineAvailable: true,
       hospital: {
         select: {
@@ -69,10 +64,9 @@ export default async function DoctorsPage({ params }: PageProps) {
         },
       },
     },
-    orderBy: [
-      { featured: 'desc' },
-      { experience: 'desc' },
-    ],
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 
   return <DoctorsClient doctors={doctors} locale={locale} />;

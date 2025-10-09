@@ -11,14 +11,12 @@ interface Doctor {
   slug: string;
   name_en: string;
   name_ar: string;
-  specialty_en: string | null;
-  specialty_ar: string | null;
+  specialties: string[];
   bio_en: string | null;
   bio_ar: string | null;
-  qualifications: string[] | null;
-  experience: number | null;
-  languages: string[] | null;
-  image: string | null;
+  qualifications: string[];
+  languages: string[];
+  profileImage: string | null;
   telemedicineAvailable: boolean;
   hospital: {
     name_en: string;
@@ -81,7 +79,7 @@ export default function DoctorsClient({ doctors, locale }: Props) {
 
   const filteredDoctors = doctors.filter((doctor) => {
     const name = locale === 'ar' ? doctor.name_ar : doctor.name_en;
-    const specialty = locale === 'ar' ? doctor.specialty_ar : doctor.specialty_en;
+    const specialty = doctor.specialties[0] || '';
     const hospitalName = doctor.hospital
       ? locale === 'ar'
         ? doctor.hospital.name_ar
@@ -156,7 +154,7 @@ export default function DoctorsClient({ doctors, locale }: Props) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredDoctors.map((doctor, index) => {
                 const name = locale === 'ar' ? doctor.name_ar : doctor.name_en;
-                const specialty = locale === 'ar' ? doctor.specialty_ar : doctor.specialty_en;
+                const specialty = doctor.specialties[0] || '';
                 const hospitalName = doctor.hospital
                   ? locale === 'ar'
                     ? doctor.hospital.name_ar
@@ -175,7 +173,7 @@ export default function DoctorsClient({ doctors, locale }: Props) {
                       <div className="relative aspect-square overflow-hidden">
                         <img
                           src={
-                            doctor.image ||
+                            doctor.profileImage ||
                             'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800'
                           }
                           alt={name}
@@ -183,7 +181,9 @@ export default function DoctorsClient({ doctors, locale }: Props) {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
                         {doctor.telemedicineAvailable && (
-                          <div className={`absolute top-4 ${locale === 'ar' ? 'left-4' : 'right-4'}`}>
+                          <div
+                            className={`absolute top-4 ${locale === 'ar' ? 'left-4' : 'right-4'}`}
+                          >
                             <div className="glass px-3 py-2 rounded-full">
                               <Video className="w-5 h-5 text-accent" />
                             </div>
@@ -194,18 +194,8 @@ export default function DoctorsClient({ doctors, locale }: Props) {
                         <h3 className="text-2xl font-display font-bold text-primary mb-2">
                           {name}
                         </h3>
-                        {specialty && (
-                          <p className="text-accent font-semibold mb-4">{specialty}</p>
-                        )}
+                        {specialty && <p className="text-accent font-semibold mb-4">{specialty}</p>}
                         <div className="space-y-3 mb-4 flex-1">
-                          {doctor.experience && (
-                            <div className="flex items-center gap-3 text-muted-foreground">
-                              <GraduationCap className="w-5 h-5 text-accent" />
-                              <span className="text-sm">
-                                {doctor.experience}+ {t.experience}
-                              </span>
-                            </div>
-                          )}
                           {doctor.languages && doctor.languages.length > 0 && (
                             <div className="flex items-center gap-3 text-muted-foreground">
                               <Languages className="w-5 h-5 text-accent" />
@@ -283,22 +273,18 @@ export default function DoctorsClient({ doctors, locale }: Props) {
                 <div className="relative aspect-[21/9] overflow-hidden rounded-t-3xl">
                   <img
                     src={
-                      selectedDoctor.image ||
+                      selectedDoctor.profileImage ||
                       'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800'
                     }
                     alt={locale === 'ar' ? selectedDoctor.name_ar : selectedDoctor.name_en}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
-                  <div
-                    className={`absolute bottom-8 ${locale === 'ar' ? 'right-8' : 'left-8'}`}
-                  >
+                  <div className={`absolute bottom-8 ${locale === 'ar' ? 'right-8' : 'left-8'}`}>
                     <h2 className="text-4xl font-display font-bold text-white mb-2">
                       {locale === 'ar' ? selectedDoctor.name_ar : selectedDoctor.name_en}
                     </h2>
-                    <p className="text-xl text-accent">
-                      {locale === 'ar' ? selectedDoctor.specialty_ar : selectedDoctor.specialty_en}
-                    </p>
+                    <p className="text-xl text-accent">{selectedDoctor.specialties[0] || ''}</p>
                   </div>
                 </div>
 
@@ -307,21 +293,22 @@ export default function DoctorsClient({ doctors, locale }: Props) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     {/* Left Column */}
                     <div>
-                      {selectedDoctor.qualifications && selectedDoctor.qualifications.length > 0 && (
-                        <>
-                          <h3 className="text-xl font-bold text-primary mb-4">
-                            {t.qualifications}
-                          </h3>
-                          <ul className="space-y-2 mb-6">
-                            {selectedDoctor.qualifications.map((qual: string, idx: number) => (
-                              <li key={idx} className="flex items-center gap-2">
-                                <GraduationCap className="w-5 h-5 text-accent" />
-                                <span>{qual}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
+                      {selectedDoctor.qualifications &&
+                        selectedDoctor.qualifications.length > 0 && (
+                          <>
+                            <h3 className="text-xl font-bold text-primary mb-4">
+                              {t.qualifications}
+                            </h3>
+                            <ul className="space-y-2 mb-6">
+                              {selectedDoctor.qualifications.map((qual: string, idx: number) => (
+                                <li key={idx} className="flex items-center gap-2">
+                                  <GraduationCap className="w-5 h-5 text-accent" />
+                                  <span>{qual}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
 
                       {selectedDoctor.hospital && (
                         <div className="mb-6">
