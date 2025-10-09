@@ -11,13 +11,12 @@ interface Hospital {
   slug: string;
   name_en: string;
   name_ar: string;
-  tagline_en: string | null;
-  tagline_ar: string | null;
+  description_en: string;
+  description_ar: string;
+  address: string;
   accreditations: string[] | null;
-  address_en: string | null;
-  address_ar: string | null;
   languagesSupported: string[] | null;
-  image: string | null;
+  images: string[] | null;
   _count: {
     doctors: number;
     treatments: number;
@@ -70,13 +69,13 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
 
   const filteredHospitals = hospitals.filter((hospital) => {
     const name = locale === 'ar' ? hospital.name_ar : hospital.name_en;
-    const tagline = locale === 'ar' ? hospital.tagline_ar : hospital.tagline_en;
-    const address = locale === 'ar' ? hospital.address_ar : hospital.address_en;
+    const description = locale === 'ar' ? hospital.description_ar : hospital.description_en;
+    const address = hospital.address;
     const searchLower = searchQuery.toLowerCase();
 
     return (
       name.toLowerCase().includes(searchLower) ||
-      tagline?.toLowerCase().includes(searchLower) ||
+      description?.toLowerCase().includes(searchLower) ||
       address?.toLowerCase().includes(searchLower)
     );
   });
@@ -141,8 +140,11 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredHospitals.map((hospital, index) => {
                 const name = locale === 'ar' ? hospital.name_ar : hospital.name_en;
-                const tagline = locale === 'ar' ? hospital.tagline_ar : hospital.tagline_en;
-                const address = locale === 'ar' ? hospital.address_ar : hospital.address_en;
+                const description =
+                  locale === 'ar' ? hospital.description_ar : hospital.description_en;
+                const address = hospital.address;
+                const firstImage =
+                  hospital.images && Array.isArray(hospital.images) ? hospital.images[0] : null;
 
                 return (
                   <motion.div
@@ -154,19 +156,13 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
                   >
                     <Link href={`/${locale}/hospitals/${hospital.slug}`}>
                       <Card hover={true} variant="default" className="h-full flex flex-col">
-                        {hospital.image && (
-                          <CardImage
-                            src={hospital.image}
-                            alt={name}
-                            aspectRatio="16/9"
-                          />
-                        )}
+                        {firstImage && <CardImage src={firstImage} alt={name} aspectRatio="16/9" />}
                         <CardBody className="flex-1 flex flex-col">
                           <h3 className="text-2xl font-display font-bold text-primary mb-2">
                             {name}
                           </h3>
-                          {tagline && (
-                            <p className="text-muted-foreground mb-4 line-clamp-2">{tagline}</p>
+                          {description && (
+                            <p className="text-muted-foreground mb-4 line-clamp-2">{description}</p>
                           )}
 
                           {/* Accreditations */}

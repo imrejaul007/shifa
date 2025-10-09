@@ -12,10 +12,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
 
-  const title =
-    locale === 'ar'
-      ? 'الباقات الطبية - شفاء الهند'
-      : 'Medical Packages - Shifa AlHind';
+  const title = locale === 'ar' ? 'الباقات الطبية - شفاء الهند' : 'Medical Packages - Shifa AlHind';
 
   const description =
     locale === 'ar'
@@ -58,8 +55,6 @@ export default async function PackagesPage({ params }: PageProps) {
       price: true,
       currency: true,
       features: true,
-      duration_en: true,
-      duration_ar: true,
       _count: {
         select: {
           bookings: {
@@ -70,10 +65,9 @@ export default async function PackagesPage({ params }: PageProps) {
         },
       },
     },
-    orderBy: [
-      { featured: 'desc' },
-      { price: 'asc' },
-    ],
+    orderBy: {
+      price: 'asc',
+    },
   });
 
   return <PackagesClient packages={packages} locale={locale} />;

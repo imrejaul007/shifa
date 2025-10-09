@@ -15,9 +15,6 @@ interface Treatment {
   summary_ar: string | null;
   costMin: number | null;
   costMax: number | null;
-  category_en: string | null;
-  category_ar: string | null;
-  featuredImage: string | null;
 }
 
 interface Props {
@@ -61,13 +58,10 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
   const filteredTreatments = treatments.filter((treatment) => {
     const title = locale === 'ar' ? treatment.title_ar : treatment.title_en;
     const summary = locale === 'ar' ? treatment.summary_ar : treatment.summary_en;
-    const category = locale === 'ar' ? treatment.category_ar : treatment.category_en;
     const searchLower = searchQuery.toLowerCase();
 
     return (
-      title.toLowerCase().includes(searchLower) ||
-      summary?.toLowerCase().includes(searchLower) ||
-      category?.toLowerCase().includes(searchLower)
+      title.toLowerCase().includes(searchLower) || summary?.toLowerCase().includes(searchLower)
     );
   });
 
@@ -139,7 +133,6 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
               {filteredTreatments.map((treatment, index) => {
                 const title = locale === 'ar' ? treatment.title_ar : treatment.title_en;
                 const summary = locale === 'ar' ? treatment.summary_ar : treatment.summary_en;
-                const category = locale === 'ar' ? treatment.category_ar : treatment.category_en;
                 const price = formatPrice(treatment.costMin, treatment.costMax);
 
                 return (
@@ -152,26 +145,6 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
                   >
                     <Link href={`/${locale}/treatments/${treatment.slug}`}>
                       <Card hover={true} variant="default" className="h-full flex flex-col">
-                        {treatment.featuredImage && (
-                          <div className="relative">
-                            <CardImage
-                              src={treatment.featuredImage}
-                              alt={title}
-                              aspectRatio="16/9"
-                            />
-                            {category && (
-                              <div
-                                className={`absolute top-4 px-4 py-2 bg-accent/90 backdrop-blur-sm rounded-full ${
-                                  locale === 'ar' ? 'right-4' : 'left-4'
-                                }`}
-                              >
-                                <span className="text-sm font-semibold text-white">
-                                  {category}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        )}
                         <CardBody className="flex-1 flex flex-col">
                           <h3 className="text-2xl font-display font-bold text-primary mb-3">
                             {title}

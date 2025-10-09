@@ -13,9 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
 
   const title =
-    locale === 'ar'
-      ? 'المستشفيات الشريكة - شفاء الهند'
-      : 'Partner Hospitals - Shifa AlHind';
+    locale === 'ar' ? 'المستشفيات الشريكة - شفاء الهند' : 'Partner Hospitals - Shifa AlHind';
 
   const description =
     locale === 'ar'
@@ -53,13 +51,12 @@ export default async function HospitalsPage({ params }: PageProps) {
       slug: true,
       name_en: true,
       name_ar: true,
-      tagline_en: true,
-      tagline_ar: true,
+      description_en: true,
+      description_ar: true,
+      address: true,
       accreditations: true,
-      address_en: true,
-      address_ar: true,
+      images: true,
       languagesSupported: true,
-      image: true,
       _count: {
         select: {
           doctors: {
@@ -77,10 +74,9 @@ export default async function HospitalsPage({ params }: PageProps) {
         },
       },
     },
-    orderBy: [
-      { featured: 'desc' },
-      { name_en: 'asc' },
-    ],
+    orderBy: {
+      name_en: 'asc',
+    },
   });
 
   return <HospitalsClient hospitals={hospitals} locale={locale} />;
