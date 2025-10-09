@@ -1,12 +1,23 @@
 import { Metadata } from 'next';
 import { gccKeywords } from './seo-data';
 
+// Use NEXT_PUBLIC_APP_URL if available, otherwise use a default that works during build
+const getBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL;
+  }
+  // Default for build time (will be overridden at runtime)
+  return 'https://shifaalhind.com';
+};
+
 const siteConfig = {
   name: 'Shifa AlHind',
   nameAr: 'شفاء الهند',
-  description: 'Trusted Medical Tourism Partner connecting GCC patients with world-class healthcare in India. JCI-accredited hospitals, Arabic support, 60-80% cost savings.',
-  descriptionAr: 'شريك السياحة العلاجية الموثوق الذي يربط مرضى دول مجلس التعاون الخليجي بالرعاية الصحية العالمية في الهند. مستشفيات معتمدة من JCI، دعم عربي، توفير 60-80٪ في التكاليف.',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'https://shifaalhind.com',
+  description:
+    'Trusted Medical Tourism Partner connecting GCC patients with world-class healthcare in India. JCI-accredited hospitals, Arabic support, 60-80% cost savings.',
+  descriptionAr:
+    'شريك السياحة العلاجية الموثوق الذي يربط مرضى دول مجلس التعاون الخليجي بالرعاية الصحية العالمية في الهند. مستشفيات معتمدة من JCI، دعم عربي، توفير 60-80٪ في التكاليف.',
+  url: getBaseUrl(),
   ogImage: '/og-image.jpg',
   links: {
     twitter: 'https://twitter.com/shifaalhind',
@@ -40,17 +51,23 @@ export function generateMetadata({
   // Get GCC-specific keywords based on locale
   const baseKeywords = locale === 'ar' ? gccKeywords.ar.slice(0, 10) : gccKeywords.en.slice(0, 10);
 
+  // Create metadata base URL safely
+  let metadataBaseUrl;
+  try {
+    metadataBaseUrl = new URL(siteConfig.url);
+  } catch (error) {
+    // Fallback for build time if URL is invalid
+    metadataBaseUrl = new URL('https://shifaalhind.com');
+  }
+
   return {
     title: fullTitle,
     description,
-    keywords: [
-      ...baseKeywords,
-      ...keywords,
-    ],
+    keywords: [...baseKeywords, ...keywords],
     authors: [{ name: 'Shifa AlHind' }],
     creator: 'Shifa AlHind',
     publisher: 'Shifa AlHind',
-    metadataBase: new URL(siteConfig.url),
+    metadataBase: metadataBaseUrl,
     alternates: {
       canonical: url,
       languages: {
