@@ -12,6 +12,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Check if cloud storage is configured
+    const hasS3 = process.env.AWS_ACCESS_KEY_ID && process.env.AWS_S3_BUCKET;
+    const hasCloudinary = process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY;
+
+    if (!hasS3 && !hasCloudinary) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'File uploads not configured',
+          message:
+            'Cloud storage (AWS S3 or Cloudinary) must be configured for file uploads. See .env.example for setup instructions.',
+        },
+        { status: 501 }
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const alt_en = formData.get('alt_en') as string;
@@ -29,17 +45,16 @@ export async function POST(request: NextRequest) {
     // Process image with sharp
     const metadata = await sharp(buffer).metadata();
 
-    // Generate optimized versions
-    // TODO: These will be used when S3/CDN upload is implemented
-    const _optimized = await sharp(buffer)
-      .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 85 })
-      .toBuffer();
-
-    const _thumbnail = await sharp(buffer)
-      .resize(400, 300, { fit: 'cover' })
-      .webp({ quality: 80 })
-      .toBuffer();
+    // TODO: Generate optimized versions when S3/CDN upload is implemented
+    // const optimized = await sharp(buffer)
+    //   .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
+    //   .webp({ quality: 85 })
+    //   .toBuffer();
+    //
+    // const thumbnail = await sharp(buffer)
+    //   .resize(400, 300, { fit: 'cover' })
+    //   .webp({ quality: 80 })
+    //   .toBuffer();
 
     // Generate unique key
     const timestamp = Date.now();

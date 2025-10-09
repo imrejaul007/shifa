@@ -2,28 +2,39 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+
+  // ⚠️ WARNING: These should be set to false in production after fixing all errors
   eslint: {
-    // Warning: Only ignore during builds if you're certain there are no critical errors
-    // TODO: Fix ESLint errors and set this to false for production safety
+    // TODO: Fix all ESLint errors and set this to false before final production deployment
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Warning: Only ignore during builds if you're certain there are no critical type errors
-    // TODO: Fix TypeScript errors and set this to false for production safety
+    // TODO: Fix all TypeScript errors and set this to false before final production deployment
     ignoreBuildErrors: true,
   },
+
+  // Image optimization
   images: {
-    // Configure image optimization for production
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
-  // Recommended for production
+
+  // Production optimizations
   poweredByHeader: false,
   compress: true,
+
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@tiptap/react'],
+  },
+
+  // Output configuration for serverless platforms
+  output: 'standalone',
 };
 
 export default nextConfig;

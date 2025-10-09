@@ -67,7 +67,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as any;
+        session.user.role = token.role as 'ADMIN' | 'EDITOR' | 'TRANSLATOR' | 'PARTNER';
         session.user.locale = token.locale as string;
       }
       return session;
@@ -79,5 +79,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
   },
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NODE_ENV === 'production'
+          ? '__Secure-authjs.session-token'
+          : 'authjs.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true, // Required for Render and other cloud platforms
 });

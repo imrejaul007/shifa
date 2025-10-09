@@ -12,8 +12,13 @@ services:
     runtime: node
     plan: free
     branch: main
-    rootDir: shifa-alhind
-    buildCommand: npm install && npx prisma migrate deploy && npm run build
+    # Optimized build command for Render
+    buildCommand: |
+      npm ci --include=dev
+      npm rebuild sharp
+      npx prisma generate
+      npx prisma migrate deploy
+      npm run build
     startCommand: npm start
     healthCheckPath: /
     envVars:
