@@ -23,7 +23,7 @@ interface PackageType {
   description_ar: string;
   price: number;
   currency: string;
-  features: any;
+  features: Array<string | Record<string, unknown>>;
   bookings: { id: string }[];
 }
 
@@ -182,7 +182,7 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
               {t.whatsIncluded}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {features.map((feature: any, index: number) => {
+              {features.map((feature: string | Record<string, unknown>, index: number) => {
                 const featureText = typeof feature === 'string' ? feature : feature.toString();
                 return (
                   <motion.div

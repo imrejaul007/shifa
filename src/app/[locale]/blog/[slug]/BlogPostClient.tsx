@@ -13,8 +13,8 @@ interface Post {
   title_ar: string;
   excerpt_en: string | null;
   excerpt_ar: string | null;
-  blocks_en: any;
-  blocks_ar: any;
+  blocks_en: { content?: string } | null;
+  blocks_ar: { content?: string } | null;
   featuredImage: string | null;
   author: string | null;
   publishedAt: Date | null;

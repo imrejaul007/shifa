@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardBody, CardFooter, CardImage } from '@/components/ui/Card';
+import { Card, CardBody } from '@/components/ui/Card';
 import {
   Heart,
   Quote,

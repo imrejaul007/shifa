@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -33,7 +34,7 @@ export default function AdminLoginPage() {
         router.push(callbackUrl);
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.');
       setLoading(false);
     }
@@ -111,9 +112,9 @@ export default function AdminLoginPage() {
 
           {/* Back to Home */}
           <div className="mt-6 text-center">
-            <a href="/en" className="text-sm text-gray-600 hover:text-sky-600">
+            <Link href="/en" className="text-sm text-gray-600 hover:text-sky-600">
               ← Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </div>

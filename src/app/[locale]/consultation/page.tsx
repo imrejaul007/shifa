@@ -8,15 +8,15 @@ import {
   Upload,
   CheckCircle2,
   User,
-  Mail,
-  Phone,
-  MapPin,
+
+
+
   Calendar,
-  MessageSquare,
+
   Stethoscope,
   ArrowRight,
   ArrowLeft,
-  Loader2,
+
 } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 

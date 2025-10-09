@@ -15,7 +15,7 @@ interface Package {
   description_ar: string | null;
   price: number;
   currency: string | null;
-  features: any;
+  features: string[] | null;
   duration_en: string | null;
   duration_ar: string | null;
   _count: {
@@ -201,7 +201,7 @@ export default function PackagesClient({ packages, locale }: Props) {
                                 {t.whatsIncluded}
                               </p>
                               <ul className="space-y-2">
-                                {features.slice(0, 4).map((feature: any, idx: number) => {
+                                {features.slice(0, 4).map((feature: string | Record<string, unknown>, idx: number) => {
                                   const featureText =
                                     typeof feature === 'string' ? feature : feature.toString();
                                   return (

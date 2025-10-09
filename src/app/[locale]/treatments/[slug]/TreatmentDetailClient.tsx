@@ -3,16 +3,16 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  Clock,
+
   DollarSign,
-  CheckCircle2,
-  Star,
+
+
   Award,
   Shield,
   ArrowRight,
   FileText,
   Stethoscope,
-  Building2,
+
   User,
 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -25,7 +25,7 @@ interface Hospital {
   name_en: string;
   name_ar: string;
   accreditations: string[];
-  images: any;
+  images: string[] | null;
 }
 
 interface Doctor {
@@ -46,12 +46,12 @@ interface Treatment {
   title_ar: string;
   summary_en: string;
   summary_ar: string;
-  contentBlocks_en?: any;
-  contentBlocks_ar?: any;
+  contentBlocks_en?: { content?: string } | null;
+  contentBlocks_ar?: { content?: string } | null;
   costMin: number | null;
   costMax: number | null;
   currency: string;
-  faq?: any;
+  faq?: Array<{ question: string; answer: string }> | null;
   bookings: { id: string }[];
 }
 
@@ -211,7 +211,7 @@ export default function TreatmentDetailClient({
                 {t.overview}
               </h2>
               <div className="prose prose-lg max-w-none text-foreground/80">
-                {contentBlocks.sections?.map((section: any, index: number) => (
+                {contentBlocks.sections?.map((section: Record<string, unknown>, index: number) => (
                   <div key={index}>
                     {section.type === 'heading' && (
                       <h3 className="text-2xl font-bold text-primary mt-8 mb-4">{section.content}</h3>
@@ -333,7 +333,7 @@ export default function TreatmentDetailClient({
                 {t.faq}
               </h2>
               <div className="space-y-4">
-                {treatment.faq.map((item: any, index: number) => {
+                {treatment.faq.map((item: Record<string, unknown>, index: number) => {
                   const question = locale === 'ar' && item.q_ar ? item.q_ar : item.q_en || item.question;
                   const answer = locale === 'ar' && item.a_ar ? item.a_ar : item.a_en || item.answer;
 

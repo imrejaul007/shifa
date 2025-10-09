@@ -1,6 +1,7 @@
 'use client';
 
 import { Component, ReactNode } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
@@ -57,7 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Something Went Wrong
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
-              We encountered an unexpected error. Don't worry, our team has been notified and we're working on it.
+              We encountered an unexpected error. Don&apos;t worry, our team has been notified and we&apos;re working on it.
             </p>
 
             {/* Error Details (dev only) */}
@@ -79,21 +80,21 @@ export class ErrorBoundary extends Component<Props, State> {
                 Reload Page
               </button>
 
-              <a
+              <Link
                 href="/en"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border-2 border-primary text-primary font-semibold rounded-full hover:bg-primary hover:text-white transition-all hover:scale-105"
               >
                 <Home className="w-5 h-5" />
                 Go to Homepage
-              </a>
+              </Link>
             </div>
 
             {/* Support */}
             <p className="text-sm text-muted-foreground mt-8">
               Need immediate help?{' '}
-              <a href="/en/contact" className="text-accent hover:underline font-semibold">
+              <Link href="/en/contact" className="text-accent hover:underline font-semibold">
                 Contact our support team
-              </a>
+              </Link>
             </p>
           </motion.div>
         </div>

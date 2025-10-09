@@ -145,8 +145,8 @@ export default function BookingForm({
         });
 
         // Track conversion
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'conversion', {
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'conversion', {
             send_to: 'AW-CONVERSION_ID',
             event_category: 'Lead',
             event_label: 'Booking Form Submission',

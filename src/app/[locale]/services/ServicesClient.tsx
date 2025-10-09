@@ -10,10 +10,10 @@ import {
   Languages,
   Phone,
   Wallet,
-  MapPin,
+
   Shield,
   Heart,
-  Calendar,
+
   Users,
   CheckCircle2,
   ArrowRight,

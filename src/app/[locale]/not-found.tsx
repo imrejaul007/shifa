@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Home, Search, ArrowLeft, MapPin } from 'lucide-react';
+import { Home, Search, MapPin } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -38,7 +38,7 @@ export default function NotFound() {
               Page Not Found
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-md mx-auto">
-              Oops! The page you're looking for seems to have wandered off. Let's get you back on track.
+              Oops! The page you&apos;re looking for seems to have wandered off. Let&apos;s get you back on track.
             </p>
           </motion.div>
 

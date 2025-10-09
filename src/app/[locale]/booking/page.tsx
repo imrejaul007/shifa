@@ -4,16 +4,16 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { trackBookingRequest } from '@/components/Analytics';
 import {
-  Calendar,
-  Clock,
+
+
   Video,
   MapPin,
   CheckCircle2,
-  User,
-  Mail,
-  Phone,
+
+
+
   MessageSquare,
-  Loader2,
+
   CalendarDays,
 } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';

@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Star, GraduationCap, Languages, X, Video, ArrowRight, Search, Stethoscope } from 'lucide-react';
+import { GraduationCap, Languages, X, Video, ArrowRight, Search, Stethoscope } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button, ButtonLink } from '@/components/ui/Button';
@@ -15,9 +15,9 @@ interface Doctor {
   specialty_ar: string | null;
   bio_en: string | null;
   bio_ar: string | null;
-  qualifications: any;
+  qualifications: string[] | null;
   experience: number | null;
-  languages: any;
+  languages: string[] | null;
   image: string | null;
   telemedicineAvailable: boolean;
   hospital: {

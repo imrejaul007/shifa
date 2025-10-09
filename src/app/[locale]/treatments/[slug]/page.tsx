@@ -13,6 +13,7 @@ interface PageProps {
 
 // Generate static params for all published treatments
 export async function generateStaticParams() {
+  try {
   const treatments = await prisma.treatment.findMany({
     where: { published: true, isArchived: false },
     select: { slug: true },
@@ -31,6 +32,10 @@ export async function generateStaticParams() {
   }
 
   return params;
+  } catch {
+    console.warn('Database not available during build, skipping static generation');
+    return [];
+  }
 }
 
 // Generate metadata for SEO

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, X, Loader2, ImageIcon } from 'lucide-react';
+import { X, Loader2, ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 
 interface ImageUploaderProps {

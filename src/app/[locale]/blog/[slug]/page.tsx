@@ -12,6 +12,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
+  try {
   const posts = await prisma.contentPage.findMany({
     where: { type: 'blog', published: true, isArchived: false },
     select: { slug: true },
@@ -27,6 +28,10 @@ export async function generateStaticParams() {
   }
 
   return params;
+  } catch {
+    console.warn('Database not available during build, skipping static generation');
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

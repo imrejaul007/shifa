@@ -3,21 +3,16 @@
 import Navigation from '@/components/public/Navigation';
 import Hero from '@/components/public/Hero';
 import WhatsAppButton from '@/components/public/WhatsAppButton';
-import { Button, ButtonLink } from '@/components/ui/Button';
-import { Card, CardHeader, CardBody, CardFooter, CardImage } from '@/components/ui/Card';
+import { ButtonLink } from '@/components/ui/Button';
+import { Card, CardImage } from '@/components/ui/Card';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  Stethoscope,
   Heart,
   Users,
   Shield,
-  Star,
   Award,
-  CheckCircle2,
   ArrowRight,
-  Building2,
-  User
 } from 'lucide-react';
 import { use } from 'react';
 import { trackTreatmentView } from '@/components/Analytics';

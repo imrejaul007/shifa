@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Search, Award, MapPin, Languages, Stethoscope } from 'lucide-react';
+import { ArrowRight, Search, Award, MapPin, Stethoscope } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardBody, CardImage } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
@@ -13,10 +13,10 @@ interface Hospital {
   name_ar: string;
   tagline_en: string | null;
   tagline_ar: string | null;
-  accreditations: any;
+  accreditations: string[] | null;
   address_en: string | null;
   address_ar: string | null;
-  languagesSupported: any;
+  languagesSupported: string[] | null;
   image: string | null;
   _count: {
     doctors: number;

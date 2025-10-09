@@ -3,9 +3,9 @@
 import { X, User, Mail, Phone, MapPin, Calendar, FileText, CheckCircle } from 'lucide-react';
 
 interface BookingDetailsModalProps {
-  booking: any;
+  booking: Record<string, unknown> | null;
   onClose: () => void;
-  onUpdateStatus: (booking: any, status: string) => void;
+  onUpdateStatus: (booking: Record<string, unknown>, status: string) => void;
 }
 
 export default function BookingDetailsModal({

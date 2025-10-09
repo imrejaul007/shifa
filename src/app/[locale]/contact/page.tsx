@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardBody, CardFooter, CardImage } from '@/components/ui/Card';
+import { Card, CardBody } from '@/components/ui/Card';
 import { trackConsultationRequest, trackPhoneClick, trackEmailClick, trackWhatsAppClick } from '@/components/Analytics';
 import {
   Mail,
@@ -15,7 +15,7 @@ import {
   Globe,
   CheckCircle2,
 } from 'lucide-react';
-import { Button, ButtonLink } from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 
 const locale = 'en'; // Will be dynamic with next-intl
 

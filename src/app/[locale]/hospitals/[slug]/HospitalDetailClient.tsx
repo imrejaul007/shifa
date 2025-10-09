@@ -51,7 +51,7 @@ interface Hospital {
   country: string;
   accreditations: string[];
   languagesSupported: string[];
-  images: any;
+  images: string[] | null;
   doctors: Doctor[];
   bookings: { id: string }[];
   _count: {

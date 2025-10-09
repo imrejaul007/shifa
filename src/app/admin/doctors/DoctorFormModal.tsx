@@ -6,7 +6,7 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 import ImageUploader from '@/components/admin/ImageUploader';
 
 interface DoctorFormModalProps {
-  doctor: any | null;
+  doctor: Record<string, unknown> | null;
   onClose: () => void;
 }
 
@@ -36,7 +36,7 @@ export default function DoctorFormModal({
     featured: false,
   });
   const [loading, setLoading] = useState(false);
-  const [hospitals, setHospitals] = useState<any[]>([]);
+  const [hospitals, setHospitals] = useState<Record<string, unknown>[]>([]);
 
   useEffect(() => {
     // Fetch hospitals

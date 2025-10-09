@@ -262,7 +262,7 @@ export const serviceSchema = (pkg: {
 });
 
 // Helper function to generate JSON-LD script tag
-export const generateJsonLd = (schema: any) => {
+export const generateJsonLd = (schema: Record<string, unknown>) => {
   return {
     __html: JSON.stringify({
       '@context': 'https://schema.org',

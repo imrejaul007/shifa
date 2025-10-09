@@ -6,7 +6,7 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 import ImageUploader from '@/components/admin/ImageUploader';
 
 interface PackageFormModalProps {
-  pkg: any | null;
+  pkg: Record<string, unknown> | null;
   onClose: () => void;
 }
 

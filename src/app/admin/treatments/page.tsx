@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import DataTable from '@/components/admin/DataTable';
-import { Plus, Edit2, Trash2, Eye, EyeOff, Star } from 'lucide-react';
+import { Plus, Edit2, Trash2, Star } from 'lucide-react';
 import TreatmentFormModal from './TreatmentFormModal';
 
 interface Treatment {

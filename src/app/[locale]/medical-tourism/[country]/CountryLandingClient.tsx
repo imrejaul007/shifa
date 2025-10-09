@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   Plane,
-  DollarSign,
-  Clock,
+
+
   Shield,
-  Languages,
+
   CheckCircle2,
-  Star,
+
   Users,
   ArrowRight,
   FileText,

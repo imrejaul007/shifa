@@ -55,7 +55,7 @@ export function generateMetadata({
   let metadataBaseUrl;
   try {
     metadataBaseUrl = new URL(siteConfig.url);
-  } catch (error) {
+  } catch {
     // Fallback for build time if URL is invalid
     metadataBaseUrl = new URL('https://shifaalhind.com');
   }

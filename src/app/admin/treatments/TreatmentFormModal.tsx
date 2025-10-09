@@ -6,7 +6,7 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 import ImageUploader from '@/components/admin/ImageUploader';
 
 interface TreatmentFormModalProps {
-  treatment: any | null;
+  treatment: Record<string, unknown> | null;
   onClose: () => void;
 }
 
@@ -34,15 +34,15 @@ export default function TreatmentFormModal({
     featured: false,
   });
   const [loading, setLoading] = useState(false);
-  const [hospitals, setHospitals] = useState<any[]>([]);
-  const [selectedHospitals, setSelectedHospitals] = useState<string[]>([]);
+  // const [hospitals, setHospitals] = useState<Record<string, unknown>[]>([]);
+  // const [selectedHospitals, setSelectedHospitals] = useState<string[]>([]);
 
   useEffect(() => {
     // Fetch hospitals for selection
-    fetch('/api/v1/hospitals?published=true')
-      .then((res) => res.json())
-      .then((data) => setHospitals(data.data || []))
-      .catch(console.error);
+    // fetch('/api/v1/hospitals?published=true')
+    //   .then((res) => res.json())
+    //   .then((data) => setHospitals(data.data || []))
+    //   .catch(console.error);
 
     // Load treatment data if editing
     if (treatment) {

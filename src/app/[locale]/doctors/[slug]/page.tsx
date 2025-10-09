@@ -13,24 +13,29 @@ interface PageProps {
 
 // Generate static params
 export async function generateStaticParams() {
-  const doctors = await prisma.doctor.findMany({
-    where: { published: true, isArchived: false },
-    select: { slug: true },
-  });
+  try {
+    const doctors = await prisma.doctor.findMany({
+      where: { published: true, isArchived: false },
+      select: { slug: true },
+    });
 
-  const locales = ['en', 'ar'];
-  const params = [];
+    const locales = ['en', 'ar'];
+    const params = [];
 
-  for (const locale of locales) {
-    for (const doctor of doctors) {
-      params.push({
-        locale,
-        slug: doctor.slug,
-      });
+    for (const locale of locales) {
+      for (const doctor of doctors) {
+        params.push({
+          locale,
+          slug: doctor.slug,
+        });
+      }
     }
-  }
 
-  return params;
+    return params;
+  } catch {
+    console.warn('Database not available during build, skipping static generation');
+    return [];
+  }
 }
 
 // Generate metadata for SEO

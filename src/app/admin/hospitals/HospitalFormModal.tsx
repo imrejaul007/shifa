@@ -6,7 +6,7 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 import ImageUploader from '@/components/admin/ImageUploader';
 
 interface HospitalFormModalProps {
-  hospital: any | null;
+  hospital: Record<string, unknown> | null;
   onClose: () => void;
 }
 
