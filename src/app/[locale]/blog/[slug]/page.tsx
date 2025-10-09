@@ -13,21 +13,21 @@ interface PageProps {
 
 export async function generateStaticParams() {
   try {
-  const posts = await prisma.contentPage.findMany({
-    where: { type: 'blog', published: true, isArchived: false },
-    select: { slug: true },
-  });
+    const posts = await prisma.contentPage.findMany({
+      where: { type: 'blog', published: true, isArchived: false },
+      select: { slug: true },
+    });
 
-  const locales = ['en', 'ar'];
-  const params = [];
+    const locales = ['en', 'ar'];
+    const params = [];
 
-  for (const locale of locales) {
-    for (const post of posts) {
-      params.push({ locale, slug: post.slug });
+    for (const locale of locales) {
+      for (const post of posts) {
+        params.push({ locale, slug: post.slug });
+      }
     }
-  }
 
-  return params;
+    return params;
   } catch {
     console.warn('Database not available during build, skipping static generation');
     return [];
@@ -57,8 +57,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Post Not Found' };
   }
 
-  const title = locale === 'ar' ? post.seoTitle_ar || post.title_ar : post.seoTitle_en || post.title_en;
-  const description = locale === 'ar' ? post.seoDesc_ar || post.excerpt_ar : post.seoDesc_en || post.excerpt_en;
+  const title =
+    locale === 'ar' ? post.seoTitle_ar || post.title_ar : post.seoTitle_en || post.title_en;
+  const description =
+    (locale === 'ar' ? post.seoDesc_ar || post.excerpt_ar : post.seoDesc_en || post.excerpt_en) ||
+    '';
 
   return genMeta({
     title,

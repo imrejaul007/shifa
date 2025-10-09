@@ -18,8 +18,10 @@ const bookingSchema = z.object({
 type BookingFormData = z.infer<typeof bookingSchema>;
 
 interface BookingFormProps {
-  treatmentId?: string;
+  doctorId?: string;
+  packageId?: string;
   hospitalId?: string;
+  treatmentId?: string;
   locale: 'en' | 'ar';
 }
 
@@ -73,8 +75,10 @@ const content = {
 };
 
 export default function BookingForm({
-  treatmentId,
+  doctorId,
+  packageId,
   hospitalId,
+  treatmentId,
   locale,
 }: BookingFormProps) {
   const [formData, setFormData] = useState<BookingFormData>({
@@ -158,9 +162,9 @@ export default function BookingForm({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           if (err.path) {
-            fieldErrors[err.path[0]] = err.message;
+            fieldErrors[err.path[0] as string] = err.message;
           }
         });
         setErrors(fieldErrors);
@@ -178,7 +182,9 @@ export default function BookingForm({
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
           <CheckCircle2 className="w-10 h-10 text-green-600" />
         </div>
-        <h3 className={`text-2xl font-bold text-gray-900 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+        <h3
+          className={`text-2xl font-bold text-gray-900 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+        >
           {t.success}
         </h3>
         <p className={`text-gray-600 ${locale === 'ar' ? 'font-arabic' : ''}`}>
@@ -192,12 +198,12 @@ export default function BookingForm({
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8">
-      <h3 className={`text-3xl font-bold text-gray-900 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+      <h3
+        className={`text-3xl font-bold text-gray-900 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      >
         {t.title}
       </h3>
-      <p className={`text-gray-600 mb-8 ${locale === 'ar' ? 'font-arabic' : ''}`}>
-        {t.subtitle}
-      </p>
+      <p className={`text-gray-600 mb-8 ${locale === 'ar' ? 'font-arabic' : ''}`}>{t.subtitle}</p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
@@ -219,9 +225,7 @@ export default function BookingForm({
             }`}
             dir={locale === 'ar' ? 'rtl' : 'ltr'}
           />
-          {errors.patientName && (
-            <p className="mt-1 text-sm text-red-600">{errors.patientName}</p>
-          )}
+          {errors.patientName && <p className="mt-1 text-sm text-red-600">{errors.patientName}</p>}
         </div>
 
         {/* Email */}
@@ -243,9 +247,7 @@ export default function BookingForm({
             }`}
             dir="ltr"
           />
-          {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-          )}
+          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
         </div>
 
         {/* Phone */}
@@ -268,9 +270,7 @@ export default function BookingForm({
             }`}
             dir="ltr"
           />
-          {errors.phone && (
-            <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
-          )}
+          {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
         </div>
 
         {/* Country */}
@@ -291,9 +291,7 @@ export default function BookingForm({
             } ${locale === 'ar' ? 'font-arabic' : ''}`}
             dir={locale === 'ar' ? 'rtl' : 'ltr'}
           >
-            <option value="">
-              {locale === 'en' ? 'Select your country' : 'اختر بلدك'}
-            </option>
+            <option value="">{locale === 'en' ? 'Select your country' : 'اختر بلدك'}</option>
             {t.countries.map((country) => (
               <option key={country.value} value={country.value}>
                 {country.label}
@@ -335,24 +333,14 @@ export default function BookingForm({
         )}
 
         {/* Submit Button */}
-        <Button
-          type="submit"
-          variant="gold"
-          size="lg"
-          disabled={loading}
-          className="w-full"
-        >
+        <Button type="submit" variant="gold" size="lg" disabled={loading} className="w-full">
           {loading ? (
             <>
               <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              <span className={locale === 'ar' ? 'font-arabic' : ''}>
-                {t.submitting}
-              </span>
+              <span className={locale === 'ar' ? 'font-arabic' : ''}>{t.submitting}</span>
             </>
           ) : (
-            <span className={locale === 'ar' ? 'font-arabic' : ''}>
-              {t.submit}
-            </span>
+            <span className={locale === 'ar' ? 'font-arabic' : ''}>{t.submit}</span>
           )}
         </Button>
       </form>

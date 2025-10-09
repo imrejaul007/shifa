@@ -6,7 +6,7 @@ import DataTable from '@/components/admin/DataTable';
 import { Plus, Edit2, Trash2, Star } from 'lucide-react';
 import HospitalFormModal from './HospitalFormModal';
 
-interface Hospital {
+interface Hospital extends Record<string, unknown> {
   id: string;
   slug: string;
   name_en: string;
@@ -164,9 +164,7 @@ export default function HospitalsAdminPage() {
             <span className="text-sm text-gray-400">None</span>
           )}
           {item.accreditations && item.accreditations.length > 2 && (
-            <span className="text-xs text-gray-500">
-              +{item.accreditations.length - 2}
-            </span>
+            <span className="text-xs text-gray-500">+{item.accreditations.length - 2}</span>
           )}
         </div>
       ),
@@ -193,9 +191,7 @@ export default function HospitalsAdminPage() {
               handleTogglePublished(item);
             }}
             className={`px-2 py-1 rounded-full text-xs font-medium ${
-              item.published
-                ? 'bg-green-100 text-green-800'
-                : 'bg-gray-100 text-gray-800'
+              item.published ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
             }`}
           >
             {item.published ? 'Published' : 'Draft'}
@@ -205,9 +201,7 @@ export default function HospitalsAdminPage() {
               e.stopPropagation();
               handleToggleFeatured(item);
             }}
-            className={`p-1 rounded ${
-              item.featured ? 'text-yellow-500' : 'text-gray-300'
-            }`}
+            className={`p-1 rounded ${item.featured ? 'text-yellow-500' : 'text-gray-300'}`}
             title={item.featured ? 'Featured' : 'Not featured'}
           >
             <Star className="w-4 h-4" fill={item.featured ? 'currentColor' : 'none'} />
@@ -272,9 +266,7 @@ export default function HospitalsAdminPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Hospitals</h1>
-            <p className="text-sm text-gray-600 mt-1">
-              Manage hospital listings and partnerships
-            </p>
+            <p className="text-sm text-gray-600 mt-1">Manage hospital listings and partnerships</p>
           </div>
           <button
             onClick={handleCreate}
@@ -289,9 +281,7 @@ export default function HospitalsAdminPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="text-sm text-gray-600">Total Hospitals</div>
-            <div className="text-2xl font-bold text-gray-900 mt-1">
-              {hospitals.length}
-            </div>
+            <div className="text-2xl font-bold text-gray-900 mt-1">{hospitals.length}</div>
           </div>
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="text-sm text-gray-600">Published</div>
@@ -325,9 +315,7 @@ export default function HospitalsAdminPage() {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <HospitalFormModal hospital={selectedHospital} onClose={handleModalClose} />
-      )}
+      {isModalOpen && <HospitalFormModal hospital={selectedHospital} onClose={handleModalClose} />}
     </AdminLayout>
   );
 }

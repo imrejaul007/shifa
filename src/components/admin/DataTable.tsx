@@ -46,7 +46,7 @@ export default function DataTable<T extends Record<string, unknown>>({
 
         if (aVal === bVal) return 0;
 
-        const comparison = aVal > bVal ? 1 : -1;
+        const comparison = String(aVal) > String(bVal) ? 1 : -1;
         return sortDirection === 'asc' ? comparison : -comparison;
       })
     : filteredData;
@@ -115,10 +115,7 @@ export default function DataTable<T extends Record<string, unknown>>({
           <tbody className="bg-white divide-y divide-gray-200">
             {sortedData.length === 0 ? (
               <tr>
-                <td
-                  colSpan={columns.length}
-                  className="px-6 py-8 text-center text-gray-500"
-                >
+                <td colSpan={columns.length} className="px-6 py-8 text-center text-gray-500">
                   No data found
                 </td>
               </tr>
@@ -128,9 +125,7 @@ export default function DataTable<T extends Record<string, unknown>>({
                   key={index}
                   onClick={() => onRowClick?.(item)}
                   className={`${
-                    onRowClick
-                      ? 'cursor-pointer hover:bg-gray-50 transition-colors'
-                      : ''
+                    onRowClick ? 'cursor-pointer hover:bg-gray-50 transition-colors' : ''
                   }`}
                 >
                   {columns.map((column) => (
@@ -138,9 +133,7 @@ export default function DataTable<T extends Record<string, unknown>>({
                       key={column.key}
                       className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
                     >
-                      {column.render
-                        ? column.render(item)
-                        : item[column.key]}
+                      {column.render ? column.render(item) : String(item[column.key] ?? '')}
                     </td>
                   ))}
                 </tr>

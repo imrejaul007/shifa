@@ -6,6 +6,7 @@ import { ArrowRight, Search, Award, MapPin, Stethoscope } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardBody, CardImage } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import type { Prisma } from '@prisma/client';
 
 interface Hospital {
   slug: string;
@@ -16,10 +17,9 @@ interface Hospital {
   address: string;
   accreditations: string[] | null;
   languagesSupported: string[] | null;
-  images: string[] | null;
+  images: Prisma.JsonValue;
   _count: {
     doctors: number;
-    treatments: number;
   };
 }
 
@@ -144,7 +144,9 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
                   locale === 'ar' ? hospital.description_ar : hospital.description_en;
                 const address = hospital.address;
                 const firstImage =
-                  hospital.images && Array.isArray(hospital.images) ? hospital.images[0] : null;
+                  hospital.images && Array.isArray(hospital.images) && hospital.images.length > 0
+                    ? String(hospital.images[0])
+                    : null;
 
                 return (
                   <motion.div
@@ -188,17 +190,11 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
                           )}
 
                           {/* Stats */}
-                          <div className="grid grid-cols-2 gap-3 mb-4">
+                          <div className="mb-4">
                             <div className="flex items-center gap-2 text-muted-foreground">
                               <Stethoscope className="w-4 h-4 text-accent" />
                               <span className="text-sm">
                                 {hospital._count.doctors} {t.doctors}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <Award className="w-4 h-4 text-accent" />
-                              <span className="text-sm">
-                                {hospital._count.treatments} {t.treatments}
                               </span>
                             </div>
                           </div>

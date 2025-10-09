@@ -10,10 +10,7 @@ interface HospitalFormModalProps {
   onClose: () => void;
 }
 
-export default function HospitalFormModal({
-  hospital,
-  onClose,
-}: HospitalFormModalProps) {
+export default function HospitalFormModal({ hospital, onClose }: HospitalFormModalProps) {
   const [formData, setFormData] = useState({
     name_en: '',
     name_ar: '',
@@ -43,27 +40,29 @@ export default function HospitalFormModal({
   useEffect(() => {
     if (hospital) {
       setFormData({
-        name_en: hospital.name_en || '',
-        name_ar: hospital.name_ar || '',
-        slug: hospital.slug || '',
-        description_en: hospital.description_en || '',
-        description_ar: hospital.description_ar || '',
-        address: hospital.address || '',
-        city: hospital.city || '',
-        state: hospital.state || '',
-        country: hospital.country || 'India',
-        postalCode: hospital.postalCode || '',
-        phone: hospital.phone || '',
-        email: hospital.email || '',
-        website: hospital.website || '',
-        image: hospital.image || '',
-        establishedYear: hospital.establishedYear?.toString() || '',
-        bedCount: hospital.bedCount?.toString() || '',
-        published: hospital.published || false,
-        featured: hospital.featured || false,
+        name_en: String(hospital.name_en || ''),
+        name_ar: String(hospital.name_ar || ''),
+        slug: String(hospital.slug || ''),
+        description_en: String(hospital.description_en || ''),
+        description_ar: String(hospital.description_ar || ''),
+        address: String(hospital.address || ''),
+        city: String(hospital.city || ''),
+        state: String(hospital.state || ''),
+        country: String(hospital.country || 'India'),
+        postalCode: String(hospital.postalCode || ''),
+        phone: String(hospital.phone || ''),
+        email: String(hospital.email || ''),
+        website: String(hospital.website || ''),
+        image: String(hospital.image || ''),
+        establishedYear: String(hospital.establishedYear || ''),
+        bedCount: String(hospital.bedCount || ''),
+        published: Boolean(hospital.published),
+        featured: Boolean(hospital.featured),
       });
-      setAccreditations(hospital.accreditations || []);
-      setSpecialties(hospital.specialties || []);
+      setAccreditations(
+        Array.isArray(hospital.accreditations) ? (hospital.accreditations as string[]) : []
+      );
+      setSpecialties(Array.isArray(hospital.specialties) ? (hospital.specialties as string[]) : []);
     }
   }, [hospital]);
 
@@ -123,17 +122,13 @@ export default function HospitalFormModal({
     try {
       const payload = {
         ...formData,
-        establishedYear: formData.establishedYear
-          ? parseInt(formData.establishedYear)
-          : null,
+        establishedYear: formData.establishedYear ? parseInt(formData.establishedYear) : null,
         bedCount: formData.bedCount ? parseInt(formData.bedCount) : null,
         accreditations,
         specialties,
       };
 
-      const url = hospital
-        ? `/api/v1/hospitals/${hospital.slug}`
-        : '/api/v1/hospitals';
+      const url = hospital ? `/api/v1/hospitals/${hospital.slug}` : '/api/v1/hospitals';
       const method = hospital ? 'PATCH' : 'POST';
 
       const response = await fetch(url, {
@@ -166,10 +161,7 @@ export default function HospitalFormModal({
           <h2 className="text-xl font-bold text-gray-900">
             {hospital ? 'Edit Hospital' : 'Add New Hospital'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -208,9 +200,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Slug *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
               <input
                 type="text"
                 name="slug"
@@ -238,9 +228,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Bed Count
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Bed Count</label>
               <input
                 type="number"
                 name="bedCount"
@@ -252,9 +240,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
               <input
                 type="tel"
                 name="phone"
@@ -266,9 +252,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
               <input
                 type="email"
                 name="email"
@@ -279,9 +263,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Website
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Website</label>
               <input
                 type="url"
                 name="website"
@@ -295,9 +277,7 @@ export default function HospitalFormModal({
           {/* Address */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Address *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Address *</label>
               <input
                 type="text"
                 name="address"
@@ -309,9 +289,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                City *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
               <input
                 type="text"
                 name="city"
@@ -323,9 +301,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                State
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
               <input
                 type="text"
                 name="state"
@@ -336,9 +312,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Country *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Country *</label>
               <input
                 type="text"
                 name="country"
@@ -350,9 +324,7 @@ export default function HospitalFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Postal Code
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Postal Code</label>
               <input
                 type="text"
                 name="postalCode"
@@ -365,9 +337,7 @@ export default function HospitalFormModal({
 
           {/* Accreditations */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Accreditations
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Accreditations</label>
             <div className="flex gap-2 mb-2">
               <input
                 type="text"
@@ -406,9 +376,7 @@ export default function HospitalFormModal({
 
           {/* Specialties */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Specialties
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Specialties</label>
             <div className="flex gap-2 mb-2">
               <input
                 type="text"
@@ -452,9 +420,7 @@ export default function HospitalFormModal({
             </label>
             <RichTextEditor
               content={formData.description_en}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, description_en: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, description_en: content }))}
             />
           </div>
 
@@ -464,17 +430,13 @@ export default function HospitalFormModal({
             </label>
             <RichTextEditor
               content={formData.description_ar}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, description_ar: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, description_ar: content }))}
             />
           </div>
 
           {/* Image */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Hospital Image
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Hospital Image</label>
             <ImageUploader
               value={formData.image}
               onChange={(url) => setFormData((prev) => ({ ...prev, image: url }))}

@@ -10,10 +10,7 @@ interface DoctorFormModalProps {
   onClose: () => void;
 }
 
-export default function DoctorFormModal({
-  doctor,
-  onClose,
-}: DoctorFormModalProps) {
+export default function DoctorFormModal({ doctor, onClose }: DoctorFormModalProps) {
   const [formData, setFormData] = useState({
     name_en: '',
     name_ar: '',
@@ -48,27 +45,27 @@ export default function DoctorFormModal({
     // Load doctor data if editing
     if (doctor) {
       setFormData({
-        name_en: doctor.name_en || '',
-        name_ar: doctor.name_ar || '',
-        slug: doctor.slug || '',
-        specialty_en: doctor.specialty_en || '',
-        specialty_ar: doctor.specialty_ar || '',
-        qualifications_en: doctor.qualifications_en || '',
-        qualifications_ar: doctor.qualifications_ar || '',
-        bio_en: doctor.bio_en || '',
-        bio_ar: doctor.bio_ar || '',
-        experience: doctor.experience?.toString() || '',
-        consultationFee: doctor.consultationFee?.toString() || '',
-        image: doctor.image || '',
-        email: doctor.email || '',
-        phone: doctor.phone || '',
-        hospitalId: doctor.hospitalId || '',
+        name_en: String(doctor.name_en || ''),
+        name_ar: String(doctor.name_ar || ''),
+        slug: String(doctor.slug || ''),
+        specialty_en: String(doctor.specialty_en || ''),
+        specialty_ar: String(doctor.specialty_ar || ''),
+        qualifications_en: String(doctor.qualifications_en || ''),
+        qualifications_ar: String(doctor.qualifications_ar || ''),
+        bio_en: String(doctor.bio_en || ''),
+        bio_ar: String(doctor.bio_ar || ''),
+        experience: String(doctor.experience || ''),
+        consultationFee: String(doctor.consultationFee || ''),
+        image: String(doctor.image || ''),
+        email: String(doctor.email || ''),
+        phone: String(doctor.phone || ''),
+        hospitalId: String(doctor.hospitalId || ''),
         languagesSpoken: Array.isArray(doctor.languagesSpoken)
-          ? doctor.languagesSpoken.join(', ')
+          ? (doctor.languagesSpoken as string[]).join(', ')
           : '',
-        availableForTelemedicine: doctor.availableForTelemedicine || false,
-        published: doctor.published || false,
-        featured: doctor.featured || false,
+        availableForTelemedicine: Boolean(doctor.availableForTelemedicine),
+        published: Boolean(doctor.published),
+        featured: Boolean(doctor.featured),
       });
     }
   }, [doctor]);
@@ -109,9 +106,7 @@ export default function DoctorFormModal({
       const payload = {
         ...formData,
         experience: formData.experience ? parseInt(formData.experience) : 0,
-        consultationFee: formData.consultationFee
-          ? parseFloat(formData.consultationFee)
-          : null,
+        consultationFee: formData.consultationFee ? parseFloat(formData.consultationFee) : null,
         languagesSpoken: formData.languagesSpoken
           ? formData.languagesSpoken.split(',').map((l) => l.trim())
           : [],
@@ -150,10 +145,7 @@ export default function DoctorFormModal({
           <h2 className="text-xl font-bold text-gray-900">
             {doctor ? 'Edit Doctor' : 'Add New Doctor'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -193,9 +185,7 @@ export default function DoctorFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Slug *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
               <input
                 type="text"
                 name="slug"
@@ -208,9 +198,7 @@ export default function DoctorFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Hospital *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Hospital *</label>
               <select
                 name="hospitalId"
                 value={formData.hospitalId}
@@ -220,8 +208,8 @@ export default function DoctorFormModal({
               >
                 <option value="">Select Hospital</option>
                 {hospitals.map((hospital) => (
-                  <option key={hospital.id} value={hospital.id}>
-                    {hospital.name_en}
+                  <option key={String(hospital.id)} value={String(hospital.id)}>
+                    {String(hospital.name_en)}
                   </option>
                 ))}
               </select>
@@ -285,9 +273,7 @@ export default function DoctorFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
               <input
                 type="email"
                 name="email"
@@ -298,9 +284,7 @@ export default function DoctorFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
               <input
                 type="tel"
                 name="phone"
@@ -358,34 +342,24 @@ export default function DoctorFormModal({
 
           {/* Bio */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Bio (English)
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Bio (English)</label>
             <RichTextEditor
               content={formData.bio_en}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, bio_en: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, bio_en: content }))}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Bio (Arabic)
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Bio (Arabic)</label>
             <RichTextEditor
               content={formData.bio_ar}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, bio_ar: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, bio_ar: content }))}
             />
           </div>
 
           {/* Profile Image */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Profile Image
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Profile Image</label>
             <ImageUploader
               value={formData.image}
               onChange={(url) => setFormData((prev) => ({ ...prev, image: url }))}
@@ -402,9 +376,7 @@ export default function DoctorFormModal({
                 onChange={handleInputChange}
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
               />
-              <span className="text-sm font-medium text-gray-700">
-                Available for Telemedicine
-              </span>
+              <span className="text-sm font-medium text-gray-700">Available for Telemedicine</span>
             </label>
 
             <label className="flex items-center gap-2">

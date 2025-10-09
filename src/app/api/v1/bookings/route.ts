@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
+import type { Prisma } from '@prisma/client';
 
 // GET all bookings (admin only)
 export async function GET(request: NextRequest) {
@@ -18,15 +19,10 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    const where: {
-      isArchived: boolean;
-      status?: string;
-      countryOfOrigin?: string;
-      treatmentId?: string;
-    } = { isArchived: false };
+    const where: Prisma.BookingWhereInput = { isArchived: false };
 
     if (status) {
-      where.status = status;
+      where.status = status as Prisma.BookingWhereInput['status'];
     }
 
     if (countryOfOrigin) {

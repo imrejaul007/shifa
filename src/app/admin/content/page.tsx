@@ -6,7 +6,7 @@ import DataTable from '@/components/admin/DataTable';
 import { Plus, Edit2, Trash2, Eye, FileText } from 'lucide-react';
 import ContentFormModal from './ContentFormModal';
 
-interface ContentPage {
+interface ContentPage extends Record<string, unknown> {
   id: string;
   slug: string;
   title_en: string;
@@ -121,9 +121,7 @@ export default function ContentAdminPage() {
   };
 
   const filteredContent =
-    typeFilter === 'all'
-      ? content
-      : content.filter((item) => item.type === typeFilter);
+    typeFilter === 'all' ? content : content.filter((item) => item.type === typeFilter);
 
   const columns = [
     {
@@ -147,9 +145,7 @@ export default function ContentAdminPage() {
       render: (item: ContentPage) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-medium ${
-            item.type === 'blog'
-              ? 'bg-blue-100 text-blue-800'
-              : 'bg-purple-100 text-purple-800'
+            item.type === 'blog' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
           }`}
         >
           {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
@@ -168,9 +164,7 @@ export default function ContentAdminPage() {
       label: 'Published Date',
       render: (item: ContentPage) => (
         <span className="text-sm text-gray-500">
-          {item.publishedAt
-            ? new Date(item.publishedAt).toLocaleDateString()
-            : 'Not published'}
+          {item.publishedAt ? new Date(item.publishedAt).toLocaleDateString() : 'Not published'}
         </span>
       ),
     },
@@ -186,9 +180,7 @@ export default function ContentAdminPage() {
               handleTogglePublished(item);
             }}
             className={`px-2 py-1 rounded-full text-xs font-medium ${
-              item.published
-                ? 'bg-green-100 text-green-800'
-                : 'bg-gray-100 text-gray-800'
+              item.published ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
             }`}
           >
             {item.published ? 'Published' : 'Draft'}
@@ -199,9 +191,7 @@ export default function ContentAdminPage() {
                 e.stopPropagation();
                 handleToggleFeatured(item);
               }}
-              className={`p-1 rounded ${
-                item.featured ? 'text-yellow-500' : 'text-gray-300'
-              }`}
+              className={`p-1 rounded ${item.featured ? 'text-yellow-500' : 'text-gray-300'}`}
               title={item.featured ? 'Featured' : 'Not featured'}
             >
               <Eye className="w-4 h-4" />
@@ -267,9 +257,7 @@ export default function ContentAdminPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Content Management</h1>
-            <p className="text-sm text-gray-600 mt-1">
-              Manage blog posts and static pages
-            </p>
+            <p className="text-sm text-gray-600 mt-1">Manage blog posts and static pages</p>
           </div>
           <button
             onClick={handleCreate}
@@ -318,9 +306,7 @@ export default function ContentAdminPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="text-sm text-gray-600">Total Content</div>
-            <div className="text-2xl font-bold text-gray-900 mt-1">
-              {filteredContent.length}
-            </div>
+            <div className="text-2xl font-bold text-gray-900 mt-1">{filteredContent.length}</div>
           </div>
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="text-sm text-gray-600">Published</div>
@@ -354,9 +340,7 @@ export default function ContentAdminPage() {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <ContentFormModal content={selectedContent} onClose={handleModalClose} />
-      )}
+      {isModalOpen && <ContentFormModal content={selectedContent} onClose={handleModalClose} />}
     </AdminLayout>
   );
 }

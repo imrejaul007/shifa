@@ -65,12 +65,6 @@ export default async function HospitalsPage({ params }: PageProps) {
               isArchived: false,
             },
           },
-          treatments: {
-            where: {
-              published: true,
-              isArchived: false,
-            },
-          },
         },
       },
     },

@@ -2,17 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  Package,
-  DollarSign,
-  CheckCircle2,
-  Star,
-  ArrowRight,
-  Calendar,
-} from 'lucide-react';
+import { Package, DollarSign, CheckCircle2, Star, ArrowRight, Calendar } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
 import BookingForm from '@/components/public/BookingForm';
+import type { Prisma } from '@prisma/client';
 
 interface PackageType {
   id: string;
@@ -23,7 +17,7 @@ interface PackageType {
   description_ar: string;
   price: number;
   currency: string;
-  features: Array<string | Record<string, unknown>>;
+  features: Prisma.JsonValue;
   bookings: { id: string }[];
 }
 
@@ -76,10 +70,17 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
   const description = locale === 'ar' ? pkg.description_ar : pkg.description_en;
 
   // Extract features from JSON
-  const features = pkg.features?.included || Object.values(pkg.features || {});
+  const features = Array.isArray(pkg.features)
+    ? pkg.features
+    : pkg.features && typeof pkg.features === 'object' && 'included' in pkg.features
+      ? (pkg.features.included as unknown[])
+      : Object.values((pkg.features as object) || {});
 
   return (
-    <main className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <main
+      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+    >
       {/* Hero */}
       <section className="relative py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
@@ -137,9 +138,7 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
                     <Star className="w-5 h-5" />
                     <span className="text-sm font-medium">{t.patients}</span>
                   </div>
-                  <p className="text-foreground font-semibold text-2xl">
-                    {pkg.bookings.length}+
-                  </p>
+                  <p className="text-foreground font-semibold text-2xl">{pkg.bookings.length}+</p>
                 </Card>
               </div>
 
@@ -157,9 +156,7 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
                 </ButtonLink>
               </div>
 
-              <p className="text-sm text-muted-foreground mt-4 italic">
-                {t.customizeMsg}
-              </p>
+              <p className="text-sm text-muted-foreground mt-4 italic">{t.customizeMsg}</p>
             </motion.div>
 
             {/* Booking Form */}
@@ -182,8 +179,8 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
               {t.whatsIncluded}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {features.map((feature: string | Record<string, unknown>, index: number) => {
-                const featureText = typeof feature === 'string' ? feature : feature.toString();
+              {features.map((feature: unknown, index: number) => {
+                const featureText = typeof feature === 'string' ? feature : String(feature);
                 return (
                   <motion.div
                     key={index}

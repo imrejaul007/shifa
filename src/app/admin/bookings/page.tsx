@@ -6,7 +6,7 @@ import DataTable from '@/components/admin/DataTable';
 import { Eye, Trash2, CheckCircle, XCircle, Clock, Mail, Phone } from 'lucide-react';
 import BookingDetailsModal from './BookingDetailsModal';
 
-interface Booking {
+interface Booking extends Record<string, unknown> {
   id: string;
   firstName: string;
   lastName: string;
@@ -24,7 +24,9 @@ export default function BookingsAdminPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
-  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'contacted' | 'confirmed' | 'cancelled'>('all');
+  const [statusFilter, setStatusFilter] = useState<
+    'all' | 'pending' | 'contacted' | 'confirmed' | 'cancelled'
+  >('all');
 
   const fetchBookings = async () => {
     try {
@@ -43,7 +45,11 @@ export default function BookingsAdminPage() {
   }, []);
 
   const handleDelete = async (booking: Booking) => {
-    if (!confirm(`Are you sure you want to delete booking from ${booking.firstName} ${booking.lastName}?`)) {
+    if (
+      !confirm(
+        `Are you sure you want to delete booking from ${booking.firstName} ${booking.lastName}?`
+      )
+    ) {
       return;
     }
 
@@ -91,9 +97,7 @@ export default function BookingsAdminPage() {
   };
 
   const filteredBookings =
-    statusFilter === 'all'
-      ? bookings
-      : bookings.filter((b) => b.status === statusFilter);
+    statusFilter === 'all' ? bookings : bookings.filter((b) => b.status === statusFilter);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -175,9 +179,7 @@ export default function BookingsAdminPage() {
       label: 'Preferred Date',
       render: (item: Booking) => (
         <span className="text-sm text-gray-700">
-          {item.preferredDate
-            ? new Date(item.preferredDate).toLocaleDateString()
-            : 'Not specified'}
+          {item.preferredDate ? new Date(item.preferredDate).toLocaleDateString() : 'Not specified'}
         </span>
       ),
     },
@@ -331,9 +333,7 @@ export default function BookingsAdminPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="text-sm text-gray-600">Total Inquiries</div>
-            <div className="text-2xl font-bold text-gray-900 mt-1">
-              {filteredBookings.length}
-            </div>
+            <div className="text-2xl font-bold text-gray-900 mt-1">{filteredBookings.length}</div>
           </div>
           <div className="bg-white rounded-lg border border-gray-200 p-4">
             <div className="text-sm text-gray-600">Pending</div>
@@ -352,9 +352,7 @@ export default function BookingsAdminPage() {
             <div className="text-2xl font-bold text-blue-600 mt-1">
               {
                 filteredBookings.filter(
-                  (b) =>
-                    new Date(b.createdAt) >
-                    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+                  (b) => new Date(b.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
                 ).length
               }
             </div>

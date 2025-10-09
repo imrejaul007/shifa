@@ -2,22 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-
-  DollarSign,
-
-
-  Award,
-  Shield,
-  ArrowRight,
-  FileText,
-  Stethoscope,
-
-  User,
-} from 'lucide-react';
+import { DollarSign, Award, Shield, ArrowRight, FileText, Stethoscope, User } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
 import BookingForm from '@/components/public/BookingForm';
+import type { Prisma } from '@prisma/client';
 
 interface Hospital {
   id: string;
@@ -25,7 +14,7 @@ interface Hospital {
   name_en: string;
   name_ar: string;
   accreditations: string[];
-  images: string[] | null;
+  images: Prisma.JsonValue;
 }
 
 interface Doctor {
@@ -46,12 +35,12 @@ interface Treatment {
   title_ar: string;
   summary_en: string;
   summary_ar: string;
-  contentBlocks_en?: { content?: string } | null;
-  contentBlocks_ar?: { content?: string } | null;
+  contentBlocks_en?: Prisma.JsonValue;
+  contentBlocks_ar?: Prisma.JsonValue;
   costMin: number | null;
   costMax: number | null;
   currency: string;
-  faq?: Array<{ question: string; answer: string }> | null;
+  faq?: Prisma.JsonValue;
   bookings: { id: string }[];
 }
 
@@ -117,7 +106,10 @@ export default function TreatmentDetailClient({
   const contentBlocks = locale === 'ar' ? treatment.contentBlocks_ar : treatment.contentBlocks_en;
 
   return (
-    <main className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <main
+      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+    >
       {/* Hero Section */}
       <section className="relative py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
@@ -203,36 +195,47 @@ export default function TreatmentDetailClient({
       </section>
 
       {/* Overview */}
-      {contentBlocks && (
-        <section className="py-16 lg:py-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-8">
-                {t.overview}
-              </h2>
-              <div className="prose prose-lg max-w-none text-foreground/80">
-                {contentBlocks.sections?.map((section: Record<string, unknown>, index: number) => (
-                  <div key={index}>
-                    {section.type === 'heading' && (
-                      <h3 className="text-2xl font-bold text-primary mt-8 mb-4">{section.content}</h3>
+      {contentBlocks &&
+        typeof contentBlocks === 'object' &&
+        contentBlocks !== null &&
+        'sections' in contentBlocks && (
+          <section className="py-16 lg:py-20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-8">
+                  {t.overview}
+                </h2>
+                <div className="prose prose-lg max-w-none text-foreground/80">
+                  {Array.isArray((contentBlocks as { sections?: unknown }).sections) &&
+                    (contentBlocks as { sections: unknown[] }).sections.map(
+                      (section: unknown, index: number) => {
+                        const sec = section as Record<string, unknown>;
+                        return (
+                          <div key={index}>
+                            {sec.type === 'heading' && (
+                              <h3 className="text-2xl font-bold text-primary mt-8 mb-4">
+                                {String(sec.content || '')}
+                              </h3>
+                            )}
+                            {sec.type === 'paragraph' && (
+                              <p className="mb-4 leading-relaxed">{String(sec.content || '')}</p>
+                            )}
+                            {sec.type === 'list' && Array.isArray(sec.items) && (
+                              <ul className="list-disc list-inside space-y-2 mb-4">
+                                {(sec.items as unknown[]).map((item: unknown, i: number) => (
+                                  <li key={i}>{String(item)}</li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      }
                     )}
-                    {section.type === 'paragraph' && (
-                      <p className="mb-4 leading-relaxed">{section.content}</p>
-                    )}
-                    {section.type === 'list' && (
-                      <ul className="list-disc list-inside space-y-2 mb-4">
-                        {section.items.map((item: string, i: number) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
       {/* Partner Hospitals */}
       {hospitals.length > 0 && (
@@ -333,9 +336,16 @@ export default function TreatmentDetailClient({
                 {t.faq}
               </h2>
               <div className="space-y-4">
-                {treatment.faq.map((item: Record<string, unknown>, index: number) => {
-                  const question = locale === 'ar' && item.q_ar ? item.q_ar : item.q_en || item.question;
-                  const answer = locale === 'ar' && item.a_ar ? item.a_ar : item.a_en || item.answer;
+                {treatment.faq.map((item: unknown, index: number) => {
+                  const faqItem = item as Record<string, unknown>;
+                  const question =
+                    locale === 'ar' && faqItem.q_ar
+                      ? String(faqItem.q_ar)
+                      : String(faqItem.q_en || faqItem.question || '');
+                  const answer =
+                    locale === 'ar' && faqItem.a_ar
+                      ? String(faqItem.a_ar)
+                      : String(faqItem.a_en || faqItem.answer || '');
 
                   return (
                     <motion.div
@@ -415,9 +425,7 @@ export default function TreatmentDetailClient({
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
               {t.readyToBegin}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              {t.freeConsultation}
-            </p>
+            <p className="text-lg text-muted-foreground mb-8">{t.freeConsultation}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ButtonLink
                 href={`/${locale}/consultation`}

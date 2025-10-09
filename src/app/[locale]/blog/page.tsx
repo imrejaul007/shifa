@@ -13,9 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
 
   const title =
-    locale === 'ar'
-      ? 'مدونة الصحة والعافية - شفاء الهند'
-      : 'Health & Wellness Blog - Shifa AlHind';
+    locale === 'ar' ? 'مدونة الصحة والعافية - شفاء الهند' : 'Health & Wellness Blog - Shifa AlHind';
 
   const description =
     locale === 'ar'
@@ -61,10 +59,9 @@ export default async function BlogPage({ params }: PageProps) {
       publishedAt: true,
       type: true,
     },
-    orderBy: [
-      { featured: 'desc' },
-      { publishedAt: 'desc' },
-    ],
+    orderBy: {
+      publishedAt: 'desc',
+    },
   });
 
   return <BlogClient posts={posts} locale={locale} />;

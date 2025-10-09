@@ -18,6 +18,7 @@ import {
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
 import BookingForm from '@/components/public/BookingForm';
+import type { Prisma } from '@prisma/client';
 
 interface Doctor {
   id: string;
@@ -51,7 +52,7 @@ interface Hospital {
   country: string;
   accreditations: string[];
   languagesSupported: string[];
-  images: string[] | null;
+  images: Prisma.JsonValue;
   doctors: Doctor[];
   bookings: { id: string }[];
   _count: {
@@ -107,7 +108,10 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
   const description = locale === 'ar' ? hospital.description_ar : hospital.description_en;
 
   return (
-    <main className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <main
+      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+    >
       {/* Hero */}
       <section className="relative py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
@@ -146,7 +150,9 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
                   </h1>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="w-4 h-4" />
-                    <span>{hospital.city}, {hospital.country}</span>
+                    <span>
+                      {hospital.city}, {hospital.country}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -154,7 +160,10 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
               {/* Accreditations */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {hospital.accreditations.map((acc) => (
-                  <span key={acc} className="inline-flex items-center gap-1 bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">
+                  <span
+                    key={acc}
+                    className="inline-flex items-center gap-1 bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium"
+                  >
                     <Shield className="w-4 h-4" />
                     {acc}
                   </span>
@@ -287,7 +296,10 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
                         </p>
                         <div className="flex flex-wrap gap-1 justify-center">
                           {doctor.languages.slice(0, 3).map((lang) => (
-                            <span key={lang} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
+                            <span
+                              key={lang}
+                              className="text-xs bg-accent/10 text-accent px-2 py-1 rounded"
+                            >
                               {lang}
                             </span>
                           ))}
@@ -358,9 +370,7 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
               {t.readyToVisit}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              {t.scheduleVisit}
-            </p>
+            <p className="text-lg text-muted-foreground mb-8">{t.scheduleVisit}</p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

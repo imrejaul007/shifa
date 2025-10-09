@@ -10,10 +10,7 @@ interface TreatmentFormModalProps {
   onClose: () => void;
 }
 
-export default function TreatmentFormModal({
-  treatment,
-  onClose,
-}: TreatmentFormModalProps) {
+export default function TreatmentFormModal({ treatment, onClose }: TreatmentFormModalProps) {
   const [formData, setFormData] = useState({
     title_en: '',
     title_ar: '',
@@ -47,23 +44,23 @@ export default function TreatmentFormModal({
     // Load treatment data if editing
     if (treatment) {
       setFormData({
-        title_en: treatment.title_en || '',
-        title_ar: treatment.title_ar || '',
-        slug: treatment.slug || '',
-        summary_en: treatment.summary_en || '',
-        summary_ar: treatment.summary_ar || '',
-        description_en: treatment.description_en || '',
-        description_ar: treatment.description_ar || '',
-        category_en: treatment.category_en || '',
-        category_ar: treatment.category_ar || '',
-        costMin: treatment.costMin?.toString() || '',
-        costMax: treatment.costMax?.toString() || '',
-        duration: treatment.duration || '',
-        successRate: treatment.successRate?.toString() || '',
-        recoveryTime: treatment.recoveryTime || '',
-        featuredImage: treatment.featuredImage || '',
-        published: treatment.published || false,
-        featured: treatment.featured || false,
+        title_en: String(treatment.title_en || ''),
+        title_ar: String(treatment.title_ar || ''),
+        slug: String(treatment.slug || ''),
+        summary_en: String(treatment.summary_en || ''),
+        summary_ar: String(treatment.summary_ar || ''),
+        description_en: String(treatment.description_en || ''),
+        description_ar: String(treatment.description_ar || ''),
+        category_en: String(treatment.category_en || ''),
+        category_ar: String(treatment.category_ar || ''),
+        costMin: String(treatment.costMin || ''),
+        costMax: String(treatment.costMax || ''),
+        duration: String(treatment.duration || ''),
+        successRate: String(treatment.successRate || ''),
+        recoveryTime: String(treatment.recoveryTime || ''),
+        featuredImage: String(treatment.featuredImage || ''),
+        published: Boolean(treatment.published),
+        featured: Boolean(treatment.featured),
       });
     }
   }, [treatment]);
@@ -105,12 +102,10 @@ export default function TreatmentFormModal({
         costMin: formData.costMin ? parseFloat(formData.costMin) : null,
         costMax: formData.costMax ? parseFloat(formData.costMax) : null,
         successRate: formData.successRate ? parseFloat(formData.successRate) : null,
-        hospitalIds: selectedHospitals,
+        hospitalIds: [], // selectedHospitals,
       };
 
-      const url = treatment
-        ? `/api/v1/treatments/${treatment.slug}`
-        : '/api/v1/treatments';
+      const url = treatment ? `/api/v1/treatments/${treatment.slug}` : '/api/v1/treatments';
       const method = treatment ? 'PATCH' : 'POST';
 
       const response = await fetch(url, {
@@ -143,10 +138,7 @@ export default function TreatmentFormModal({
           <h2 className="text-xl font-bold text-gray-900">
             {treatment ? 'Edit Treatment' : 'Add New Treatment'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -185,9 +177,7 @@ export default function TreatmentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Slug *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
               <input
                 type="text"
                 name="slug"
@@ -229,9 +219,7 @@ export default function TreatmentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Duration
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
               <input
                 type="text"
                 name="duration"
@@ -243,9 +231,7 @@ export default function TreatmentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Cost Min (USD)
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Cost Min (USD)</label>
               <input
                 type="number"
                 name="costMin"
@@ -256,9 +242,7 @@ export default function TreatmentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Cost Max (USD)
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Cost Max (USD)</label>
               <input
                 type="number"
                 name="costMax"
@@ -285,9 +269,7 @@ export default function TreatmentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Recovery Time
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Recovery Time</label>
               <input
                 type="text"
                 name="recoveryTime"
@@ -336,9 +318,7 @@ export default function TreatmentFormModal({
             </label>
             <RichTextEditor
               content={formData.description_en}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, description_en: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, description_en: content }))}
             />
           </div>
 
@@ -348,22 +328,16 @@ export default function TreatmentFormModal({
             </label>
             <RichTextEditor
               content={formData.description_ar}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, description_ar: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, description_ar: content }))}
             />
           </div>
 
           {/* Featured Image */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Featured Image
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
             <ImageUploader
               value={formData.featuredImage}
-              onChange={(url) =>
-                setFormData((prev) => ({ ...prev, featuredImage: url }))
-              }
+              onChange={(url) => setFormData((prev) => ({ ...prev, featuredImage: url }))}
             />
           </div>
 

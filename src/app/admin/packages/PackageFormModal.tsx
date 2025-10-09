@@ -31,19 +31,21 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
   useEffect(() => {
     if (pkg) {
       setFormData({
-        title_en: pkg.title_en || '',
-        title_ar: pkg.title_ar || '',
-        slug: pkg.slug || '',
-        description_en: pkg.description_en || '',
-        description_ar: pkg.description_ar || '',
-        price: pkg.price?.toString() || '',
-        duration: pkg.duration || '',
-        maxPatients: pkg.maxPatients?.toString() || '',
-        image: pkg.image || '',
-        published: pkg.published || false,
-        featured: pkg.featured || false,
+        title_en: String(pkg.title_en || ''),
+        title_ar: String(pkg.title_ar || ''),
+        slug: String(pkg.slug || ''),
+        description_en: String(pkg.description_en || ''),
+        description_ar: String(pkg.description_ar || ''),
+        price: String(pkg.price || ''),
+        duration: String(pkg.duration || ''),
+        maxPatients: String(pkg.maxPatients || ''),
+        image: String(pkg.image || ''),
+        published: Boolean(pkg.published),
+        featured: Boolean(pkg.featured),
       });
-      setFeatures(pkg.features || []);
+      setFeatures(
+        Array.isArray(pkg.features) ? (pkg.features as { en: string; ar: string }[]) : []
+      );
     }
   }, [pkg]);
 
@@ -54,9 +56,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
       .replace(/^-|-$/g, '');
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
 
@@ -130,10 +130,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
           <h2 className="text-xl font-bold text-gray-900">
             {pkg ? 'Edit Package' : 'Add New Package'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -172,9 +169,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Slug *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
               <input
                 type="text"
                 name="slug"
@@ -187,9 +182,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price (USD)
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Price (USD)</label>
               <input
                 type="number"
                 name="price"
@@ -200,9 +193,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Duration *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Duration *</label>
               <input
                 type="text"
                 name="duration"
@@ -215,9 +206,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Max Patients
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Max Patients</label>
               <input
                 type="number"
                 name="maxPatients"
@@ -231,26 +220,20 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
 
           {/* Features */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Package Features
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Package Features</label>
             <div className="space-y-2 mb-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <input
                   type="text"
                   value={newFeature.en}
-                  onChange={(e) =>
-                    setNewFeature((prev) => ({ ...prev, en: e.target.value }))
-                  }
+                  onChange={(e) => setNewFeature((prev) => ({ ...prev, en: e.target.value }))}
                   placeholder="Feature in English"
                   className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
                 <input
                   type="text"
                   value={newFeature.ar}
-                  onChange={(e) =>
-                    setNewFeature((prev) => ({ ...prev, ar: e.target.value }))
-                  }
+                  onChange={(e) => setNewFeature((prev) => ({ ...prev, ar: e.target.value }))}
                   placeholder="Feature in Arabic"
                   dir="rtl"
                   className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -268,14 +251,9 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
 
             <div className="space-y-2">
               {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg"
-                >
+                <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">
-                      {feature.en}
-                    </div>
+                    <div className="text-sm font-medium text-gray-900">{feature.en}</div>
                     <div className="text-sm text-gray-600" dir="rtl">
                       {feature.ar}
                     </div>
@@ -290,9 +268,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
                 </div>
               ))}
               {features.length === 0 && (
-                <div className="text-sm text-gray-500 text-center py-4">
-                  No features added yet
-                </div>
+                <div className="text-sm text-gray-500 text-center py-4">No features added yet</div>
               )}
             </div>
           </div>
@@ -304,9 +280,7 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
             </label>
             <RichTextEditor
               content={formData.description_en}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, description_en: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, description_en: content }))}
             />
           </div>
 
@@ -316,17 +290,13 @@ export default function PackageFormModal({ pkg, onClose }: PackageFormModalProps
             </label>
             <RichTextEditor
               content={formData.description_ar}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, description_ar: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, description_ar: content }))}
             />
           </div>
 
           {/* Image */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Package Image
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Package Image</label>
             <ImageUploader
               value={formData.image}
               onChange={(url) => setFormData((prev) => ({ ...prev, image: url }))}

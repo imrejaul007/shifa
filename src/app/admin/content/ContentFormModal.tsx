@@ -10,10 +10,7 @@ interface ContentFormModalProps {
   onClose: () => void;
 }
 
-export default function ContentFormModal({
-  content,
-  onClose,
-}: ContentFormModalProps) {
+export default function ContentFormModal({ content, onClose }: ContentFormModalProps) {
   const [formData, setFormData] = useState({
     title_en: '',
     title_ar: '',
@@ -38,24 +35,24 @@ export default function ContentFormModal({
   useEffect(() => {
     if (content) {
       setFormData({
-        title_en: content.title_en || '',
-        title_ar: content.title_ar || '',
-        slug: content.slug || '',
-        excerpt_en: content.excerpt_en || '',
-        excerpt_ar: content.excerpt_ar || '',
-        content_en: content.content_en || '',
-        content_ar: content.content_ar || '',
-        type: content.type || 'blog',
-        author: content.author || '',
-        featuredImage: content.featuredImage || '',
-        metaTitle_en: content.metaTitle_en || '',
-        metaTitle_ar: content.metaTitle_ar || '',
-        metaDescription_en: content.metaDescription_en || '',
-        metaDescription_ar: content.metaDescription_ar || '',
-        published: content.published || false,
-        featured: content.featured || false,
+        title_en: String(content.title_en || ''),
+        title_ar: String(content.title_ar || ''),
+        slug: String(content.slug || ''),
+        excerpt_en: String(content.excerpt_en || ''),
+        excerpt_ar: String(content.excerpt_ar || ''),
+        content_en: String(content.content_en || ''),
+        content_ar: String(content.content_ar || ''),
+        type: String(content.type || 'blog'),
+        author: String(content.author || ''),
+        featuredImage: String(content.featuredImage || ''),
+        metaTitle_en: String(content.metaTitle_en || ''),
+        metaTitle_ar: String(content.metaTitle_ar || ''),
+        metaDescription_en: String(content.metaDescription_en || ''),
+        metaDescription_ar: String(content.metaDescription_ar || ''),
+        published: Boolean(content.published),
+        featured: Boolean(content.featured),
         publishedAt: content.publishedAt
-          ? new Date(content.publishedAt).toISOString().slice(0, 16)
+          ? new Date(content.publishedAt as string | number | Date).toISOString().slice(0, 16)
           : '',
       });
     }
@@ -98,8 +95,8 @@ export default function ContentFormModal({
         publishedAt: formData.publishedAt
           ? new Date(formData.publishedAt).toISOString()
           : formData.published
-          ? new Date().toISOString()
-          : null,
+            ? new Date().toISOString()
+            : null,
       };
 
       const url = content ? `/api/v1/content/${content.slug}` : '/api/v1/content';
@@ -135,10 +132,7 @@ export default function ContentFormModal({
           <h2 className="text-xl font-bold text-gray-900">
             {content ? 'Edit Content' : 'Add New Content'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -177,9 +171,7 @@ export default function ContentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Slug *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
               <input
                 type="text"
                 name="slug"
@@ -192,9 +184,7 @@ export default function ContentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Type *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Type *</label>
               <select
                 name="type"
                 value={formData.type}
@@ -208,9 +198,7 @@ export default function ContentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Author
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Author</label>
               <input
                 type="text"
                 name="author"
@@ -222,9 +210,7 @@ export default function ContentFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Publish Date
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
               <input
                 type="datetime-local"
                 name="publishedAt"
@@ -273,9 +259,7 @@ export default function ContentFormModal({
             </label>
             <RichTextEditor
               content={formData.content_en}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, content_en: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, content_en: content }))}
             />
           </div>
 
@@ -285,22 +269,16 @@ export default function ContentFormModal({
             </label>
             <RichTextEditor
               content={formData.content_ar}
-              onChange={(content) =>
-                setFormData((prev) => ({ ...prev, content_ar: content }))
-              }
+              onChange={(content) => setFormData((prev) => ({ ...prev, content_ar: content }))}
             />
           </div>
 
           {/* Featured Image */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Featured Image
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
             <ImageUploader
               value={formData.featuredImage}
-              onChange={(url) =>
-                setFormData((prev) => ({ ...prev, featuredImage: url }))
-              }
+              onChange={(url) => setFormData((prev) => ({ ...prev, featuredImage: url }))}
             />
           </div>
 

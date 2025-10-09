@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Clock, ArrowRight } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import type { Prisma } from '@prisma/client';
 
 interface Post {
   id: string;
@@ -13,8 +14,8 @@ interface Post {
   title_ar: string;
   excerpt_en: string | null;
   excerpt_ar: string | null;
-  blocks_en: { content?: string } | null;
-  blocks_ar: { content?: string } | null;
+  blocks_en: Prisma.JsonValue;
+  blocks_ar: Prisma.JsonValue;
   featuredImage: string | null;
   author: string | null;
   publishedAt: Date | null;
@@ -79,7 +80,10 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
   };
 
   return (
-    <main className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <main
+      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+    >
       {/* Hero */}
       <section className="relative py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
@@ -127,9 +131,7 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
             </h1>
 
             {excerpt && (
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                {excerpt}
-              </p>
+              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">{excerpt}</p>
             )}
 
             {/* Meta */}
@@ -162,18 +164,18 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="mb-12 rounded-2xl overflow-hidden"
               >
-                <img
-                  src={post.featuredImage}
-                  alt={title}
-                  className="w-full h-auto"
-                />
+                <img src={post.featuredImage} alt={title} className="w-full h-auto" />
               </motion.div>
             )}
 
             {/* Content */}
             <div className="prose prose-lg max-w-none text-foreground/80">
-              {blocks?.content ? (
-                <div dangerouslySetInnerHTML={{ __html: blocks.content }} />
+              {blocks && typeof blocks === 'object' && blocks !== null && 'content' in blocks ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: String((blocks as { content: unknown }).content || ''),
+                  }}
+                />
               ) : (
                 <p className="text-muted-foreground italic">Content coming soon...</p>
               )}
@@ -244,9 +246,7 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
               {t.getStarted}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              {t.getStartedDesc}
-            </p>
+            <p className="text-lg text-muted-foreground mb-8">{t.getStartedDesc}</p>
             <ButtonLink href={`/${locale}/consultation`} variant="gold" size="lg">
               {t.bookConsultation}
             </ButtonLink>

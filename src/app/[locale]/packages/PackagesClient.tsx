@@ -6,6 +6,7 @@ import { ArrowRight, Search, CheckCircle2, Package as PackageIcon, Star } from '
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import type { Prisma } from '@prisma/client';
 
 interface Package {
   slug: string;
@@ -15,7 +16,7 @@ interface Package {
   description_ar: string | null;
   price: number;
   currency: string | null;
-  features: string[] | null;
+  features: Prisma.JsonValue;
   _count: {
     bookings: number;
   };
@@ -142,7 +143,14 @@ export default function PackagesClient({ packages, locale }: Props) {
               {filteredPackages.map((pkg, index) => {
                 const name = locale === 'ar' ? pkg.name_ar : pkg.name_en;
                 const description = locale === 'ar' ? pkg.description_ar : pkg.description_en;
-                const features = pkg.features?.included || Object.values(pkg.features || {});
+                const features = Array.isArray(pkg.features)
+                  ? pkg.features
+                  : pkg.features &&
+                      typeof pkg.features === 'object' &&
+                      'included' in pkg.features &&
+                      Array.isArray((pkg.features as { included?: unknown }).included)
+                    ? (pkg.features as { included: string[] }).included
+                    : Object.values((pkg.features as Record<string, unknown>) || {});
 
                 return (
                   <motion.div
@@ -198,20 +206,18 @@ export default function PackagesClient({ packages, locale }: Props) {
                                 {t.whatsIncluded}
                               </p>
                               <ul className="space-y-2">
-                                {features
-                                  .slice(0, 4)
-                                  .map((feature: string | Record<string, unknown>, idx: number) => {
-                                    const featureText =
-                                      typeof feature === 'string' ? feature : feature.toString();
-                                    return (
-                                      <li key={idx} className="flex items-start gap-2 text-sm">
-                                        <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                                        <span className="text-muted-foreground line-clamp-1">
-                                          {featureText}
-                                        </span>
-                                      </li>
-                                    );
-                                  })}
+                                {features.slice(0, 4).map((feature: unknown, idx: number) => {
+                                  const featureText =
+                                    typeof feature === 'string' ? feature : String(feature);
+                                  return (
+                                    <li key={idx} className="flex items-start gap-2 text-sm">
+                                      <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                                      <span className="text-muted-foreground line-clamp-1">
+                                        {featureText}
+                                      </span>
+                                    </li>
+                                  );
+                                })}
                                 {features.length > 4 && (
                                   <li className="text-sm text-accent">
                                     +{features.length - 4} more...

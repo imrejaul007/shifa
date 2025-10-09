@@ -26,7 +26,7 @@ async function main() {
   const editorPassword = await bcrypt.hash('editor123', 10);
   const translatorPassword = await bcrypt.hash('translator123', 10);
 
-  const admin = await prisma.user.create({
+  const _admin = await prisma.user.create({
     data: {
       name: 'Admin User',
       email: 'admin@shifaalhind.com',
@@ -97,9 +97,11 @@ The hospital features state-of-the-art facilities including advanced cardiac cat
         ],
       },
       seoTitle_en: 'Apollo Hospitals Bangalore - Top Hospital for GCC Patients | Shifa AlHind',
-      seoDesc_en: 'Apollo Hospitals Bangalore offers world-class medical care for GCC patients. JCI-accredited with Arabic support, visa assistance, and comprehensive care packages.',
+      seoDesc_en:
+        'Apollo Hospitals Bangalore offers world-class medical care for GCC patients. JCI-accredited with Arabic support, visa assistance, and comprehensive care packages.',
       seoTitle_ar: 'مستشفى أبولو بنغالور - أفضل مستشفى لمرضى دول الخليج | شفاء الهند',
-      seoDesc_ar: 'يوفر مستشفى أبولو بنغالور رعاية طبية عالمية المستوى لمرضى دول الخليج. معتمد من JCI مع دعم اللغة العربية والمساعدة في التأشيرة وباقات رعاية شاملة.',
+      seoDesc_ar:
+        'يوفر مستشفى أبولو بنغالور رعاية طبية عالمية المستوى لمرضى دول الخليج. معتمد من JCI مع دعم اللغة العربية والمساعدة في التأشيرة وباقات رعاية شاملة.',
       published: true,
       publishedAt: new Date(),
     },
@@ -130,7 +132,12 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
 - شهادة المجلس الأوروبي في أمراض القلب
 
 أجرى الدكتور خان أكثر من 10,000 تدخل قلبي ناجح ويتحدث بطلاقة الإنجليزية والعربية والهندية والأوردية، مما يجعله الخيار الأمثل لمرضى دول الخليج.`,
-      qualifications: ['MBBS', 'MD (Internal Medicine)', 'DM (Cardiology)', 'Fellowship - Cleveland Clinic'],
+      qualifications: [
+        'MBBS',
+        'MD (Internal Medicine)',
+        'DM (Cardiology)',
+        'Fellowship - Cleveland Clinic',
+      ],
       specialties: ['Interventional Cardiology', 'Heart Failure', 'Coronary Angioplasty', 'TAVR'],
       languages: ['English', 'Arabic', 'Hindi', 'Urdu'],
       profileImage: '/images/doctors/dr-ahmed-khan.jpg',
@@ -138,9 +145,11 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       currency: 'USD',
       telemedicineAvailable: true,
       seoTitle_en: 'Dr. Ahmed Khan - Top Cardiologist in Bangalore | Arabic Speaking',
-      seoDesc_en: 'Consult Dr. Ahmed Khan, leading interventional cardiologist at Apollo Bangalore. Arabic-speaking doctor with 20+ years experience. Book teleconsultation.',
+      seoDesc_en:
+        'Consult Dr. Ahmed Khan, leading interventional cardiologist at Apollo Bangalore. Arabic-speaking doctor with 20+ years experience. Book teleconsultation.',
       seoTitle_ar: 'د. أحمد خان - أفضل طبيب قلب في بنغالور | يتحدث العربية',
-      seoDesc_ar: 'استشر الدكتور أحمد خان، طبيب القلب التداخلي الرائد في أبولو بنغالور. طبيب يتحدث العربية مع خبرة تزيد عن 20 عامًا. احجز استشارة عن بعد.',
+      seoDesc_ar:
+        'استشر الدكتور أحمد خان، طبيب القلب التداخلي الرائد في أبولو بنغالور. طبيب يتحدث العربية مع خبرة تزيد عن 20 عامًا. احجز استشارة عن بعد.',
       published: true,
       publishedAt: new Date(),
     },
@@ -154,8 +163,10 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       slug: 'hip-replacement-surgery-bangalore',
       title_en: 'Hip Replacement Surgery',
       title_ar: 'جراحة استبدال مفصل الورك',
-      summary_en: 'Minimally invasive hip replacement surgery in Bangalore with rapid recovery, physiotherapy packages, and comprehensive care for GCC patients at 60% lower cost than UAE.',
-      summary_ar: 'جراحة استبدال مفصل الورك بتقنيات طفيفة التوغل في بنغالور مع تعافي سريع وبرامج علاج طبيعي ورعاية شاملة لمرضى دول الخليج بتكلفة أقل بنسبة 60٪ من الإمارات.',
+      summary_en:
+        'Minimally invasive hip replacement surgery in Bangalore with rapid recovery, physiotherapy packages, and comprehensive care for GCC patients at 60% lower cost than UAE.',
+      summary_ar:
+        'جراحة استبدال مفصل الورك بتقنيات طفيفة التوغل في بنغالور مع تعافي سريع وبرامج علاج طبيعي ورعاية شاملة لمرضى دول الخليج بتكلفة أقل بنسبة 60٪ من الإمارات.',
       contentBlocks_en: {
         sections: [
           {
@@ -164,7 +175,8 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
           },
           {
             type: 'paragraph',
-            content: 'Bangalore has emerged as the top destination for orthopedic surgery in Asia, with world-class hospitals using the latest minimally invasive techniques for hip replacement. Our partner hospitals have performed over 15,000 successful hip replacements for international patients.',
+            content:
+              'Bangalore has emerged as the top destination for orthopedic surgery in Asia, with world-class hospitals using the latest minimally invasive techniques for hip replacement. Our partner hospitals have performed over 15,000 successful hip replacements for international patients.',
           },
           {
             type: 'heading',
@@ -203,7 +215,8 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
           },
           {
             type: 'paragraph',
-            content: 'برزت بنغالور كوجهة رئيسية لجراحة العظام في آسيا، مع مستشفيات عالمية المستوى تستخدم أحدث التقنيات طفيفة التوغل لاستبدال مفصل الورك. أجرت مستشفياتنا الشريكة أكثر من 15,000 عملية استبدال ورك ناجحة للمرضى الدوليين.',
+            content:
+              'برزت بنغالور كوجهة رئيسية لجراحة العظام في آسيا، مع مستشفيات عالمية المستوى تستخدم أحدث التقنيات طفيفة التوغل لاستبدال مفصل الورك. أجرت مستشفياتنا الشريكة أكثر من 15,000 عملية استبدال ورك ناجحة للمرضى الدوليين.',
           },
           {
             type: 'heading',
@@ -259,9 +272,11 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       ],
       hospitalIds: [apolloHospital.id],
       seoTitle_en: 'Hip Replacement Surgery in Bangalore - Save 60% | Shifa AlHind',
-      seoDesc_en: 'Get world-class hip replacement surgery in Bangalore at $4,500-$8,500. JCI-accredited hospitals, Arabic support, visa help. Free consultation for GCC patients.',
+      seoDesc_en:
+        'Get world-class hip replacement surgery in Bangalore at $4,500-$8,500. JCI-accredited hospitals, Arabic support, visa help. Free consultation for GCC patients.',
       seoTitle_ar: 'جراحة استبدال مفصل الورك في بنغالور - وفر 60٪ | شفاء الهند',
-      seoDesc_ar: 'احصل على جراحة استبدال مفصل ورك عالمية المستوى في بنغالور مقابل 4,500-8,500 دولار. مستشفيات معتمدة من JCI، دعم عربي، مساعدة في التأشيرة. استشارة مجانية لمرضى الخليج.',
+      seoDesc_ar:
+        'احصل على جراحة استبدال مفصل ورك عالمية المستوى في بنغالور مقابل 4,500-8,500 دولار. مستشفيات معتمدة من JCI، دعم عربي، مساعدة في التأشيرة. استشارة مجانية لمرضى الخليج.',
       published: true,
       publishedAt: new Date(),
     },
@@ -275,8 +290,10 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       slug: 'comprehensive-care-package',
       name_en: 'Comprehensive Care Package',
       name_ar: 'باقة الرعاية الشاملة',
-      description_en: 'All-inclusive medical tourism package covering surgery, accommodation, translation, visa support, and aftercare for GCC patients.',
-      description_ar: 'باقة سياحة طبية شاملة تغطي الجراحة والإقامة والترجمة ودعم التأشيرة والرعاية اللاحقة لمرضى دول الخليج.',
+      description_en:
+        'All-inclusive medical tourism package covering surgery, accommodation, translation, visa support, and aftercare for GCC patients.',
+      description_ar:
+        'باقة سياحة طبية شاملة تغطي الجراحة والإقامة والترجمة ودعم التأشيرة والرعاية اللاحقة لمرضى دول الخليج.',
       price: 7500,
       currency: 'USD',
       features: {
@@ -302,14 +319,16 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
   console.log('✅ Created Package');
 
   // Create Blog Posts
-  const blogPost1 = await prisma.contentPage.create({
+  const _blogPost1 = await prisma.contentPage.create({
     data: {
       slug: 'medical-tourism-gcc-to-bangalore',
       type: 'blog',
       title_en: 'Medical Tourism from GCC to Bangalore: A Complete Guide',
       title_ar: 'السياحة العلاجية من دول الخليج إلى بنغالور: دليل شامل',
-      excerpt_en: 'Discover why thousands of GCC patients choose Bangalore for medical treatment. Learn about cost savings, quality care, and the complete medical tourism journey.',
-      excerpt_ar: 'اكتشف لماذا يختار الآلاف من مرضى دول الخليج بنغالور للعلاج الطبي. تعرف على التوفير في التكاليف والرعاية الجيدة والرحلة الكاملة للسياحة العلاجية.',
+      excerpt_en:
+        'Discover why thousands of GCC patients choose Bangalore for medical treatment. Learn about cost savings, quality care, and the complete medical tourism journey.',
+      excerpt_ar:
+        'اكتشف لماذا يختار الآلاف من مرضى دول الخليج بنغالور للعلاج الطبي. تعرف على التوفير في التكاليف والرعاية الجيدة والرحلة الكاملة للسياحة العلاجية.',
       blocks_en: {
         content: 'Full blog content here...',
       },
@@ -318,22 +337,26 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       },
       author: 'Dr. Sarah Ahmed',
       seoTitle_en: 'Medical Tourism Guide: GCC to Bangalore 2025 | Shifa AlHind',
-      seoDesc_en: 'Complete guide to medical tourism from GCC countries to Bangalore. Save 60-70% on medical procedures with world-class care. Visa, travel, and accommodation tips.',
+      seoDesc_en:
+        'Complete guide to medical tourism from GCC countries to Bangalore. Save 60-70% on medical procedures with world-class care. Visa, travel, and accommodation tips.',
       seoTitle_ar: 'دليل السياحة العلاجية: من الخليج إلى بنغالور 2025 | شفاء الهند',
-      seoDesc_ar: 'دليل كامل للسياحة العلاجية من دول الخليج إلى بنغالور. وفر 60-70٪ على الإجراءات الطبية مع رعاية عالمية المستوى. نصائح للتأشيرة والسفر والإقامة.',
+      seoDesc_ar:
+        'دليل كامل للسياحة العلاجية من دول الخليج إلى بنغالور. وفر 60-70٪ على الإجراءات الطبية مع رعاية عالمية المستوى. نصائح للتأشيرة والسفر والإقامة.',
       published: true,
       publishedAt: new Date(),
     },
   });
 
-  const blogPost2 = await prisma.contentPage.create({
+  const _blogPost2 = await prisma.contentPage.create({
     data: {
       slug: 'top-hospitals-bangalore-gcc-patients',
       type: 'blog',
       title_en: 'Top 5 Hospitals in Bangalore for GCC Patients',
       title_ar: 'أفضل 5 مستشفيات في بنغالور لمرضى دول الخليج',
-      excerpt_en: 'Explore the best JCI-accredited hospitals in Bangalore offering Arabic support, international patient services, and world-class medical care.',
-      excerpt_ar: 'استكشف أفضل المستشفيات المعتمدة من JCI في بنغالور التي تقدم الدعم العربي وخدمات المرضى الدوليين والرعاية الطبية العالمية.',
+      excerpt_en:
+        'Explore the best JCI-accredited hospitals in Bangalore offering Arabic support, international patient services, and world-class medical care.',
+      excerpt_ar:
+        'استكشف أفضل المستشفيات المعتمدة من JCI في بنغالور التي تقدم الدعم العربي وخدمات المرضى الدوليين والرعاية الطبية العالمية.',
       blocks_en: {
         content: 'Full blog content here...',
       },
@@ -342,20 +365,23 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       },
       author: 'Shifa AlHind Team',
       seoTitle_en: 'Top 5 Hospitals in Bangalore for GCC Patients 2025',
-      seoDesc_en: 'Discover the best hospitals in Bangalore for GCC patients. JCI-accredited, Arabic-speaking staff, and specialized international patient departments.',
+      seoDesc_en:
+        'Discover the best hospitals in Bangalore for GCC patients. JCI-accredited, Arabic-speaking staff, and specialized international patient departments.',
       published: true,
       publishedAt: new Date(),
     },
   });
 
-  const blogPost3 = await prisma.contentPage.create({
+  const _blogPost3 = await prisma.contentPage.create({
     data: {
       slug: 'cost-comparison-medical-treatment-gcc-vs-india',
       type: 'blog',
       title_en: 'Cost Comparison: Medical Treatment in GCC vs India',
       title_ar: 'مقارنة التكلفة: العلاج الطبي في دول الخليج مقابل الهند',
-      excerpt_en: 'Detailed cost analysis of popular medical procedures in GCC countries compared to India. Understand the savings without compromising quality.',
-      excerpt_ar: 'تحليل مفصل لتكلفة الإجراءات الطبية الشائعة في دول الخليج مقارنة بالهند. افهم التوفير دون المساس بالجودة.',
+      excerpt_en:
+        'Detailed cost analysis of popular medical procedures in GCC countries compared to India. Understand the savings without compromising quality.',
+      excerpt_ar:
+        'تحليل مفصل لتكلفة الإجراءات الطبية الشائعة في دول الخليج مقارنة بالهند. افهم التوفير دون المساس بالجودة.',
       blocks_en: {
         content: 'Full blog content here...',
       },
@@ -364,7 +390,8 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
       },
       author: 'Finance Team',
       seoTitle_en: 'Medical Treatment Cost: GCC vs India - Save Up to 70%',
-      seoDesc_en: 'Compare medical treatment costs between GCC and India. Cardiac surgery, orthopedics, oncology prices. Save 60-70% with same quality care.',
+      seoDesc_en:
+        'Compare medical treatment costs between GCC and India. Cardiac surgery, orthopedics, oncology prices. Save 60-70% with same quality care.',
       published: true,
       publishedAt: new Date(),
     },
@@ -373,7 +400,7 @@ Dr. Khan has performed over 10,000 successful cardiac interventions and is fluen
   console.log('✅ Created blog posts');
 
   // Create sample booking
-  const sampleBooking = await prisma.booking.create({
+  const _sampleBooking = await prisma.booking.create({
     data: {
       patientName: 'Mohammed Al-Faisal',
       email: 'mohammed.alfaisal@example.com',

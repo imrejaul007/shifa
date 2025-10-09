@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Search } from 'lucide-react';
 import { useState } from 'react';
-import { Card, CardBody, CardImage } from '@/components/ui/Card';
+import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
 
 interface Treatment {
