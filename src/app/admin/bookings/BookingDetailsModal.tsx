@@ -105,7 +105,7 @@ export default function BookingDetailsModal({
                   {String(booking.email || '')}
                 </a>
               </div>
-              {booking.phone && (
+              {!!booking.phone && (
                 <div>
                   <div className="text-sm text-gray-600">Phone</div>
                   <a
@@ -133,7 +133,7 @@ export default function BookingDetailsModal({
                   {String(booking.treatmentType || 'General Inquiry')}
                 </div>
               </div>
-              {booking.preferredDate && (
+              {!!booking.preferredDate && (
                 <div>
                   <div className="text-sm text-gray-600">Preferred Date</div>
                   <div className="font-medium text-gray-900 flex items-center gap-2">
@@ -146,7 +146,7 @@ export default function BookingDetailsModal({
           </div>
 
           {/* Additional Notes */}
-          {booking.notes && (
+          {!!booking.notes && (
             <div className="bg-yellow-50 rounded-lg p-4 space-y-3">
               <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                 <FileText className="w-5 h-5 text-yellow-600" />
@@ -169,7 +169,7 @@ export default function BookingDetailsModal({
                 <Mail className="w-4 h-4" />
                 Send Email
               </a>
-              {booking.phone && (
+              {!!booking.phone && (
                 <a
                   href={`tel:${String(booking.phone)}`}
                   className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
@@ -178,7 +178,7 @@ export default function BookingDetailsModal({
                   Call Patient
                 </a>
               )}
-              {booking.phone && (
+              {!!booking.phone && (
                 <a
                   href={`https://wa.me/${String(booking.phone).replace(/[^0-9]/g, '')}`}
                   target="_blank"

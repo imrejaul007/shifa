@@ -69,14 +69,14 @@ export default function BookingsAdminPage() {
     }
   };
 
-  const handleUpdateStatus = async (booking: Booking, newStatus: string) => {
+  const handleUpdateStatus = async (booking: Record<string, unknown>, status: string) => {
     try {
       const response = await fetch(`/api/v1/bookings/${booking.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({ status: status }),
       });
 
       if (response.ok) {
