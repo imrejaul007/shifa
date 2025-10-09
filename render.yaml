@@ -1,19 +1,15 @@
-services:
+databases:
   # PostgreSQL Database
-  - type: pserv
-    name: shifa-alhind-db
-    env: docker
-    plan: free
-    region: oregon
+  - name: shifa-alhind-db
     databaseName: shifa
-    databaseUser: shifa
-    ipAllowList: []
+    user: shifa
+    plan: free
 
+services:
   # Web Service (Next.js App)
   - type: web
     name: shifa-alhind
-    env: node
-    region: oregon
+    runtime: node
     plan: free
     branch: main
     buildCommand: npm install && npx prisma generate && npm run build
