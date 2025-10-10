@@ -5,11 +5,14 @@ import PrivacyPolicyClient from './PrivacyPolicyClient';
 // Force dynamic rendering to prevent static generation errors with browser APIs
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
+interface PageProps {
+  params: Promise<{
+    locale: string;
+  }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'privacyPolicy' });
 
   return {

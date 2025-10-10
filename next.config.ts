@@ -3,14 +3,12 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
 
-  // ⚠️ WARNING: These should be set to false in production after fixing all errors
+  // TypeScript and ESLint are now properly configured and error-free
   eslint: {
-    // TODO: Fix all ESLint errors and set this to false before final production deployment
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false, // ✅ All ESLint warnings are non-critical
   },
   typescript: {
-    // TODO: Fix all TypeScript errors and set this to false before final production deployment
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false, // ✅ All TypeScript errors fixed
   },
 
   // Image optimization

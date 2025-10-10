@@ -45,7 +45,6 @@ export interface RateLimitResult {
  */
 export function rateLimit(identifier: string, config: RateLimitConfig): RateLimitResult {
   const now = Date.now();
-  const windowStart = now - config.interval;
 
   // Get or create rate limit entry
   if (!rateLimitStore[identifier] || rateLimitStore[identifier].resetTime < now) {
