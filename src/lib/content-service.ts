@@ -3,9 +3,37 @@
  * Provides access to generated medical tourism content
  */
 
-import articlesData from '../data/content_articles_full.json';
-import treatmentsData from '../data/content_treatments_full.json';
-import citiesData from '../data/content_cities_full.json';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Lazy load JSON data to avoid bundling large files
+let articlesData: ContentPage[] | null = null;
+let treatmentsData: ContentPage[] | null = null;
+let citiesData: ContentPage[] | null = null;
+
+function loadArticles(): ContentPage[] {
+  if (!articlesData) {
+    const filePath = join(process.cwd(), 'src/data/content_articles_full.json');
+    articlesData = JSON.parse(readFileSync(filePath, 'utf-8'));
+  }
+  return articlesData!;
+}
+
+function loadTreatments(): ContentPage[] {
+  if (!treatmentsData) {
+    const filePath = join(process.cwd(), 'src/data/content_treatments_full.json');
+    treatmentsData = JSON.parse(readFileSync(filePath, 'utf-8'));
+  }
+  return treatmentsData!;
+}
+
+function loadCities(): ContentPage[] {
+  if (!citiesData) {
+    const filePath = join(process.cwd(), 'src/data/content_cities_full.json');
+    citiesData = JSON.parse(readFileSync(filePath, 'utf-8'));
+  }
+  return citiesData!;
+}
 
 export interface ContentPage {
   url: string;
@@ -24,16 +52,11 @@ export interface ContentPage {
   status?: string;
 }
 
-// Type-safe content data
-const articles = articlesData as ContentPage[];
-const treatments = treatmentsData as ContentPage[];
-const cities = citiesData as ContentPage[];
-
 /**
  * Get all articles
  */
 export function getAllArticles(): ContentPage[] {
-  return articles;
+  return loadArticles();
 }
 
 /**
@@ -47,7 +70,7 @@ export function getArticle(params: {
   slug: string;
 }): ContentPage | null {
   const url = `https://shifaalhind.com/${params.locale}/blog/${params.country}/${params.city}/${params.treatment}/${params.slug}`;
-  return articles.find((a) => a.url === url) || null;
+  return loadArticles().find((a) => a.url === url) || null;
 }
 
 /**
@@ -57,21 +80,21 @@ export function getArticlesByTreatment(
   treatmentSlug: string,
   locale: string = 'en'
 ): ContentPage[] {
-  return articles.filter((a) => a.url.includes(`/${treatmentSlug}/`) && a.locale === locale);
+  return loadArticles().filter((a) => a.url.includes(`/${treatmentSlug}/`) && a.locale === locale);
 }
 
 /**
  * Get articles by city
  */
 export function getArticlesByCity(citySlug: string, locale: string = 'en'): ContentPage[] {
-  return articles.filter((a) => a.url.includes(`/${citySlug}/`) && a.locale === locale);
+  return loadArticles().filter((a) => a.url.includes(`/${citySlug}/`) && a.locale === locale);
 }
 
 /**
  * Get all treatment pages
  */
 export function getAllTreatments(): ContentPage[] {
-  return treatments;
+  return loadTreatments();
 }
 
 /**
@@ -84,21 +107,21 @@ export function getTreatment(params: {
   treatment: string;
 }): ContentPage | null {
   const url = `https://shifaalhind.com/${params.locale}/medical-tourism/${params.country}/${params.city}/${params.treatment}`;
-  return treatments.find((t) => t.url === url) || null;
+  return loadTreatments().find((t) => t.url === url) || null;
 }
 
 /**
  * Get treatment pages by city
  */
 export function getTreatmentsByCity(citySlug: string, locale: string = 'en'): ContentPage[] {
-  return treatments.filter((t) => t.url.includes(`/${citySlug}/`) && t.locale === locale);
+  return loadTreatments().filter((t) => t.url.includes(`/${citySlug}/`) && t.locale === locale);
 }
 
 /**
  * Get all city pages
  */
 export function getAllCities(): ContentPage[] {
-  return cities;
+  return loadCities();
 }
 
 /**
@@ -110,14 +133,14 @@ export function getCity(params: {
   city: string;
 }): ContentPage | null {
   const url = `https://shifaalhind.com/${params.locale}/medical-tourism/${params.country}/${params.city}`;
-  return cities.find((c) => c.url === url) || null;
+  return loadCities().find((c) => c.url === url) || null;
 }
 
 /**
  * Get city pages by country
  */
 export function getCitiesByCountry(countrySlug: string, locale: string = 'en'): ContentPage[] {
-  return cities.filter((c) => c.url.includes(`/${countrySlug}/`) && c.locale === locale);
+  return loadCities().filter((c) => c.url.includes(`/${countrySlug}/`) && c.locale === locale);
 }
 
 /**
@@ -132,7 +155,7 @@ export function getRelatedArticles(currentUrl: string, limit: number = 3): Conte
   const treatment = urlParts[7];
 
   // Find articles with same city and treatment but different slug
-  const related = articles.filter(
+  const related = loadArticles().filter(
     (a) =>
       a.url.includes(`/${country}/${city}/${treatment}/`) &&
       a.url !== currentUrl &&
@@ -185,7 +208,7 @@ export function parseContent(content: string): string {
  */
 export function getAllCountries(): string[] {
   const countries = new Set<string>();
-  [...articles, ...treatments, ...cities].forEach((page) => {
+  [...loadArticles(), ...loadTreatments(), ...loadCities()].forEach((page) => {
     const urlParts = page.url.split('/');
     if (urlParts.length > 5) {
       countries.add(urlParts[5]); // Country slug
@@ -199,7 +222,7 @@ export function getAllCountries(): string[] {
  */
 export function getAllTreatmentTypes(): string[] {
   const treatmentTypes = new Set<string>();
-  [...articles, ...treatments].forEach((page) => {
+  [...loadArticles(), ...loadTreatments()].forEach((page) => {
     const urlParts = page.url.split('/');
     if (page.page_type === 'treatment_landing' && urlParts.length > 7) {
       treatmentTypes.add(urlParts[7]); // Treatment slug
@@ -219,7 +242,7 @@ export function searchContent(
   limit: number = 10
 ): ContentPage[] {
   const lowerQuery = query.toLowerCase();
-  const allContent = [...articles, ...treatments, ...cities];
+  const allContent = [...loadArticles(), ...loadTreatments(), ...loadCities()];
 
   const results = allContent.filter(
     (page) =>
