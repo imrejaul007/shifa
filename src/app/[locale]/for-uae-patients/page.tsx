@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { generateFullMetadata, seoKeywords } from '@/lib/seo-helpers';
 import Breadcrumb from '@/components/SEO/Breadcrumb';
-import { CurrencyDisplay } from '@/components/CurrencyDisplay';
 
 interface PageProps {
   params: Promise<{
@@ -215,8 +214,7 @@ export default async function UAEPatientsPage({ params }: PageProps) {
                   {isArabic ? treatment.nameAr : treatment.nameEn}
                 </h3>
                 <p className="text-primary font-bold">
-                  <CurrencyDisplay amountUSD={treatment.priceMin} /> -{' '}
-                  <CurrencyDisplay amountUSD={treatment.priceMax} />
+                  ${treatment.priceMin.toLocaleString()} - ${treatment.priceMax.toLocaleString()}
                 </p>
                 <p className="text-sm text-gray-600 mt-2">
                   {isArabic ? 'اعرف المزيد →' : 'Learn More →'}
