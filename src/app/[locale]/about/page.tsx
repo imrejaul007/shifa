@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import AboutClient from './AboutClient';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';
@@ -11,10 +14,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
 
-  const title =
-    locale === 'ar'
-      ? 'من نحن - شفاء الهند'
-      : 'About Us - Shifa AlHind';
+  const title = locale === 'ar' ? 'من نحن - شفاء الهند' : 'About Us - Shifa AlHind';
 
   const description =
     locale === 'ar'

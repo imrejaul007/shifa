@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();

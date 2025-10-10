@@ -5,6 +5,9 @@ import { generateFullMetadata } from '@/lib/seo-helpers';
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import DoctorProfileClient from './DoctorProfileClient';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

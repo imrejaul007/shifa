@@ -5,6 +5,9 @@ import { generateFullMetadata, generateBlogPostSchema, seoKeywords } from '@/lib
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import BlogPostClient from './BlogPostClient';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

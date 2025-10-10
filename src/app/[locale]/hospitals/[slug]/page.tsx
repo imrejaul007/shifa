@@ -5,6 +5,9 @@ import { generateFullMetadata, generateHospitalSchema } from '@/lib/seo-helpers'
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import HospitalDetailClient from './HospitalDetailClient';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

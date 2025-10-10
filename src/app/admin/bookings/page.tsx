@@ -6,6 +6,9 @@ import DataTable from '@/components/admin/DataTable';
 import { Eye, Trash2, CheckCircle, XCircle, Clock, Mail, Phone } from 'lucide-react';
 import BookingDetailsModal from './BookingDetailsModal';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface Booking extends Record<string, unknown> {
   id: string;
   firstName: string;
