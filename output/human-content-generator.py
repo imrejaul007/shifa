@@ -570,10 +570,54 @@ def main():
     print("   (Warning: This will take 2-3 hours and generate ~2-3GB of content)")
 
 
+def generate_all_articles():
+    """Generate ALL 800 articles"""
+    articles = [p for p in manifest if p['page_type'] == 'article']
+
+    print(f"⏳ Generating ALL {len(articles)} articles...")
+    print(f"   This will take 2-3 hours...\n")
+    print(f"   Progress will be saved every 100 articles\n")
+
+    full_content = []
+
+    for i, page in enumerate(articles, 1):
+        content = generate_full_article_content(page)
+
+        full_content.append({
+            **page,
+            'full_content': content,
+            'word_count': len(content.split()),
+            'generated_at': datetime.now().isoformat(),
+        })
+
+        # Progress update every 50 articles
+        if i % 50 == 0:
+            print(f"   [{i}/{len(articles)}] Generated {i} articles...")
+
+        # Save checkpoint every 100 articles
+        if i % 100 == 0:
+            checkpoint_file = f"content_checkpoint_{i}.json"
+            with open(checkpoint_file, "w", encoding="utf-8") as f:
+                json.dump(full_content, f, indent=2, ensure_ascii=False)
+            print(f"   💾 Checkpoint saved: {checkpoint_file}")
+
+    # Save final output
+    with open("content_articles_full.json", "w", encoding="utf-8") as f:
+        json.dump(full_content, f, indent=2, ensure_ascii=False)
+
+    avg_words = sum(p['word_count'] for p in full_content) // len(full_content)
+    total_words = sum(p['word_count'] for p in full_content)
+
+    print(f"\n✅ ALL ARTICLES GENERATED!")
+    print(f"   Total articles: {len(full_content)}")
+    print(f"   Average word count: {avg_words} words/article")
+    print(f"   Total word count: {total_words:,} words")
+    print(f"   Saved to: content_articles_full.json")
+
+
 if __name__ == "__main__":
     import sys
     if "--full" in sys.argv:
-        print("\n⚠️  Full generation would take 2-3 hours.")
-        print("Run sample first to verify quality.")
+        generate_all_articles()
     else:
         main()

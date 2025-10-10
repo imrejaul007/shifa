@@ -1,0 +1,44 @@
+======================================================================
+Shifa AlHind - Treatment & City Page Content Generator
+======================================================================
+
+⏳ Generating 160 treatment pages...
+   [20/160] Generated 20 treatment pages...
+   [40/160] Generated 40 treatment pages...
+   [60/160] Generated 60 treatment pages...
+   [80/160] Generated 80 treatment pages...
+   [100/160] Generated 100 treatment pages...
+   [120/160] Generated 120 treatment pages...
+   [140/160] Generated 140 treatment pages...
+   [160/160] Generated 160 treatment pages...
+✅ Treatment pages saved: content_treatments_full.json
+   Average: 548 words/page
+
+⏳ Generating 20 city pages...
+   [1/20] Generated: https://shifaalhind.com/en/medical-tourism/saudi-arabia/riyadh
+   [2/20] Generated: https://shifaalhind.com/ar/medical-tourism/saudi-arabia/riyadh
+   [3/20] Generated: https://shifaalhind.com/en/medical-tourism/saudi-arabia/jeddah
+   [4/20] Generated: https://shifaalhind.com/ar/medical-tourism/saudi-arabia/jeddah
+   [5/20] Generated: https://shifaalhind.com/en/medical-tourism/saudi-arabia/dammam
+   [6/20] Generated: https://shifaalhind.com/ar/medical-tourism/saudi-arabia/dammam
+   [7/20] Generated: https://shifaalhind.com/en/medical-tourism/united-arab-emirates/dubai
+   [8/20] Generated: https://shifaalhind.com/ar/medical-tourism/united-arab-emirates/dubai
+   [9/20] Generated: https://shifaalhind.com/en/medical-tourism/united-arab-emirates/abu-dhabi
+   [10/20] Generated: https://shifaalhind.com/ar/medical-tourism/united-arab-emirates/abu-dhabi
+   [11/20] Generated: https://shifaalhind.com/en/medical-tourism/united-arab-emirates/sharjah
+   [12/20] Generated: https://shifaalhind.com/ar/medical-tourism/united-arab-emirates/sharjah
+   [13/20] Generated: https://shifaalhind.com/en/medical-tourism/qatar/doha
+   [14/20] Generated: https://shifaalhind.com/ar/medical-tourism/qatar/doha
+   [15/20] Generated: https://shifaalhind.com/en/medical-tourism/oman/muscat
+   [16/20] Generated: https://shifaalhind.com/ar/medical-tourism/oman/muscat
+   [17/20] Generated: https://shifaalhind.com/en/medical-tourism/kuwait/kuwait-city
+   [18/20] Generated: https://shifaalhind.com/ar/medical-tourism/kuwait/kuwait-city
+   [19/20] Generated: https://shifaalhind.com/en/medical-tourism/bahrain/manama
+   [20/20] Generated: https://shifaalhind.com/ar/medical-tourism/bahrain/manama
+✅ City pages saved: content_cities_full.json
+   Average: 914 words/page
+
+🎉 ALL LANDING PAGES GENERATED!
+   Treatment pages: 160 (548 words avg)
+   City pages: 20 (914 words avg)
+   Total words: 106,071
