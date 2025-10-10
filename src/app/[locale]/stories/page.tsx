@@ -1,5 +1,8 @@
 'use client';
 
+// Client components in dynamic routes need this directive
+export const dynamic = 'force-dynamic';
+
 import { motion } from 'framer-motion';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Heart, Quote, Star, MapPin, Calendar, CheckCircle2, Play, TrendingUp } from 'lucide-react';
