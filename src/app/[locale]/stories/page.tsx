@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering for client component page
+export const dynamic = 'force-dynamic';
+
 import { motion } from 'framer-motion';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Heart, Quote, Star, MapPin, Calendar, CheckCircle2, Play, TrendingUp } from 'lucide-react';

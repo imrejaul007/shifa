@@ -1,9 +1,17 @@
 'use client';
 
+// Force dynamic rendering for client component page
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardBody } from '@/components/ui/Card';
-import { trackConsultationRequest, trackPhoneClick, trackEmailClick, trackWhatsAppClick } from '@/components/Analytics';
+import {
+  trackConsultationRequest,
+  trackPhoneClick,
+  trackEmailClick,
+  trackWhatsAppClick,
+} from '@/components/Analytics';
 import {
   Mail,
   Phone,
@@ -22,7 +30,7 @@ const locale = 'en'; // Will be dynamic with next-intl
 const translations = {
   en: {
     title: 'Get in Touch',
-    subtitle: 'We\'re Here to Help',
+    subtitle: "We're Here to Help",
     description: '24/7 support in Arabic and English for all your medical tourism needs',
     formTitle: 'Send Us a Message',
     formSubtitle: 'Fill out the form and our team will respond within 24 hours',
@@ -40,7 +48,7 @@ const translations = {
     messagePlaceholder: 'Tell us about your medical needs and any questions you have...',
     submit: 'Send Message',
     sending: 'Sending...',
-    success: 'Message sent successfully! We\'ll get back to you soon.',
+    success: "Message sent successfully! We'll get back to you soon.",
     contactInfo: 'Contact Information',
     office: 'Office Address',
     officeAddress: 'Bangalore, Karnataka, India 560001',
@@ -127,7 +135,9 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -189,12 +199,8 @@ export default function ContactPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
               {t.title}
             </h1>
-            <p className="text-xl sm:text-2xl text-muted-foreground mb-4">
-              {t.subtitle}
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground/80">
-              {t.description}
-            </p>
+            <p className="text-xl sm:text-2xl text-muted-foreground mb-4">{t.subtitle}</p>
+            <p className="text-base sm:text-lg text-muted-foreground/80">{t.description}</p>
           </motion.div>
         </div>
       </section>
@@ -221,9 +227,7 @@ export default function ContactPage() {
                       <h3 className="text-lg font-display font-semibold text-primary mb-2">
                         {reason.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {reason.description}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{reason.description}</p>
                     </CardBody>
                   </Card>
                 </motion.div>
@@ -249,131 +253,153 @@ export default function ContactPage() {
                   <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-2">
                     {t.formTitle}
                   </h2>
-                  <p className="text-muted-foreground mb-8">
-                    {t.formSubtitle}
-                  </p>
+                  <p className="text-muted-foreground mb-8">{t.formSubtitle}</p>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Name */}
-                  <div className="relative group">
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-2">
-                      {t.name} *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      placeholder={t.namePlaceholder}
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
-                    />
-                  </div>
-
-                  {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Name */}
                     <div className="relative group">
-                      <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-2">
-                        {t.email} *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        placeholder={t.emailPlaceholder}
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
-                      />
-                    </div>
-
-                    <div className="relative group">
-                      <label htmlFor="phone" className="block text-sm font-medium text-foreground/80 mb-2">
-                        {t.phone} *
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        placeholder={t.phonePlaceholder}
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Country & Treatment */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="relative group">
-                      <label htmlFor="country" className="block text-sm font-medium text-foreground/80 mb-2">
-                        {t.country} *
-                      </label>
-                      <select
-                        id="country"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none cursor-pointer"
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-foreground/80 mb-2"
                       >
-                        <option value="">{t.countryPlaceholder}</option>
-                        {t.countries.map((country, index) => (
-                          <option key={index} value={country}>
-                            {country}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="relative group">
-                      <label htmlFor="treatment" className="block text-sm font-medium text-foreground/80 mb-2">
-                        {t.treatment}
+                        {t.name} *
                       </label>
                       <input
                         type="text"
-                        id="treatment"
-                        name="treatment"
-                        value={formData.treatment}
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
-                        placeholder={t.treatmentPlaceholder}
+                        required
+                        placeholder={t.namePlaceholder}
                         className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
-                  </div>
 
-                  {/* Message */}
-                  <div className="relative group">
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground/80 mb-2">
-                      {t.message} *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={6}
-                      placeholder={t.messagePlaceholder}
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
-                    />
-                  </div>
+                    {/* Email & Phone */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="relative group">
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-foreground/80 mb-2"
+                        >
+                          {t.email} *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          placeholder={t.emailPlaceholder}
+                          className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        />
+                      </div>
 
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    variant={isSubmitted ? "primary" : "gold"}
-                    size="lg"
-                    isLoading={isSubmitting}
-                    disabled={isSubmitted}
-                    leftIcon={isSubmitted ? <CheckCircle2 className="w-6 h-6" /> : <Send className="w-5 h-5" />}
-                    className={`w-full ${isSubmitted ? 'bg-green-500 text-white' : ''}`}
-                  >
-                    {isSubmitted ? t.success : isSubmitting ? t.sending : t.submit}
-                  </Button>
+                      <div className="relative group">
+                        <label
+                          htmlFor="phone"
+                          className="block text-sm font-medium text-foreground/80 mb-2"
+                        >
+                          {t.phone} *
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          required
+                          placeholder={t.phonePlaceholder}
+                          className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Country & Treatment */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="relative group">
+                        <label
+                          htmlFor="country"
+                          className="block text-sm font-medium text-foreground/80 mb-2"
+                        >
+                          {t.country} *
+                        </label>
+                        <select
+                          id="country"
+                          name="country"
+                          value={formData.country}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="">{t.countryPlaceholder}</option>
+                          {t.countries.map((country, index) => (
+                            <option key={index} value={country}>
+                              {country}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="relative group">
+                        <label
+                          htmlFor="treatment"
+                          className="block text-sm font-medium text-foreground/80 mb-2"
+                        >
+                          {t.treatment}
+                        </label>
+                        <input
+                          type="text"
+                          id="treatment"
+                          name="treatment"
+                          value={formData.treatment}
+                          onChange={handleChange}
+                          placeholder={t.treatmentPlaceholder}
+                          className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Message */}
+                    <div className="relative group">
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-medium text-foreground/80 mb-2"
+                      >
+                        {t.message} *
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows={6}
+                        placeholder={t.messagePlaceholder}
+                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <Button
+                      type="submit"
+                      variant={isSubmitted ? 'primary' : 'gold'}
+                      size="lg"
+                      isLoading={isSubmitting}
+                      disabled={isSubmitted}
+                      leftIcon={
+                        isSubmitted ? (
+                          <CheckCircle2 className="w-6 h-6" />
+                        ) : (
+                          <Send className="w-5 h-5" />
+                        )
+                      }
+                      className={`w-full ${isSubmitted ? 'bg-green-500 text-white' : ''}`}
+                    >
+                      {isSubmitted ? t.success : isSubmitting ? t.sending : t.submit}
+                    </Button>
                   </form>
                 </CardBody>
               </Card>
@@ -394,81 +420,81 @@ export default function ContactPage() {
                   </h3>
 
                   <div className="space-y-6">
-                  {/* Office */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-accent" />
+                    {/* Office */}
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <MapPin className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{t.office}</h4>
+                        <p className="text-sm text-muted-foreground">{t.officeAddress}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">{t.office}</h4>
-                      <p className="text-sm text-muted-foreground">{t.officeAddress}</p>
-                    </div>
-                  </div>
 
-                  {/* Email */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-accent" />
+                    {/* Email */}
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <Mail className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{t.emailAddress}</h4>
+                        <a
+                          href={`mailto:${t.emailValue}`}
+                          className="text-sm text-accent hover:underline"
+                          onClick={() => trackEmailClick()}
+                        >
+                          {t.emailValue}
+                        </a>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">{t.emailAddress}</h4>
-                      <a
-                        href={`mailto:${t.emailValue}`}
-                        className="text-sm text-accent hover:underline"
-                        onClick={() => trackEmailClick()}
-                      >
-                        {t.emailValue}
-                      </a>
-                    </div>
-                  </div>
 
-                  {/* Phone */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-accent" />
+                    {/* Phone */}
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <Phone className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{t.phoneNumber}</h4>
+                        <a
+                          href={`tel:${t.phoneValue}`}
+                          className="text-sm text-accent hover:underline"
+                          onClick={() => trackPhoneClick()}
+                        >
+                          {t.phoneValue}
+                        </a>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">{t.phoneNumber}</h4>
-                      <a
-                        href={`tel:${t.phoneValue}`}
-                        className="text-sm text-accent hover:underline"
-                        onClick={() => trackPhoneClick()}
-                      >
-                        {t.phoneValue}
-                      </a>
-                    </div>
-                  </div>
 
-                  {/* WhatsApp */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
-                      <MessageCircle className="w-6 h-6 text-accent" />
+                    {/* WhatsApp */}
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <MessageCircle className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{t.whatsapp}</h4>
+                        <a
+                          href={`https://wa.me/${t.whatsappValue.replace(/\s/g, '')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-accent hover:underline"
+                          onClick={() => trackWhatsAppClick()}
+                        >
+                          {t.whatsappValue}
+                        </a>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">{t.whatsapp}</h4>
-                      <a
-                        href={`https://wa.me/${t.whatsappValue.replace(/\s/g, '')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-accent hover:underline"
-                        onClick={() => trackWhatsAppClick()}
-                      >
-                        {t.whatsappValue}
-                      </a>
-                    </div>
-                  </div>
 
-                  {/* Hours */}
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-accent" />
+                    {/* Hours */}
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <Clock className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{t.hours}</h4>
+                        <p className="text-sm text-muted-foreground">{t.hoursValue}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{t.officeHours}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">{t.hours}</h4>
-                      <p className="text-sm text-muted-foreground">{t.hoursValue}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{t.officeHours}</p>
-                    </div>
-                  </div>
                   </div>
                 </CardBody>
               </Card>
@@ -480,9 +506,7 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center mb-4">
                     <Phone className="w-6 h-6 text-primary animate-pulse" />
                   </div>
-                  <h4 className="text-xl font-display font-bold text-white mb-2">
-                    {t.emergency}
-                  </h4>
+                  <h4 className="text-xl font-display font-bold text-white mb-2">{t.emergency}</h4>
                   <a
                     href={`tel:${t.emergencyValue}`}
                     className="text-2xl font-bold text-accent hover:underline"
