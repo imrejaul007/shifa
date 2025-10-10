@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getArticle, getRelatedArticles, getAllArticles } from '@/lib/content-service';
+import { getArticle, getRelatedArticles } from '@/lib/content-service';
 import ReactMarkdown from 'react-markdown';
 
 interface PageProps {
@@ -27,8 +27,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: 'Article Not Found',
     };
   }
-
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://shifaalhind.com';
 
   return {
     title: article.title,
