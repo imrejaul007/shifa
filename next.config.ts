@@ -67,8 +67,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', '@tiptap/react'],
   },
 
-  // Output configuration for serverless platforms
-  output: 'standalone',
+  // Removed 'output: standalone' to fix Render health check timeout
+  // Regular mode works better with Render's PORT environment variable
 };
 
 export default nextConfig;
