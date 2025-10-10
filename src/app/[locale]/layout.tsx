@@ -31,10 +31,10 @@ const locales = ['en', 'ar'];
 
 // Force dynamic rendering for all pages to prevent SSR errors on client components
 export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+// Removed generateStaticParams to prevent static generation attempts
+// All pages will be rendered on-demand
 
 export async function generateMetadata({
   params,
