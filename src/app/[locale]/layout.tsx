@@ -29,12 +29,9 @@ const tajawal = Tajawal({
 
 const locales = ['en', 'ar'];
 
-// Force dynamic rendering for all pages to prevent SSR errors on client components
-export const dynamic = 'force-dynamic';
+// Dynamic rendering is handled by individual pages
+// Layout remains flexible for both static and dynamic pages
 export const dynamicParams = true;
-
-// Removed generateStaticParams to prevent static generation attempts
-// All pages will be rendered on-demand
 
 export async function generateMetadata({
   params,
