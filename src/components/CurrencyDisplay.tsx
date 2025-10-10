@@ -97,18 +97,12 @@ export function CurrencyDisplay({
   className = '',
 }: CurrencyDisplayProps) {
   const [currency, setCurrency] = useState<CurrencyInfo>(getCurrencyInfo('US'));
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     detectCountry().then((countryCode) => {
       setCurrency(getCurrencyInfo(countryCode));
-      setIsLoading(false);
     });
   }, []);
-
-  if (isLoading) {
-    return <span className={className}>Loading...</span>;
-  }
 
   const localAmount = convertCurrency(amountUSD, currency.rate);
   const formattedAmount = localAmount.toLocaleString();
@@ -127,12 +121,10 @@ export function CurrencyDisplay({
  */
 export function useCurrency() {
   const [currency, setCurrency] = useState<CurrencyInfo>(getCurrencyInfo('US'));
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     detectCountry().then((countryCode) => {
       setCurrency(getCurrencyInfo(countryCode));
-      setIsLoading(false);
     });
   }, []);
 
@@ -146,7 +138,6 @@ export function useCurrency() {
 
   return {
     currency,
-    isLoading,
     convert,
     format,
   };
@@ -162,11 +153,7 @@ interface PriceRangeProps {
 }
 
 export function CurrencyRange({ minUSD, maxUSD, className = '' }: PriceRangeProps) {
-  const { format, isLoading } = useCurrency();
-
-  if (isLoading) {
-    return <span className={className}>Loading...</span>;
-  }
+  const { format } = useCurrency();
 
   return (
     <span className={className}>
