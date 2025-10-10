@@ -3,9 +3,9 @@
  * Provides access to generated medical tourism content
  */
 
-import articlesData from '../../output/content_articles_full.json';
-import treatmentsData from '../../output/content_treatments_full.json';
-import citiesData from '../../output/content_cities_full.json';
+import articlesData from '../data/content_articles_full.json';
+import treatmentsData from '../data/content_treatments_full.json';
+import citiesData from '../data/content_cities_full.json';
 
 export interface ContentPage {
   url: string;
