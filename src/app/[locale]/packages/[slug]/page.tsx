@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import { generateMetadata as genMeta } from '@/lib/metadata';
+import { generateFullMetadata } from '@/lib/seo-helpers';
+import Breadcrumb from '@/components/SEO/Breadcrumb';
 import PackageDetailClient from './PackageDetailClient';
 
 interface PageProps {
@@ -53,20 +54,39 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Package Not Found' };
   }
 
-  const title = locale === 'ar' ? `${pkg.name_ar} - شفاء الهند` : `${pkg.name_en} - Shifa AlHind`;
-  const description = locale === 'ar' ? pkg.description_ar : pkg.description_en;
+  const isArabic = locale === 'ar';
+  const priceText = pkg.price
+    ? `${pkg.currency} ${pkg.price.toLocaleString()}`
+    : 'Competitive pricing';
 
-  return genMeta({
+  const title = isArabic
+    ? `${pkg.name_ar} - باقة شاملة للعلاج في الهند`
+    : `${pkg.name_en} - Complete Medical Tourism Package India`;
+
+  const description = isArabic
+    ? `${pkg.name_ar}: باقة شاملة للعلاج في الهند. السعر: ${priceText}. تشمل الاستشارة والعلاج والإقامة ودعم عربي كامل.`
+    : `${pkg.name_en}: All-inclusive medical tourism package in India. Price: ${priceText}. Includes consultation, treatment, accommodation, and complete Arabic support for GCC patients.`;
+
+  const keywords = [
+    pkg.name_en,
+    'medical tourism package India',
+    'all-inclusive healthcare package',
+    'medical travel package GCC',
+    'India treatment package',
+    'comprehensive medical care India',
+    'hospital package Bangalore',
+    'medical tourism GCC to India',
+    'Arabic support medical package',
+    'affordable medical package India',
+  ];
+
+  return generateFullMetadata({
     title,
     description,
-    locale,
+    keywords,
+    locale: locale as 'en' | 'ar',
     canonical: `/${locale}/packages/${slug}`,
-    keywords: [
-      'medical tourism package',
-      'India healthcare package',
-      'all-inclusive medical care',
-      'GCC patients India',
-    ],
+    ogType: 'website',
   });
 }
 
@@ -129,44 +149,26 @@ export default async function PackageDetailPage({ params }: PageProps) {
     },
   };
 
-  // BreadcrumbList Schema
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: `https://shifaalhind.com/${locale}`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Packages',
-        item: `https://shifaalhind.com/${locale}/packages`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: pkg.name_en,
-        item: `https://shifaalhind.com/${locale}/packages/${slug}`,
-      },
-    ],
-  };
+  // Breadcrumb items for navigation and schema
+  const breadcrumbItems = [
+    { name: locale === 'ar' ? 'الرئيسية' : 'Home', url: '/' },
+    { name: locale === 'ar' ? 'الباقات' : 'Packages', url: '/packages' },
+    { name: locale === 'ar' ? pkg.name_ar : pkg.name_en, url: `/packages/${slug}` },
+  ];
 
   return (
     <>
+      {/* Breadcrumb with JSON-LD Schema */}
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumb items={breadcrumbItems} locale={locale} />
+      </div>
+
       {/* Product Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
-      {/* Breadcrumb Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+
       <PackageDetailClient pkg={pkg} otherPackages={allPackages} locale={locale} />
     </>
   );

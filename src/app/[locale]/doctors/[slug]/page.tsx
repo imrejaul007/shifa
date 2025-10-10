@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import { generateMetadata as genMeta } from '@/lib/metadata';
+import { generateFullMetadata } from '@/lib/seo-helpers';
+import Breadcrumb from '@/components/SEO/Breadcrumb';
 import DoctorProfileClient from './DoctorProfileClient';
 
 interface PageProps {
@@ -61,25 +62,38 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Doctor Not Found' };
   }
 
-  const title =
-    locale === 'ar' ? doctor.seoTitle_ar || doctor.name_ar : doctor.seoTitle_en || doctor.name_en;
-  const description =
-    locale === 'ar'
-      ? doctor.seoDesc_ar || doctor.bio_ar.substring(0, 160)
-      : doctor.seoDesc_en || doctor.bio_en.substring(0, 160);
+  const isArabic = locale === 'ar';
+  const primarySpecialty = doctor.specialties[0] || 'Medical Specialist';
 
-  return genMeta({
+  const title = isArabic
+    ? doctor.seoTitle_ar || `${doctor.name_ar} - ${primarySpecialty} في بنغالور`
+    : doctor.seoTitle_en || `${doctor.name_en} - ${primarySpecialty} in Bangalore, India`;
+
+  const description = isArabic
+    ? doctor.seoDesc_ar ||
+      `${doctor.name_ar}: ${primarySpecialty} في بنغالور. ${doctor.bio_ar.substring(0, 120)} دعم عربي كامل.`
+    : doctor.seoDesc_en ||
+      `${doctor.name_en}: Experienced ${primarySpecialty} in Bangalore. ${doctor.bio_en.substring(0, 100)} Arabic support available.`;
+
+  const keywords = [
+    doctor.name_en,
+    ...doctor.specialties,
+    'doctor Bangalore India',
+    'medical specialist Bangalore',
+    'Arabic speaking doctor India',
+    'GCC patients doctor',
+    'international patient care',
+    `${primarySpecialty} Bangalore`,
+    'JCI hospital doctors',
+  ];
+
+  return generateFullMetadata({
     title,
     description,
-    locale,
+    keywords,
+    locale: locale as 'en' | 'ar',
     canonical: `/${locale}/doctors/${slug}`,
-    keywords: [
-      doctor.name_en,
-      ...doctor.specialties,
-      'doctor Bangalore',
-      'medical expert India',
-      'Arabic speaking doctor',
-    ],
+    ogType: 'website',
   });
 }
 
@@ -153,44 +167,26 @@ export default async function DoctorProfilePage({ params }: PageProps) {
     }),
   };
 
-  // BreadcrumbList Schema
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: `https://shifaalhind.com/${locale}`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Doctors',
-        item: `https://shifaalhind.com/${locale}/doctors`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: doctor.name_en,
-        item: `https://shifaalhind.com/${locale}/doctors/${slug}`,
-      },
-    ],
-  };
+  // Breadcrumb items for navigation and schema
+  const breadcrumbItems = [
+    { name: locale === 'ar' ? 'الرئيسية' : 'Home', url: '/' },
+    { name: locale === 'ar' ? 'الأطباء' : 'Doctors', url: '/doctors' },
+    { name: locale === 'ar' ? doctor.name_ar : doctor.name_en, url: `/doctors/${slug}` },
+  ];
 
   return (
     <>
+      {/* Breadcrumb with JSON-LD Schema */}
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumb items={breadcrumbItems} locale={locale} />
+      </div>
+
       {/* Physician Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }}
       />
-      {/* Breadcrumb Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+
       <DoctorProfileClient doctor={doctor} relatedDoctors={relatedDoctors} locale={locale} />
     </>
   );
