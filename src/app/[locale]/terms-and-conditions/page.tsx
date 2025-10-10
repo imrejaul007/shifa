@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import TermsClient from './TermsClient';
 
+// Force dynamic rendering to prevent static generation errors with browser APIs
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Terms & Conditions | Shifa Al Hind',
   description:

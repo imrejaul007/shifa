@@ -5,6 +5,10 @@ import { gccCountrySEO } from '@/lib/seo-data';
 import CountryLandingClient from './CountryLandingClient';
 import { prisma } from '@/lib/prisma';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every hour
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';
@@ -12,20 +16,29 @@ interface PageProps {
   }>;
 }
 
-const countries = ['from-uae', 'from-saudi-arabia', 'from-kuwait', 'from-oman', 'from-qatar', 'from-bahrain'];
+const countries = [
+  'from-uae',
+  'from-saudi-arabia',
+  'from-kuwait',
+  'from-oman',
+  'from-qatar',
+  'from-bahrain',
+];
 
-export async function generateStaticParams() {
-  const locales = ['en', 'ar'];
-  const params = [];
+// Comment out generateStaticParams to prevent build-time pre-rendering when DB is unavailable
+// Uncomment when database is available for static generation
+// export async function generateStaticParams() {
+//   const locales = ['en', 'ar'];
+//   const params = [];
 
-  for (const locale of locales) {
-    for (const country of countries) {
-      params.push({ locale, country });
-    }
-  }
+//   for (const locale of locales) {
+//     for (const country of countries) {
+//       params.push({ locale, country });
+//     }
+//   }
 
-  return params;
-}
+//   return params;
+// }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, country } = await params;
@@ -56,49 +69,67 @@ export default async function CountryLandingPage({ params }: PageProps) {
     notFound();
   }
 
-  // Fetch popular treatments
-  const treatments = await prisma.treatment.findMany({
-    where: { published: true, isArchived: false },
-    select: {
-      slug: true,
-      title_en: true,
-      title_ar: true,
-      summary_en: true,
-      summary_ar: true,
-      costMin: true,
-      costMax: true,
-    },
-    take: 6,
-    orderBy: { updatedAt: 'desc' },
-  });
+  // Fetch popular treatments with error handling
+  let treatments = [];
+  try {
+    treatments = await prisma.treatment.findMany({
+      where: { published: true, isArchived: false },
+      select: {
+        slug: true,
+        title_en: true,
+        title_ar: true,
+        summary_en: true,
+        summary_ar: true,
+        costMin: true,
+        costMax: true,
+      },
+      take: 6,
+      orderBy: { updatedAt: 'desc' },
+    });
+  } catch (error) {
+    console.error('Database not available during build, skipping static generation');
+    console.error(error);
+  }
 
-  // Fetch hospitals
-  const hospitals = await prisma.hospital.findMany({
-    where: { published: true, isArchived: false },
-    select: {
-      slug: true,
-      name_en: true,
-      name_ar: true,
-      accreditations: true,
-    },
-    take: 6,
-  });
+  // Fetch hospitals with error handling
+  let hospitals = [];
+  try {
+    hospitals = await prisma.hospital.findMany({
+      where: { published: true, isArchived: false },
+      select: {
+        slug: true,
+        name_en: true,
+        name_ar: true,
+        accreditations: true,
+      },
+      take: 6,
+    });
+  } catch (error) {
+    console.error('Database not available during build, skipping static generation');
+    console.error(error);
+  }
 
-  // Fetch testimonials/bookings from this country
+  // Fetch testimonials/bookings from this country with error handling
   const countryName = country
     .replace('from-', '')
     .split('-')
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
 
-  const bookings = await prisma.booking.findMany({
-    where: {
-      countryOfOrigin: { contains: countryName, mode: 'insensitive' },
-      status: { in: ['CONFIRMED', 'IN_TREATMENT', 'DISCHARGED'] },
-      isArchived: false,
-    },
-    select: { id: true },
-  });
+  let bookings = [];
+  try {
+    bookings = await prisma.booking.findMany({
+      where: {
+        countryOfOrigin: { contains: countryName, mode: 'insensitive' },
+        status: { in: ['CONFIRMED', 'IN_TREATMENT', 'DISCHARGED'] },
+        isArchived: false,
+      },
+      select: { id: true },
+    });
+  } catch (error) {
+    console.error('Database not available during build, skipping static generation');
+    console.error(error);
+  }
 
   return (
     <CountryLandingClient

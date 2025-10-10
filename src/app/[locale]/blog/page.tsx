@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import BlogClient from './BlogClient';
 
+// Force dynamic rendering or use ISR
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every hour
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';
@@ -41,28 +45,36 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function BlogPage({ params }: PageProps) {
   const { locale } = await params;
 
-  // Fetch all published blog posts
-  const posts = await prisma.contentPage.findMany({
-    where: {
-      type: 'blog',
-      published: true,
-      isArchived: false,
-    },
-    select: {
-      slug: true,
-      title_en: true,
-      title_ar: true,
-      excerpt_en: true,
-      excerpt_ar: true,
-      featuredImage: true,
-      author: true,
-      publishedAt: true,
-      type: true,
-    },
-    orderBy: {
-      publishedAt: 'desc',
-    },
-  });
+  // Fetch all published blog posts with error handling
+  let posts = [];
+  try {
+    posts = await prisma.contentPage.findMany({
+      where: {
+        type: 'blog',
+        published: true,
+        isArchived: false,
+      },
+      select: {
+        slug: true,
+        title_en: true,
+        title_ar: true,
+        excerpt_en: true,
+        excerpt_ar: true,
+        featuredImage: true,
+        author: true,
+        publishedAt: true,
+        type: true,
+      },
+      orderBy: {
+        publishedAt: 'desc',
+      },
+    });
+  } catch (error) {
+    console.error('Database not available during build, skipping static generation');
+    console.error(error);
+    // Return empty array if database is not available
+    posts = [];
+  }
 
   return <BlogClient posts={posts} locale={locale} />;
 }

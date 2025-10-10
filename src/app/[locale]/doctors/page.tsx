@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import DoctorsClient from './DoctorsClient';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every hour
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import PrivacyPolicyClient from './PrivacyPolicyClient';
 
+// Force dynamic rendering to prevent static generation errors with browser APIs
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({
   params: { locale },
 }: {

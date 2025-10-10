@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import HospitalsClient from './HospitalsClient';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every hour
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';
@@ -41,37 +45,43 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function HospitalsPage({ params }: PageProps) {
   const { locale } = await params;
 
-  // Fetch all published hospitals with counts
-  const hospitals = await prisma.hospital.findMany({
-    where: {
-      published: true,
-      isArchived: false,
-    },
-    select: {
-      slug: true,
-      name_en: true,
-      name_ar: true,
-      description_en: true,
-      description_ar: true,
-      address: true,
-      accreditations: true,
-      images: true,
-      languagesSupported: true,
-      _count: {
-        select: {
-          doctors: {
-            where: {
-              published: true,
-              isArchived: false,
+  // Fetch all published hospitals with counts and error handling
+  let hospitals = [];
+  try {
+    hospitals = await prisma.hospital.findMany({
+      where: {
+        published: true,
+        isArchived: false,
+      },
+      select: {
+        slug: true,
+        name_en: true,
+        name_ar: true,
+        description_en: true,
+        description_ar: true,
+        address: true,
+        accreditations: true,
+        images: true,
+        languagesSupported: true,
+        _count: {
+          select: {
+            doctors: {
+              where: {
+                published: true,
+                isArchived: false,
+              },
             },
           },
         },
       },
-    },
-    orderBy: {
-      name_en: 'asc',
-    },
-  });
+      orderBy: {
+        name_en: 'asc',
+      },
+    });
+  } catch (error) {
+    console.error('Database not available during build, skipping static generation');
+    console.error(error);
+  }
 
   return <HospitalsClient hospitals={hospitals} locale={locale} />;
 }

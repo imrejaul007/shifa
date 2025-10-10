@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import RefundPolicyClient from './RefundPolicyClient';
 
+// Force dynamic rendering to prevent static generation errors with browser APIs
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

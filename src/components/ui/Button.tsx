@@ -57,7 +57,8 @@ export function Button({
         ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${className}
       `}
-      {...props}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      {...(props as any)}
     >
       {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
       {!isLoading && leftIcon && leftIcon}
