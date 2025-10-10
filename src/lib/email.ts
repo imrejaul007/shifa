@@ -5,12 +5,25 @@
 
 import { Resend } from 'resend';
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Email configuration
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Shifa AlHind <noreply@shifaalhind.com>';
 const ADMIN_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 'admin@shifaalhind.com';
+
+// Lazy initialization of Resend to avoid build-time errors
+let resendInstance: Resend | null = null;
+
+function getResend(): Resend | null {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY is not configured. Email functionality will be disabled.');
+    return null;
+  }
+
+  if (!resendInstance) {
+    resendInstance = new Resend(process.env.RESEND_API_KEY);
+  }
+
+  return resendInstance;
+}
 
 export interface ConsultationEmailData {
   name: string;
@@ -164,6 +177,12 @@ export async function sendConsultationConfirmation(data: ConsultationEmailData) 
       </html>
     `;
 
+  const resend = getResend();
+  if (!resend) {
+    console.warn('Skipping consultation confirmation email - Resend not configured');
+    return { success: false, error: new Error('Email service not configured') };
+  }
+
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
@@ -258,6 +277,12 @@ export async function sendAdminConsultationNotification(data: ConsultationEmailD
     </body>
     </html>
   `;
+
+  const resend = getResend();
+  if (!resend) {
+    console.warn('Skipping admin consultation notification - Resend not configured');
+    return { success: false, error: new Error('Email service not configured') };
+  }
 
   try {
     await resend.emails.send({
@@ -389,6 +414,12 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
       </html>
     `;
 
+  const resend = getResend();
+  if (!resend) {
+    console.warn('Skipping booking confirmation email - Resend not configured');
+    return { success: false, error: new Error('Email service not configured') };
+  }
+
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
@@ -449,6 +480,12 @@ export async function sendAdminBookingNotification(data: BookingEmailData) {
     </html>
   `;
 
+  const resend = getResend();
+  if (!resend) {
+    console.warn('Skipping admin booking notification - Resend not configured');
+    return { success: false, error: new Error('Email service not configured') };
+  }
+
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
@@ -467,6 +504,12 @@ export async function sendAdminBookingNotification(data: BookingEmailData) {
  * Test email configuration
  */
 export async function testEmailConfiguration() {
+  const resend = getResend();
+  if (!resend) {
+    console.error('Cannot test email configuration - Resend API key not configured');
+    return { success: false, error: new Error('Email service not configured') };
+  }
+
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
