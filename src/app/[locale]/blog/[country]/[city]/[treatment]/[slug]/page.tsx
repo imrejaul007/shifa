@@ -13,21 +13,9 @@ interface PageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  const articles = getAllArticles();
-
-  // Generate first 50 articles statically, rest on-demand
-  return articles.slice(0, 50).map((article) => {
-    const urlParts = article.url.split('/');
-    return {
-      locale: urlParts[3],
-      country: urlParts[5],
-      city: urlParts[6],
-      treatment: urlParts[7],
-      slug: urlParts[8],
-    };
-  });
-}
+// Use dynamic rendering to avoid build errors with large datasets
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, country, city, treatment, slug } = await params;
@@ -240,6 +228,3 @@ export default async function ArticlePage({ params }: PageProps) {
     </>
   );
 }
-
-// Enable ISR
-export const revalidate = 3600; // Revalidate every hour
