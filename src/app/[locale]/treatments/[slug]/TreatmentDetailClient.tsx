@@ -107,11 +107,11 @@ export default function TreatmentDetailClient({
 
   return (
     <main
-      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      className={`min-h-screen bg-background pt-20 sm:pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero Section */}
-      <section className="relative py-12 lg:py-16">
+      <section className="relative py-8 sm:py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb */}
@@ -131,7 +131,7 @@ export default function TreatmentDetailClient({
             <span className="text-foreground">{title}</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
             {/* Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -143,32 +143,34 @@ export default function TreatmentDetailClient({
                 <span className="text-sm font-medium text-accent">Medical Treatment</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary mb-6 leading-tight">
                 {title}
               </h1>
 
-              <p className="text-lg text-muted-foreground mb-8">{summary}</p>
+              <p className="text-base sm:text-lg text-muted-foreground mb-8">{summary}</p>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
                 {treatment.costMin && (
-                  <Card hover={false} variant="outline" className="p-4">
+                  <Card hover={false} variant="outline" className="p-3 sm:p-4">
                     <div className="flex items-center gap-2 text-accent mb-1">
-                      <DollarSign className="w-5 h-5" />
-                      <span className="text-sm font-medium">{t.cost}</span>
+                      <DollarSign className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="text-xs sm:text-sm font-medium">{t.cost}</span>
                     </div>
-                    <p className="text-foreground font-semibold">
+                    <p className="text-sm sm:text-base text-foreground font-semibold">
                       ${treatment.costMin.toLocaleString()} - ${treatment.costMax?.toLocaleString()}
                     </p>
                   </Card>
                 )}
 
-                <Card hover={false} variant="outline" className="p-4">
+                <Card hover={false} variant="outline" className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 text-accent mb-1">
-                    <Award className="w-5 h-5" />
-                    <span className="text-sm font-medium">{t.bookings}</span>
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-xs sm:text-sm font-medium">{t.bookings}</span>
                   </div>
-                  <p className="text-foreground font-semibold">{treatment.bookings.length}+</p>
+                  <p className="text-sm sm:text-base text-foreground font-semibold">
+                    {treatment.bookings.length}+
+                  </p>
                 </Card>
               </div>
 
@@ -199,10 +201,10 @@ export default function TreatmentDetailClient({
         typeof contentBlocks === 'object' &&
         contentBlocks !== null &&
         'sections' in contentBlocks && (
-          <section className="py-16 lg:py-20">
+          <section className="py-12 sm:py-16 lg:py-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-6 sm:mb-8 leading-tight">
                   {t.overview}
                 </h2>
                 <div className="prose prose-lg max-w-none text-foreground/80">
@@ -213,12 +215,14 @@ export default function TreatmentDetailClient({
                         return (
                           <div key={index}>
                             {sec.type === 'heading' && (
-                              <h3 className="text-2xl font-bold text-primary mt-8 mb-4">
+                              <h3 className="text-xl sm:text-2xl font-bold text-primary mt-8 mb-4 leading-snug">
                                 {String(sec.content || '')}
                               </h3>
                             )}
                             {sec.type === 'paragraph' && (
-                              <p className="mb-4 leading-relaxed">{String(sec.content || '')}</p>
+                              <p className="text-base sm:text-lg mb-4 leading-relaxed">
+                                {String(sec.content || '')}
+                              </p>
                             )}
                             {sec.type === 'list' && Array.isArray(sec.items) && (
                               <ul className="list-disc list-inside space-y-2 mb-4">
@@ -239,12 +243,12 @@ export default function TreatmentDetailClient({
 
       {/* Partner Hospitals */}
       {hospitals.length > 0 && (
-        <section className="py-16 lg:py-20 bg-secondary/50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.partnerHospitals}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {hospitals.map((hospital, index) => (
                 <motion.div
                   key={hospital.id}
@@ -257,12 +261,12 @@ export default function TreatmentDetailClient({
                     <Card hover={true} variant="default">
                       <CardBody>
                         <div className="flex items-center gap-2 mb-3">
-                          <Shield className="w-5 h-5 text-accent" />
-                          <span className="text-xs font-semibold text-accent">
+                          <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
+                          <span className="text-xs sm:text-sm font-semibold text-accent">
                             {hospital.accreditations[0] || t.jciAccredited}
                           </span>
                         </div>
-                        <h3 className="text-xl font-display font-bold text-primary mb-2">
+                        <h3 className="text-lg sm:text-xl font-display font-bold text-primary mb-2 leading-snug">
                           {locale === 'ar' ? hospital.name_ar : hospital.name_en}
                         </h3>
                         <div className="flex items-center gap-2 mt-4 text-accent">
@@ -281,12 +285,12 @@ export default function TreatmentDetailClient({
 
       {/* Doctors */}
       {doctors.length > 0 && (
-        <section className="py-16 lg:py-20">
+        <section className="py-12 sm:py-16 lg:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.ourDoctors}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {doctors.map((doctor, index) => (
                 <motion.div
                   key={doctor.id}
@@ -298,13 +302,13 @@ export default function TreatmentDetailClient({
                   <Link href={`/${locale}/doctors/${doctor.slug}`}>
                     <Card hover={true} variant="default">
                       <CardBody>
-                        <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                          <User className="w-10 h-10 text-primary" />
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                          <User className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
                         </div>
-                        <h3 className="text-lg font-display font-bold text-primary text-center mb-2">
+                        <h3 className="text-base sm:text-lg font-display font-bold text-primary text-center mb-2">
                           {locale === 'ar' ? doctor.name_ar : doctor.name_en}
                         </h3>
-                        <p className="text-sm text-muted-foreground text-center mb-3">
+                        <p className="text-xs sm:text-sm text-muted-foreground text-center mb-3">
                           {doctor.specialties[0]}
                         </p>
                         <div className="flex flex-wrap gap-1 justify-center">
@@ -329,13 +333,13 @@ export default function TreatmentDetailClient({
 
       {/* FAQ */}
       {treatment.faq && Array.isArray(treatment.faq) && treatment.faq.length > 0 && (
-        <section className="py-16 lg:py-20 bg-secondary/50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
                 {t.faq}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {treatment.faq.map((item: unknown, index: number) => {
                   const faqItem = item as Record<string, unknown>;
                   const question =
@@ -354,12 +358,12 @@ export default function TreatmentDetailClient({
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-card p-6 rounded-2xl"
+                      className="bg-card p-4 sm:p-6 rounded-2xl"
                     >
-                      <h3 className="text-lg font-display font-bold text-primary mb-2">
+                      <h3 className="text-base sm:text-lg font-display font-bold text-primary mb-2 leading-snug">
                         {question}
                       </h3>
-                      <p className="text-muted-foreground">{answer}</p>
+                      <p className="text-sm sm:text-base text-muted-foreground">{answer}</p>
                     </motion.div>
                   );
                 })}
@@ -371,12 +375,12 @@ export default function TreatmentDetailClient({
 
       {/* Related Treatments */}
       {relatedTreatments.length > 0 && (
-        <section className="py-16 lg:py-20">
+        <section className="py-12 sm:py-16 lg:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.relatedTreatments}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {relatedTreatments.map((related, index) => (
                 <motion.div
                   key={related.slug}
@@ -388,10 +392,10 @@ export default function TreatmentDetailClient({
                   <Link href={`/${locale}/treatments/${related.slug}`}>
                     <Card hover={true} variant="default">
                       <CardBody>
-                        <h3 className="text-xl font-display font-bold text-primary mb-2">
+                        <h3 className="text-lg sm:text-xl font-display font-bold text-primary mb-2 leading-snug">
                           {locale === 'ar' ? related.title_ar : related.title_en}
                         </h3>
-                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-2">
                           {locale === 'ar' ? related.summary_ar : related.summary_en}
                         </p>
                         {related.costMin && (
@@ -414,18 +418,20 @@ export default function TreatmentDetailClient({
       )}
 
       {/* CTA */}
-      <section className="py-16 lg:py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto glass rounded-3xl p-8 sm:p-12 text-center"
+            className="max-w-4xl mx-auto glass rounded-3xl p-6 sm:p-8 lg:p-12 text-center"
           >
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-4 leading-tight">
               {t.readyToBegin}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">{t.freeConsultation}</p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              {t.freeConsultation}
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ButtonLink
                 href={`/${locale}/consultation`}

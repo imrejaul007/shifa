@@ -109,11 +109,11 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
 
   return (
     <main
-      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      className={`min-h-screen bg-background pt-20 sm:pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero */}
-      <section className="relative py-12 lg:py-16">
+      <section className="relative py-8 sm:py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb */}
@@ -133,7 +133,7 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
             <span className="text-foreground">{name}</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
             {/* Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -141,11 +141,11 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Building2 className="w-10 h-10 text-primary" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Building2 className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-2">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-2 leading-tight">
                     {name}
                   </h1>
                   <div className="flex items-center gap-2 text-muted-foreground">
@@ -171,21 +171,25 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <Card hover={false} variant="outline" className="p-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
+                <Card hover={false} variant="outline" className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 text-accent mb-1">
-                    <Users className="w-5 h-5" />
-                    <span className="text-sm font-medium">{t.doctors}</span>
+                    <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-xs sm:text-sm font-medium">{t.doctors}</span>
                   </div>
-                  <p className="text-foreground font-semibold">{hospital._count.doctors}+</p>
+                  <p className="text-sm sm:text-base text-foreground font-semibold">
+                    {hospital._count.doctors}+
+                  </p>
                 </Card>
 
-                <Card hover={false} variant="outline" className="p-4">
+                <Card hover={false} variant="outline" className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 text-accent mb-1">
-                    <Star className="w-5 h-5" />
-                    <span className="text-sm font-medium">{t.patientsServed}</span>
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-xs sm:text-sm font-medium">{t.patientsServed}</span>
                   </div>
-                  <p className="text-foreground font-semibold">{hospital.bookings.length}+</p>
+                  <p className="text-sm sm:text-base text-foreground font-semibold">
+                    {hospital.bookings.length}+
+                  </p>
                 </Card>
               </div>
 
@@ -212,13 +216,13 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
       </section>
 
       {/* About */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-6 sm:mb-8 leading-tight">
               {t.about} {name}
             </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed whitespace-pre-line">
+            <p className="text-base sm:text-lg text-foreground/80 leading-relaxed whitespace-pre-line">
               {description}
             </p>
           </div>
@@ -226,15 +230,15 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
       </section>
 
       {/* Features */}
-      <section className="py-16 lg:py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Accreditations */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <Award className="w-6 h-6 text-accent" />
-                  <h3 className="text-xl font-bold text-primary">{t.accreditations}</h3>
+                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
+                  <h3 className="text-lg sm:text-xl font-bold text-primary">{t.accreditations}</h3>
                 </div>
                 <ul className="space-y-2">
                   {hospital.accreditations.map((acc, index) => (
@@ -249,8 +253,8 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
               {/* Languages */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <Languages className="w-6 h-6 text-accent" />
-                  <h3 className="text-xl font-bold text-primary">{t.languages}</h3>
+                  <Languages className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
+                  <h3 className="text-lg sm:text-xl font-bold text-primary">{t.languages}</h3>
                 </div>
                 <ul className="space-y-2">
                   {hospital.languagesSupported.map((lang, index) => (
@@ -268,12 +272,12 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
 
       {/* Doctors */}
       {hospital.doctors.length > 0 && (
-        <section className="py-16 lg:py-20">
+        <section className="py-12 sm:py-16 lg:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.ourDoctors}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {hospital.doctors.slice(0, 6).map((doctor, index) => (
                 <motion.div
                   key={doctor.id}
@@ -285,13 +289,13 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
                   <Link href={`/${locale}/doctors/${doctor.slug}`}>
                     <Card hover={true} variant="default">
                       <CardBody>
-                        <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                          <User className="w-10 h-10 text-primary" />
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                          <User className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
                         </div>
-                        <h3 className="text-lg font-display font-bold text-primary text-center mb-2">
+                        <h3 className="text-base sm:text-lg font-display font-bold text-primary text-center mb-2">
                           {locale === 'ar' ? doctor.name_ar : doctor.name_en}
                         </h3>
-                        <p className="text-sm text-muted-foreground text-center mb-3">
+                        <p className="text-xs sm:text-sm text-muted-foreground text-center mb-3">
                           {doctor.specialties[0]}
                         </p>
                         <div className="flex flex-wrap gap-1 justify-center">
@@ -316,12 +320,12 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
 
       {/* Treatments */}
       {treatments.length > 0 && (
-        <section className="py-16 lg:py-20 bg-secondary/50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.availableTreatments}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {treatments.map((treatment, index) => (
                 <motion.div
                   key={treatment.slug}
@@ -333,10 +337,10 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
                   <Link href={`/${locale}/treatments/${treatment.slug}`}>
                     <Card hover={true} variant="default">
                       <CardBody>
-                        <h3 className="text-xl font-display font-bold text-primary mb-2">
+                        <h3 className="text-lg sm:text-xl font-display font-bold text-primary mb-2 leading-snug">
                           {locale === 'ar' ? treatment.title_ar : treatment.title_en}
                         </h3>
-                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-2">
                           {locale === 'ar' ? treatment.summary_ar : treatment.summary_en}
                         </p>
                         {treatment.costMin && (
@@ -359,18 +363,20 @@ export default function HospitalDetailClient({ hospital, treatments, locale }: P
       )}
 
       {/* CTA */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto glass rounded-3xl p-8 sm:p-12 text-center"
+            className="max-w-4xl mx-auto glass rounded-3xl p-6 sm:p-8 lg:p-12 text-center"
           >
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-4 leading-tight">
               {t.readyToVisit}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">{t.scheduleVisit}</p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              {t.scheduleVisit}
+            </p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

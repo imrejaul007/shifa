@@ -84,17 +84,17 @@ export default function BlogClient({ posts, locale }: Props) {
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-primary/5 to-transparent">
+      <section className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 bg-gradient-to-b from-primary/5 to-transparent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {t.title}
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">{t.subtitle}</p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-8">{t.subtitle}</p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -109,7 +109,7 @@ export default function BlogClient({ posts, locale }: Props) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t.search}
-                  className={`w-full py-4 rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent ${
+                  className={`w-full min-h-[52px] py-4 text-base rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent ${
                     locale === 'ar' ? 'pr-12 pl-4' : 'pl-12 pr-4'
                   }`}
                 />
@@ -132,10 +132,10 @@ export default function BlogClient({ posts, locale }: Props) {
       </section>
 
       {/* Blog Posts Grid */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filteredPosts.map((post, index) => {
                 const title = locale === 'ar' ? post.title_ar : post.title_en;
                 const excerpt = locale === 'ar' ? post.excerpt_ar : post.excerpt_en;
@@ -151,18 +151,14 @@ export default function BlogClient({ posts, locale }: Props) {
                     <Link href={`/${locale}/blog/${post.slug}`}>
                       <Card hover={true} variant="default" className="h-full flex flex-col">
                         {post.featuredImage && (
-                          <CardImage
-                            src={post.featuredImage}
-                            alt={title}
-                            aspectRatio="16/9"
-                          />
+                          <CardImage src={post.featuredImage} alt={title} aspectRatio="16/9" />
                         )}
                         <CardBody className="flex-1 flex flex-col">
-                          <h3 className="text-2xl font-display font-bold text-primary mb-3 line-clamp-2">
+                          <h3 className="text-xl sm:text-2xl font-display font-bold text-primary leading-snug mb-3 line-clamp-2">
                             {title}
                           </h3>
                           {excerpt && (
-                            <p className="text-muted-foreground mb-4 line-clamp-3 flex-1">
+                            <p className="text-base sm:text-lg text-muted-foreground mb-4 line-clamp-3 flex-1">
                               {excerpt}
                             </p>
                           )}
@@ -208,17 +204,19 @@ export default function BlogClient({ posts, locale }: Props) {
               className="text-center py-20"
             >
               <div className="mb-4">
-                <Search className="w-16 h-16 text-muted-foreground mx-auto opacity-30" />
+                <Search className="w-12 h-12 sm:w-14 sm:h-14 text-muted-foreground mx-auto opacity-30" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-2">{t.noResults}</h3>
-              <p className="text-muted-foreground">{t.tryAgain}</p>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
+                {t.noResults}
+              </h3>
+              <p className="text-base sm:text-lg text-muted-foreground">{t.tryAgain}</p>
             </motion.div>
           )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary/5">
+      <section className="py-12 sm:py-16 lg:py-20 bg-primary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -226,10 +224,10 @@ export default function BlogClient({ posts, locale }: Props) {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center glass rounded-3xl p-8 sm:p-12"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-primary mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {t.ctaTitle}
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">{t.ctaDesc}</p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-8">{t.ctaDesc}</p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

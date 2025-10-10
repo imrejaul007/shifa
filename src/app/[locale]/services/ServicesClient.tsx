@@ -10,10 +10,8 @@ import {
   Languages,
   Phone,
   Wallet,
-
   Shield,
   Heart,
-
   Users,
   CheckCircle2,
   ArrowRight,
@@ -194,7 +192,8 @@ const content = {
         {
           number: '1',
           title: 'Initial Consultation',
-          description: 'Share your medical reports and we provide a treatment plan with cost estimate',
+          description:
+            'Share your medical reports and we provide a treatment plan with cost estimate',
         },
         {
           number: '2',
@@ -408,7 +407,8 @@ const content = {
         {
           number: '3',
           title: 'الوصول والقبول',
-          description: 'الاستقبال في المطار وتسجيل الوصول في الفندق والقبول في المستشفى مع الدعم الكامل',
+          description:
+            'الاستقبال في المطار وتسجيل الوصول في الفندق والقبول في المستشفى مع الدعم الكامل',
         },
         {
           number: '4',
@@ -445,26 +445,26 @@ export default function ServicesClient({ locale }: Props) {
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-primary/5 to-transparent">
+      <section className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 bg-gradient-to-b from-primary/5 to-transparent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-6">
               {t.title}
             </h1>
-            <p className="text-2xl text-accent mb-4">{t.subtitle}</p>
-            <p className="text-lg text-muted-foreground">{t.tagline}</p>
+            <p className="text-xl sm:text-2xl md:text-3xl text-accent mb-4">{t.subtitle}</p>
+            <p className="text-base sm:text-lg text-muted-foreground">{t.tagline}</p>
           </motion.div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
             {t.services.map((service, index) => {
               const Icon = service.icon;
               return (
@@ -477,8 +477,10 @@ export default function ServicesClient({ locale }: Props) {
                 >
                   <Card variant="default" className="h-full">
                     <CardBody>
-                      <Icon className="w-12 h-12 text-accent mb-4" />
-                      <h3 className="text-2xl font-bold text-primary mb-2">{service.title}</h3>
+                      <Icon className="w-12 h-12 sm:w-14 sm:h-14 text-accent mb-4" />
+                      <h3 className="text-xl sm:text-2xl font-bold text-primary mb-2">
+                        {service.title}
+                      </h3>
                       <p className="text-muted-foreground mb-4">{service.description}</p>
                       <ul className="space-y-2">
                         {service.features.map((feature, idx) => (
@@ -498,17 +500,17 @@ export default function ServicesClient({ locale }: Props) {
       </section>
 
       {/* Why Different */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary mb-12 text-center"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-12 text-center"
           >
             {t.whyDifferent.title}
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {t.whyDifferent.points.map((point, index) => {
               const Icon = point.icon;
               return (
@@ -521,8 +523,10 @@ export default function ServicesClient({ locale }: Props) {
                 >
                   <Card variant="outline" className="h-full">
                     <CardBody className="text-center">
-                      <Icon className="w-12 h-12 text-accent mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-primary mb-3">{point.title}</h3>
+                      <Icon className="w-12 h-12 sm:w-14 sm:h-14 text-accent mx-auto mb-4" />
+                      <h3 className="text-lg sm:text-xl font-bold text-primary mb-3">
+                        {point.title}
+                      </h3>
                       <p className="text-muted-foreground">{point.description}</p>
                     </CardBody>
                   </Card>
@@ -534,13 +538,13 @@ export default function ServicesClient({ locale }: Props) {
       </section>
 
       {/* Process */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary mb-12 text-center"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-12 text-center"
           >
             {t.process.title}
           </motion.h2>
@@ -555,13 +559,13 @@ export default function ServicesClient({ locale }: Props) {
                 className="flex gap-6 mb-8 last:mb-0"
               >
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center">
-                    <span className="text-2xl font-bold text-white">{step.number}</span>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-accent flex items-center justify-center">
+                    <span className="text-xl sm:text-2xl font-bold text-white">{step.number}</span>
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-primary mb-2">{step.title}</h3>
-                  <p className="text-lg text-muted-foreground">{step.description}</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-2">{step.title}</h3>
+                  <p className="text-base sm:text-lg text-muted-foreground">{step.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -570,7 +574,7 @@ export default function ServicesClient({ locale }: Props) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-accent">
+      <section className="py-12 sm:py-16 lg:py-20 bg-accent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -578,10 +582,10 @@ export default function ServicesClient({ locale }: Props) {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-white mb-6">
               {t.cta.title}
             </h2>
-            <p className="text-xl text-white/90 mb-8">{t.cta.description}</p>
+            <p className="text-base sm:text-lg text-white/90 mb-8">{t.cta.description}</p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

@@ -78,11 +78,11 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
 
   return (
     <main
-      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      className={`min-h-screen bg-background pt-20 sm:pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero */}
-      <section className="relative py-12 lg:py-16">
+      <section className="relative py-8 sm:py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb */}
@@ -102,7 +102,7 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
             <span className="text-foreground">{name}</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
             {/* Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -114,31 +114,33 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
                 <span className="text-sm font-medium text-accent">{t.perfectChoice}</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary mb-6 leading-tight">
                 {name}
               </h1>
 
-              <p className="text-lg text-muted-foreground mb-8">{description}</p>
+              <p className="text-base sm:text-lg text-muted-foreground mb-8">{description}</p>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <Card hover={false} variant="outline" className="p-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
+                <Card hover={false} variant="outline" className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 text-accent mb-1">
-                    <DollarSign className="w-5 h-5" />
-                    <span className="text-sm font-medium">{t.price}</span>
+                    <DollarSign className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-xs sm:text-sm font-medium">{t.price}</span>
                   </div>
-                  <p className="text-foreground font-semibold text-2xl">
+                  <p className="text-lg sm:text-2xl text-foreground font-semibold">
                     ${pkg.price.toLocaleString()}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">{pkg.currency}</p>
                 </Card>
 
-                <Card hover={false} variant="outline" className="p-4">
+                <Card hover={false} variant="outline" className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 text-accent mb-1">
-                    <Star className="w-5 h-5" />
-                    <span className="text-sm font-medium">{t.patients}</span>
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-xs sm:text-sm font-medium">{t.patients}</span>
                   </div>
-                  <p className="text-foreground font-semibold text-2xl">{pkg.bookings.length}+</p>
+                  <p className="text-lg sm:text-2xl text-foreground font-semibold">
+                    {pkg.bookings.length}+
+                  </p>
                 </Card>
               </div>
 
@@ -172,13 +174,13 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
       </section>
 
       {/* Features */}
-      <section className="py-16 lg:py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.whatsIncluded}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {features.map((feature: unknown, index: number) => {
                 const featureText = typeof feature === 'string' ? feature : String(feature);
                 return (
@@ -189,9 +191,13 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <Card hover={false} variant="default" className="flex items-start gap-3 p-4">
-                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{featureText}</span>
+                    <Card
+                      hover={false}
+                      variant="default"
+                      className="flex items-start gap-3 p-3 sm:p-4"
+                    >
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base text-foreground">{featureText}</span>
                     </Card>
                   </motion.div>
                 );
@@ -203,12 +209,12 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
 
       {/* Other Packages */}
       {otherPackages.length > 0 && (
-        <section className="py-16 lg:py-20">
+        <section className="py-12 sm:py-16 lg:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.otherPackages}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
               {otherPackages.map((other, index) => (
                 <motion.div
                   key={other.slug}
@@ -220,13 +226,13 @@ export default function PackageDetailClient({ pkg, otherPackages, locale }: Prop
                   <Link href={`/${locale}/packages/${other.slug}`}>
                     <Card hover={true} variant="default">
                       <CardBody>
-                        <h3 className="text-2xl font-display font-bold text-primary mb-2">
+                        <h3 className="text-xl sm:text-2xl font-display font-bold text-primary mb-2 leading-snug">
                           {locale === 'ar' ? other.name_ar : other.name_en}
                         </h3>
-                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-2">
                           {locale === 'ar' ? other.description_ar : other.description_en}
                         </p>
-                        <p className="text-accent font-semibold text-xl mb-4">
+                        <p className="text-lg sm:text-xl text-accent font-semibold mb-4">
                           ${other.price.toLocaleString()}
                         </p>
                         <div className="flex items-center gap-2 text-primary">

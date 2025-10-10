@@ -35,25 +35,28 @@ const content = {
       paragraphs: [
         'Shifa AlHind was founded with a simple yet powerful mission: to make world-class medical care accessible and affordable for patients from the GCC region. We recognized the challenges faced by Arabic-speaking patients seeking treatment abroad – language barriers, cultural differences, complex logistics, and uncertainty about quality of care.',
         'What started as a small team of passionate medical tourism coordinators has grown into a comprehensive healthcare facilitation service, trusted by thousands of families across the Gulf region. We combine deep cultural understanding with extensive medical expertise to create a seamless, comfortable healthcare journey.',
-        'Today, we proudly partner with India\'s top JCI-accredited hospitals and internationally trained doctors, offering treatments across 50+ specialties at costs 60-80% lower than Western countries, without compromising on quality or safety.',
+        "Today, we proudly partner with India's top JCI-accredited hospitals and internationally trained doctors, offering treatments across 50+ specialties at costs 60-80% lower than Western countries, without compromising on quality or safety.",
       ],
     },
 
     mission: {
       title: 'Our Mission',
-      description: 'To provide seamless, culturally sensitive medical tourism services that bridge the gap between GCC patients and world-class healthcare in India, ensuring affordable, high-quality treatment with dignity and care.',
+      description:
+        'To provide seamless, culturally sensitive medical tourism services that bridge the gap between GCC patients and world-class healthcare in India, ensuring affordable, high-quality treatment with dignity and care.',
     },
 
     vision: {
       title: 'Our Vision',
-      description: 'To become the most trusted medical tourism partner for the GCC region, known for exceptional patient care, transparency, and successful health outcomes that transform lives.',
+      description:
+        'To become the most trusted medical tourism partner for the GCC region, known for exceptional patient care, transparency, and successful health outcomes that transform lives.',
     },
 
     values: [
       {
         icon: Heart,
         title: 'Patient-First Care',
-        description: 'Every decision we make prioritizes patient well-being, comfort, and successful outcomes.',
+        description:
+          'Every decision we make prioritizes patient well-being, comfort, and successful outcomes.',
       },
       {
         icon: Shield,
@@ -63,12 +66,14 @@ const content = {
       {
         icon: Globe,
         title: 'Cultural Sensitivity',
-        description: 'Deep understanding of Arabic culture, halal food, prayer facilities, and family values.',
+        description:
+          'Deep understanding of Arabic culture, halal food, prayer facilities, and family values.',
       },
       {
         icon: Users,
         title: 'Personalized Support',
-        description: '24/7 Arabic-speaking coordinators guide you through every step of your journey.',
+        description:
+          '24/7 Arabic-speaking coordinators guide you through every step of your journey.',
       },
       {
         icon: CheckCircle2,
@@ -97,7 +102,8 @@ const content = {
         {
           icon: Languages,
           title: 'Arabic Language Support',
-          description: 'Native Arabic speakers throughout your journey – from first inquiry to post-treatment follow-up.',
+          description:
+            'Native Arabic speakers throughout your journey – from first inquiry to post-treatment follow-up.',
         },
         {
           icon: Shield,
@@ -107,22 +113,26 @@ const content = {
         {
           icon: Heart,
           title: 'Comprehensive Care Packages',
-          description: 'All-inclusive packages covering medical care, accommodation, meals, and local transport.',
+          description:
+            'All-inclusive packages covering medical care, accommodation, meals, and local transport.',
         },
         {
           icon: Plane,
           title: 'End-to-End Coordination',
-          description: 'From visa assistance to airport pickup, hospital admission to post-discharge care.',
+          description:
+            'From visa assistance to airport pickup, hospital admission to post-discharge care.',
         },
         {
           icon: CheckCircle2,
           title: 'Transparent Pricing',
-          description: 'Clear, upfront costs with no hidden fees. 60-80% savings compared to GCC countries.',
+          description:
+            'Clear, upfront costs with no hidden fees. 60-80% savings compared to GCC countries.',
         },
         {
           icon: Globe,
           title: 'Cultural Understanding',
-          description: 'Halal meals, prayer facilities, gender-specific care, and respect for Islamic values.',
+          description:
+            'Halal meals, prayer facilities, gender-specific care, and respect for Islamic values.',
         },
       ],
     },
@@ -150,12 +160,14 @@ const content = {
 
     mission: {
       title: 'مهمتنا',
-      description: 'تقديم خدمات سياحة علاجية سلسة وحساسة ثقافيًا تربط بين مرضى دول مجلس التعاون الخليجي والرعاية الصحية عالمية المستوى في الهند، مما يضمن علاجًا عالي الجودة وبأسعار معقولة بكرامة ورعاية.',
+      description:
+        'تقديم خدمات سياحة علاجية سلسة وحساسة ثقافيًا تربط بين مرضى دول مجلس التعاون الخليجي والرعاية الصحية عالمية المستوى في الهند، مما يضمن علاجًا عالي الجودة وبأسعار معقولة بكرامة ورعاية.',
     },
 
     vision: {
       title: 'رؤيتنا',
-      description: 'أن نصبح الشريك الأكثر موثوقية في السياحة العلاجية لمنطقة دول مجلس التعاون الخليجي، المعروف برعاية المرضى الاستثنائية والشفافية والنتائج الصحية الناجحة التي تحول الحياة.',
+      description:
+        'أن نصبح الشريك الأكثر موثوقية في السياحة العلاجية لمنطقة دول مجلس التعاون الخليجي، المعروف برعاية المرضى الاستثنائية والشفافية والنتائج الصحية الناجحة التي تحول الحياة.',
     },
 
     values: [
@@ -177,7 +189,8 @@ const content = {
       {
         icon: Users,
         title: 'دعم شخصي',
-        description: 'منسقون ناطقون بالعربية على مدار الساعة طوال أيام الأسبوع يرشدونك خلال كل خطوة من رحلتك.',
+        description:
+          'منسقون ناطقون بالعربية على مدار الساعة طوال أيام الأسبوع يرشدونك خلال كل خطوة من رحلتك.',
       },
       {
         icon: CheckCircle2,
@@ -206,7 +219,8 @@ const content = {
         {
           icon: Languages,
           title: 'دعم اللغة العربية',
-          description: 'متحدثون أصليون بالعربية طوال رحلتك - من الاستفسار الأول إلى المتابعة بعد العلاج.',
+          description:
+            'متحدثون أصليون بالعربية طوال رحلتك - من الاستفسار الأول إلى المتابعة بعد العلاج.',
         },
         {
           icon: Shield,
@@ -221,12 +235,14 @@ const content = {
         {
           icon: Plane,
           title: 'تنسيق شامل',
-          description: 'من المساعدة في التأشيرة إلى الاستقبال في المطار، والقبول في المستشفى إلى الرعاية بعد الخروج.',
+          description:
+            'من المساعدة في التأشيرة إلى الاستقبال في المطار، والقبول في المستشفى إلى الرعاية بعد الخروج.',
         },
         {
           icon: CheckCircle2,
           title: 'تسعير شفاف',
-          description: 'تكاليف واضحة ومقدمة بدون رسوم خفية. توفير 60-80٪ مقارنة بدول مجلس التعاون الخليجي.',
+          description:
+            'تكاليف واضحة ومقدمة بدون رسوم خفية. توفير 60-80٪ مقارنة بدول مجلس التعاون الخليجي.',
         },
         {
           icon: Globe,
@@ -253,26 +269,26 @@ export default function AboutClient({ locale }: Props) {
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-primary/5 to-transparent">
+      <section className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 bg-gradient-to-b from-primary/5 to-transparent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-6">
               {t.title}
             </h1>
-            <p className="text-2xl text-accent mb-4">{t.subtitle}</p>
-            <p className="text-lg text-muted-foreground">{t.tagline}</p>
+            <p className="text-xl sm:text-2xl md:text-3xl text-accent mb-4">{t.subtitle}</p>
+            <p className="text-base sm:text-lg text-muted-foreground">{t.tagline}</p>
           </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-primary text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8">
             {t.stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -284,8 +300,10 @@ export default function AboutClient({ locale }: Props) {
                   transition={{ delay: index * 0.1 }}
                   className="text-center"
                 >
-                  <Icon className="w-10 h-10 mx-auto mb-3 text-accent" />
-                  <div className="text-3xl md:text-4xl font-bold mb-2">{stat.number}</div>
+                  <Icon className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 text-accent" />
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+                    {stat.number}
+                  </div>
                   <div className="text-sm text-white/80">{stat.label}</div>
                 </motion.div>
               );
@@ -295,7 +313,7 @@ export default function AboutClient({ locale }: Props) {
       </section>
 
       {/* Our Story */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -303,10 +321,10 @@ export default function AboutClient({ locale }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-5xl font-display font-bold text-primary mb-8 text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-8 text-center">
                 {t.story.title}
               </h2>
-              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+              <div className="space-y-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
                 {t.story.paragraphs.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
@@ -317,9 +335,9 @@ export default function AboutClient({ locale }: Props) {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: locale === 'ar' ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -327,11 +345,11 @@ export default function AboutClient({ locale }: Props) {
             >
               <Card variant="default" className="h-full">
                 <CardBody className="text-center">
-                  <Target className="w-16 h-16 text-accent mx-auto mb-6" />
-                  <h3 className="text-3xl font-display font-bold text-primary mb-4">
+                  <Target className="w-14 h-14 sm:w-16 sm:h-16 text-accent mx-auto mb-6" />
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-bold leading-tight text-primary mb-4">
                     {t.mission.title}
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                     {t.mission.description}
                   </p>
                 </CardBody>
@@ -345,11 +363,11 @@ export default function AboutClient({ locale }: Props) {
             >
               <Card variant="default" className="h-full">
                 <CardBody className="text-center">
-                  <Eye className="w-16 h-16 text-accent mx-auto mb-6" />
-                  <h3 className="text-3xl font-display font-bold text-primary mb-4">
+                  <Eye className="w-14 h-14 sm:w-16 sm:h-16 text-accent mx-auto mb-6" />
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-bold leading-tight text-primary mb-4">
                     {t.vision.title}
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                     {t.vision.description}
                   </p>
                 </CardBody>
@@ -360,17 +378,17 @@ export default function AboutClient({ locale }: Props) {
       </section>
 
       {/* Values */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary mb-12 text-center"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-12 text-center"
           >
             {locale === 'ar' ? 'قيمنا' : 'Our Values'}
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {t.values.map((value, index) => {
               const Icon = value.icon;
               return (
@@ -383,8 +401,10 @@ export default function AboutClient({ locale }: Props) {
                 >
                   <Card variant="outline" className="h-full">
                     <CardBody className="text-center">
-                      <Icon className="w-12 h-12 text-accent mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-primary mb-3">{value.title}</h3>
+                      <Icon className="w-12 h-12 sm:w-14 sm:h-14 text-accent mx-auto mb-4" />
+                      <h3 className="text-lg sm:text-xl font-bold text-primary mb-3">
+                        {value.title}
+                      </h3>
                       <p className="text-muted-foreground">{value.description}</p>
                     </CardBody>
                   </Card>
@@ -396,17 +416,17 @@ export default function AboutClient({ locale }: Props) {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-primary/5">
+      <section className="py-12 sm:py-16 lg:py-20 bg-primary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary mb-12 text-center"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-primary mb-12 text-center"
           >
             {t.whyChoose.title}
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {t.whyChoose.reasons.map((reason, index) => {
               const Icon = reason.icon;
               return (
@@ -419,8 +439,10 @@ export default function AboutClient({ locale }: Props) {
                 >
                   <Card variant="default" className="h-full">
                     <CardBody>
-                      <Icon className="w-10 h-10 text-accent mb-4" />
-                      <h3 className="text-xl font-bold text-primary mb-3">{reason.title}</h3>
+                      <Icon className="w-12 h-12 sm:w-14 sm:h-14 text-accent mb-4" />
+                      <h3 className="text-lg sm:text-xl font-bold text-primary mb-3">
+                        {reason.title}
+                      </h3>
                       <p className="text-muted-foreground">{reason.description}</p>
                     </CardBody>
                   </Card>
@@ -432,7 +454,7 @@ export default function AboutClient({ locale }: Props) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-accent">
+      <section className="py-12 sm:py-16 lg:py-20 bg-accent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -440,10 +462,10 @@ export default function AboutClient({ locale }: Props) {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-white mb-6">
               {t.cta.title}
             </h2>
-            <p className="text-xl text-white/90 mb-8">{t.cta.description}</p>
+            <p className="text-base sm:text-lg text-white/90 mb-8">{t.cta.description}</p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

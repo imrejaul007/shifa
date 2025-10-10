@@ -3,19 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { trackBookingRequest } from '@/components/Analytics';
-import {
-
-
-  Video,
-  MapPin,
-  CheckCircle2,
-
-
-
-  MessageSquare,
-
-  CalendarDays,
-} from 'lucide-react';
+import { Video, MapPin, CheckCircle2, MessageSquare, CalendarDays } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 
 const locale = 'en'; // Will be dynamic with next-intl
@@ -118,7 +106,9 @@ export default function BookingPage() {
     notes: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -146,7 +136,7 @@ export default function BookingPage() {
 
   if (isSubmitted) {
     return (
-      <main className="min-h-screen bg-background pt-24 flex items-center justify-center">
+      <main className="min-h-screen bg-background pt-20 sm:pt-24 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -161,7 +151,7 @@ export default function BookingPage() {
             <CheckCircle2 className="w-12 h-12 text-white" />
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-4">
             {t.successTitle}
           </h1>
           <p className="text-lg text-muted-foreground mb-4">{t.successMessage}</p>
@@ -174,7 +164,8 @@ export default function BookingPage() {
                 {t.doctors.find((d) => d.id.toString() === formData.doctor)?.name}
               </p>
               <p>
-                <strong>Type:</strong> {consultationType === 'video' ? t.videoConsultation : t.inPerson}
+                <strong>Type:</strong>{' '}
+                {consultationType === 'video' ? t.videoConsultation : t.inPerson}
               </p>
               <p>
                 <strong>Date:</strong> {formData.date}
@@ -186,18 +177,10 @@ export default function BookingPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ButtonLink
-              href="/en"
-              variant="gold"
-              size="lg"
-            >
+            <ButtonLink href="/en" variant="gold" size="lg">
               {t.backHome}
             </ButtonLink>
-            <ButtonLink
-              href="/en/treatments"
-              variant="outline"
-              size="lg"
-            >
+            <ButtonLink href="/en/treatments" variant="outline" size="lg">
               {t.viewTreatments}
             </ButtonLink>
           </div>
@@ -207,9 +190,9 @@ export default function BookingPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background pt-24 pb-16">
+    <main className="min-h-screen bg-background pt-20 sm:pt-24 pb-12 sm:pb-16">
       {/* Hero */}
-      <section className="relative py-12 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 emerald-gradient opacity-5" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -222,7 +205,7 @@ export default function BookingPage() {
               <span className="text-sm font-medium text-accent">Book Appointment</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {t.title}
             </h1>
             <p className="text-xl text-muted-foreground mb-4">{t.subtitle}</p>
@@ -232,21 +215,21 @@ export default function BookingPage() {
       </section>
 
       {/* Booking Form */}
-      <section className="py-8">
+      <section className="py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
               {/* Consultation Type */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-card rounded-3xl p-8 shadow-xl"
+                className="bg-card rounded-3xl p-6 sm:p-8 shadow-xl"
               >
-                <h2 className="text-2xl font-display font-bold text-primary mb-6">
+                <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
                   {t.consultationType}
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <button
                     type="button"
                     onClick={() => setConsultationType('video')}
@@ -296,13 +279,13 @@ export default function BookingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-card rounded-3xl p-8 shadow-xl"
+                className="bg-card rounded-3xl p-6 sm:p-8 shadow-xl"
               >
-                <h2 className="text-2xl font-display font-bold text-primary mb-6">
+                <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
                   {t.selectDoctor}
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {t.doctors.map((doctor) => (
                     <button
                       key={doctor.id}
@@ -329,11 +312,13 @@ export default function BookingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-card rounded-3xl p-8 shadow-xl"
+                className="bg-card rounded-3xl p-6 sm:p-8 shadow-xl"
               >
-                <h2 className="text-2xl font-display font-bold text-primary mb-6">Date & Time</h2>
+                <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
+                  Date & Time
+                </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
                   <div>
                     <label className="block text-sm font-medium text-foreground/80 mb-2">
                       {t.selectDate} *
@@ -345,7 +330,7 @@ export default function BookingPage() {
                       onChange={handleChange}
                       min={minDate}
                       required
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                      className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -354,7 +339,7 @@ export default function BookingPage() {
                   <label className="block text-sm font-medium text-foreground/80 mb-4">
                     {t.selectTime} *
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                     {t.timeSlots.map((slot) => (
                       <button
                         key={slot}
@@ -377,13 +362,13 @@ export default function BookingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-card rounded-3xl p-8 shadow-xl"
+                className="bg-card rounded-3xl p-6 sm:p-8 shadow-xl"
               >
-                <h2 className="text-2xl font-display font-bold text-primary mb-6">
+                <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
                   {t.personalInfo}
                 </h2>
 
-                <div className="space-y-6">
+                <div className="space-y-6 sm:space-y-8">
                   <div>
                     <label className="block text-sm font-medium text-foreground/80 mb-2">
                       {t.fullName} *
@@ -394,11 +379,11 @@ export default function BookingPage() {
                       value={formData.fullName}
                       onChange={handleChange}
                       required
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                      className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                     <div>
                       <label className="block text-sm font-medium text-foreground/80 mb-2">
                         {t.email} *
@@ -409,7 +394,7 @@ export default function BookingPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
 
@@ -423,7 +408,7 @@ export default function BookingPage() {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -437,7 +422,7 @@ export default function BookingPage() {
                       value={formData.country}
                       onChange={handleChange}
                       required
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
+                      className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
                     >
                       <option value="">Select Country</option>
                       {t.countries.map((country, index) => (
@@ -459,7 +444,7 @@ export default function BookingPage() {
                       required
                       rows={3}
                       placeholder="Brief description of your medical concern..."
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
+                      className="w-full px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
                     />
                   </div>
 
@@ -473,7 +458,7 @@ export default function BookingPage() {
                       onChange={handleChange}
                       rows={3}
                       placeholder="Any special requests or questions..."
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
+                      className="w-full px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
                     />
                   </div>
                 </div>

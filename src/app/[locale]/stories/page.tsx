@@ -2,16 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardBody } from '@/components/ui/Card';
-import {
-  Heart,
-  Quote,
-  Star,
-  MapPin,
-  Calendar,
-  CheckCircle2,
-  Play,
-  TrendingUp,
-} from 'lucide-react';
+import { Heart, Quote, Star, MapPin, Calendar, CheckCircle2, Play, TrendingUp } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 
 const locale = 'en'; // Will be dynamic with next-intl
@@ -44,7 +35,7 @@ const translations = {
         quote:
           'I came to Bangalore for an emergency heart surgery. The care I received was exceptional - from the Arabic-speaking coordinators to the world-class cardiac team. I saved 70% compared to Dubai, and the quality was even better!',
         fullStory:
-          'I was diagnosed with severe coronary artery disease and needed urgent bypass surgery. The cost in Dubai was prohibitive at AED 180,000. Through Shifa AlHind, I received the same surgery at Apollo Hospitals Bangalore for just AED 55,000, including all expenses for 3 weeks. The surgeon, Dr. Pradeep, was trained at Johns Hopkins and performed over 5,000 heart surgeries. My Arabic coordinator, Fatima, made sure every detail was taken care of - from Halal food to prayer times. I\'m now fully recovered and recommend Shifa AlHind to everyone!',
+          "I was diagnosed with severe coronary artery disease and needed urgent bypass surgery. The cost in Dubai was prohibitive at AED 180,000. Through Shifa AlHind, I received the same surgery at Apollo Hospitals Bangalore for just AED 55,000, including all expenses for 3 weeks. The surgeon, Dr. Pradeep, was trained at Johns Hopkins and performed over 5,000 heart surgeries. My Arabic coordinator, Fatima, made sure every detail was taken care of - from Halal food to prayer times. I'm now fully recovered and recommend Shifa AlHind to everyone!",
         video: true,
         featured: true,
       },
@@ -76,9 +67,9 @@ const translations = {
         rating: 5,
         image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80',
         quote:
-          'I was in constant pain and couldn\'t walk properly. The hip replacement surgery in Bangalore changed my life! I\'m pain-free, walking normally, and saved 75% compared to Kuwait.',
+          "I was in constant pain and couldn't walk properly. The hip replacement surgery in Bangalore changed my life! I'm pain-free, walking normally, and saved 75% compared to Kuwait.",
         fullStory:
-          'Severe arthritis made my life miserable - I couldn\'t work, play with my kids, or even sleep peacefully. Hip replacement in Kuwait would cost KD 12,000. Through Shifa AlHind, I had the surgery at Fortis Bangalore for just KD 3,000 including hospital, accommodation, and physiotherapy. The orthopedic surgeon, Dr. Rajesh, used the latest Zimmer implant and minimally invasive technique. I was walking the same day! The 3-week recovery at their facility included daily physiotherapy. The Arabic coordinator arranged everything - Halal food, prayer room, even helped my wife explore Bangalore. I returned to Kuwait pain-free and dancing at my daughter\'s wedding!',
+          "Severe arthritis made my life miserable - I couldn't work, play with my kids, or even sleep peacefully. Hip replacement in Kuwait would cost KD 12,000. Through Shifa AlHind, I had the surgery at Fortis Bangalore for just KD 3,000 including hospital, accommodation, and physiotherapy. The orthopedic surgeon, Dr. Rajesh, used the latest Zimmer implant and minimally invasive technique. I was walking the same day! The 3-week recovery at their facility included daily physiotherapy. The Arabic coordinator arranged everything - Halal food, prayer room, even helped my wife explore Bangalore. I returned to Kuwait pain-free and dancing at my daughter's wedding!",
         video: true,
         featured: false,
       },
@@ -127,9 +118,9 @@ const translations = {
         rating: 5,
         image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&q=80',
         quote:
-          'Being diagnosed with cancer was devastating. But the oncology team in Bangalore gave me hope and fought alongside me. I\'m now cancer-free and forever grateful for their expertise and compassion.',
+          "Being diagnosed with cancer was devastating. But the oncology team in Bangalore gave me hope and fought alongside me. I'm now cancer-free and forever grateful for their expertise and compassion.",
         fullStory:
-          'My world collapsed when I was diagnosed with stage 2 breast cancer. Treatment in Qatar would cost QR 200,000 and wait times were 6 weeks. I contacted Shifa AlHind and within 10 days I was in Bangalore at HCG Cancer Centre. Dr. Smita, my oncologist, reviewed my case and started treatment immediately. I underwent lumpectomy, chemotherapy, and radiation - all with the latest technology and protocols. The cancer center was like a 5-star hotel, my room had a prayer area, and they provided fresh Halal meals. My female Arabic coordinator, Amira, was my rock - she attended every appointment, explained everything, and even held my hand during chemo. Total cost: QR 65,000. More importantly, I\'m now cancer-free, back to my life, and celebrating every moment with my family.',
+          "My world collapsed when I was diagnosed with stage 2 breast cancer. Treatment in Qatar would cost QR 200,000 and wait times were 6 weeks. I contacted Shifa AlHind and within 10 days I was in Bangalore at HCG Cancer Centre. Dr. Smita, my oncologist, reviewed my case and started treatment immediately. I underwent lumpectomy, chemotherapy, and radiation - all with the latest technology and protocols. The cancer center was like a 5-star hotel, my room had a prayer area, and they provided fresh Halal meals. My female Arabic coordinator, Amira, was my rock - she attended every appointment, explained everything, and even held my hand during chemo. Total cost: QR 65,000. More importantly, I'm now cancer-free, back to my life, and celebrating every moment with my family.",
         video: false,
         featured: false,
       },
@@ -149,9 +140,9 @@ export default function StoriesPage() {
   const otherStories = t.stories.filter((story) => !story.featured);
 
   return (
-    <main className="min-h-screen bg-background pt-24">
+    <main className="min-h-screen bg-background pt-20 sm:pt-24">
       {/* Hero */}
-      <section className="relative py-16 lg:py-20 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 emerald-gradient opacity-5" />
         <div className="absolute top-10 right-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -173,7 +164,7 @@ export default function StoriesPage() {
               <span className="text-sm font-medium text-accent">Inspiring Journeys</span>
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {t.title}
             </h1>
             <p className="text-xl sm:text-2xl text-muted-foreground mb-4">{t.subtitle}</p>
@@ -183,9 +174,9 @@ export default function StoriesPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-12 border-y border-muted">
+      <section className="py-12 sm:py-16 border-y border-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {t.stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -200,7 +191,9 @@ export default function StoriesPage() {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-2xl mb-4">
                     <Icon className="w-8 h-8 text-accent" />
                   </div>
-                  <div className="text-4xl font-display font-bold text-primary mb-2">{stat.value}</div>
+                  <div className="text-4xl font-display font-bold text-primary mb-2">
+                    {stat.value}
+                  </div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </motion.div>
               );
@@ -210,18 +203,18 @@ export default function StoriesPage() {
       </section>
 
       {/* Featured Stories */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center"
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary leading-tight mb-8 sm:mb-12 text-center"
           >
             {t.featured}
           </motion.h2>
 
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {featuredStories.map((story, index) => (
               <motion.article
                 key={story.id}
@@ -229,10 +222,10 @@ export default function StoriesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-card rounded-3xl overflow-hidden border-2 border-transparent hover:border-accent transition-all shadow-xl ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center bg-card rounded-3xl overflow-hidden border-2 border-transparent hover:border-accent transition-all shadow-xl ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
               >
                 {/* Image */}
-                <div className="relative h-80 lg:h-full overflow-hidden">
+                <div className="relative h-64 sm:h-80 lg:h-full overflow-hidden">
                   <img src={story.image} alt={story.name} className="w-full h-full object-cover" />
                   {story.video && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30">
@@ -249,7 +242,7 @@ export default function StoriesPage() {
                 </div>
 
                 {/* Content */}
-                <div className="p-8 lg:p-12">
+                <div className="p-6 sm:p-8 lg:p-12">
                   <div className="flex items-center gap-4 mb-4">
                     <img
                       src={story.image}
@@ -284,17 +277,16 @@ export default function StoriesPage() {
 
                   <div className="relative mb-6">
                     <Quote className="absolute -top-2 -left-2 w-8 h-8 text-accent/20" />
-                    <p className="text-lg text-foreground/80 italic pl-6">&ldquo;{story.quote}&rdquo;</p>
+                    <p className="text-lg text-foreground/80 italic pl-6">
+                      &ldquo;{story.quote}&rdquo;
+                    </p>
                   </div>
 
                   <p className="text-base text-muted-foreground mb-6 leading-relaxed">
                     {story.fullStory.substring(0, 300)}...
                   </p>
 
-                  <Button
-                    variant="gold"
-                    size="md"
-                  >
+                  <Button variant="gold" size="md">
                     {story.video ? t.watchVideo : t.readStory}
                   </Button>
                 </div>
@@ -305,18 +297,18 @@ export default function StoriesPage() {
       </section>
 
       {/* Other Stories Grid */}
-      <section className="py-16 lg:py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center"
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary leading-tight mb-8 sm:mb-12 text-center"
           >
             More Success Stories
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {otherStories.map((story, index) => (
               <motion.article
                 key={story.id}
@@ -356,7 +348,9 @@ export default function StoriesPage() {
                     </div>
                     <p className="text-sm font-semibold text-primary mb-2">{story.treatment}</p>
                     <div className="relative mb-4">
-                      <p className="text-sm text-muted-foreground italic line-clamp-3">&ldquo;{story.quote}&rdquo;</p>
+                      <p className="text-sm text-muted-foreground italic line-clamp-3">
+                        &ldquo;{story.quote}&rdquo;
+                      </p>
                     </div>
                     <Button
                       variant="ghost"
@@ -374,36 +368,28 @@ export default function StoriesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative max-w-4xl mx-auto glass rounded-3xl p-8 sm:p-12 overflow-hidden text-center"
+            className="relative max-w-4xl mx-auto glass rounded-3xl p-6 sm:p-8 lg:p-12 overflow-hidden text-center"
           >
             <div className="absolute inset-0 emerald-gradient opacity-5" />
             <div className="relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary leading-tight mb-4">
                 Ready to Start Your Success Story?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Join thousands of satisfied patients who transformed their lives with world-class medical care in
-                India
+                Join thousands of satisfied patients who transformed their lives with world-class
+                medical care in India
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <ButtonLink
-                  href="/en/consultation"
-                  variant="gold"
-                  size="lg"
-                >
+                <ButtonLink href="/en/consultation" variant="gold" size="lg">
                   Get Free Consultation
                 </ButtonLink>
-                <ButtonLink
-                  href="/en/treatments"
-                  variant="outline"
-                  size="lg"
-                >
+                <ButtonLink href="/en/treatments" variant="outline" size="lg">
                   Browse Treatments
                 </ButtonLink>
               </div>

@@ -99,16 +99,19 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
   const hospitalName = locale === 'ar' ? doctor.hospital.name_ar : doctor.hospital.name_en;
 
   return (
-    <main className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <main
+      className={`min-h-screen bg-background pt-20 sm:pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+    >
       {/* Hero Section */}
-      <section className="relative py-12 lg:py-16">
+      <section className="relative py-8 sm:py-12 lg:py-16">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb */}
           <motion.div
             initial={{ opacity: 0, x: locale === 'ar' ? 20 : -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 text-sm text-muted-foreground mb-6"
+            className="flex items-center gap-2 text-sm sm:text-sm text-muted-foreground mb-6"
           >
             <Link href={`/${locale}`} className="hover:text-accent transition-colors">
               {t.breadcrumb.home}
@@ -121,29 +124,33 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
             <span className="text-foreground">{name}</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Doctor Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="flex items-start gap-6 mb-8">
+              <div className="flex items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="flex-shrink-0">
-                  <div className="w-32 h-32 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
                     {doctor.profileImage ? (
-                      <img src={doctor.profileImage} alt={name} className="w-full h-full object-cover" />
+                      <img
+                        src={doctor.profileImage}
+                        alt={name}
+                        className="w-full h-full object-cover"
+                      />
                     ) : (
-                      <User className="w-20 h-20 text-primary" />
+                      <User className="w-16 h-16 sm:w-20 sm:h-20 text-primary" />
                     )}
                   </div>
                 </div>
 
                 <div className="flex-1">
-                  <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-2">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary mb-2 leading-tight">
                     {name}
                   </h1>
-                  <p className="text-lg text-accent font-semibold mb-3">
+                  <p className="text-base sm:text-lg text-accent font-semibold mb-3">
                     {doctor.specialties[0]}
                   </p>
                   <Link
@@ -157,32 +164,34 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
               </div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 {doctor.consultationFee && (
-                  <Card hover={false} variant="outline" className="p-4">
+                  <Card hover={false} variant="outline" className="p-4 sm:p-4">
                     <div className="flex items-center gap-2 text-accent mb-1">
                       <DollarSign className="w-5 h-5" />
-                      <span className="text-sm font-medium">{t.consultationFee}</span>
+                      <span className="text-xs sm:text-sm font-medium">{t.consultationFee}</span>
                     </div>
-                    <p className="text-foreground font-semibold">
+                    <p className="text-sm sm:text-base text-foreground font-semibold">
                       ${doctor.consultationFee}
                     </p>
                   </Card>
                 )}
 
-                <Card hover={false} variant="outline" className="p-4">
+                <Card hover={false} variant="outline" className="p-4 sm:p-4">
                   <div className="flex items-center gap-2 text-accent mb-1">
                     <Star className="w-5 h-5" />
-                    <span className="text-sm font-medium">{t.patientsServed}</span>
+                    <span className="text-xs sm:text-sm font-medium">{t.patientsServed}</span>
                   </div>
-                  <p className="text-foreground font-semibold">{doctor.bookings.length}+</p>
+                  <p className="text-sm sm:text-base text-foreground font-semibold">
+                    {doctor.bookings.length}+
+                  </p>
                 </Card>
 
                 {doctor.telemedicineAvailable && (
-                  <Card hover={false} variant="outline" className="p-4 col-span-2">
+                  <Card hover={false} variant="outline" className="p-4 sm:p-4 col-span-2">
                     <div className="flex items-center gap-2 text-accent">
                       <Video className="w-5 h-5" />
-                      <span className="text-sm font-medium">{t.telemedicine}</span>
+                      <span className="text-xs sm:text-sm font-medium">{t.telemedicine}</span>
                       <CheckCircle2 className="w-4 h-4 ml-auto" />
                     </div>
                   </Card>
@@ -190,7 +199,7 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
               </div>
 
               {/* Actions */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <ButtonLink
                   href={`/${locale}/consultation`}
                   variant="gold"
@@ -225,13 +234,13 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
       </section>
 
       {/* About Section */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-6 sm:mb-8 leading-tight">
               {t.about} {name.split(' ')[name.split(' ').length - 1]}
             </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed whitespace-pre-line">
+            <p className="text-base sm:text-lg text-foreground/80 leading-relaxed whitespace-pre-line">
               {bio}
             </p>
           </div>
@@ -239,21 +248,21 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
       </section>
 
       {/* Credentials */}
-      <section className="py-16 lg:py-20 bg-secondary/50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
               {/* Qualifications */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <Award className="w-6 h-6 text-accent" />
-                  <h3 className="text-xl font-bold text-primary">{t.qualifications}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-primary">{t.qualifications}</h3>
                 </div>
                 <ul className="space-y-2">
                   {doctor.qualifications.map((qual, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{qual}</span>
+                      <span className="text-sm sm:text-base text-foreground">{qual}</span>
                     </li>
                   ))}
                 </ul>
@@ -263,13 +272,13 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <Star className="w-6 h-6 text-accent" />
-                  <h3 className="text-xl font-bold text-primary">{t.specialties}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-primary">{t.specialties}</h3>
                 </div>
                 <ul className="space-y-2">
                   {doctor.specialties.map((specialty, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{specialty}</span>
+                      <span className="text-sm sm:text-base text-foreground">{specialty}</span>
                     </li>
                   ))}
                 </ul>
@@ -279,13 +288,13 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <Languages className="w-6 h-6 text-accent" />
-                  <h3 className="text-xl font-bold text-primary">{t.languages}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-primary">{t.languages}</h3>
                 </div>
                 <ul className="space-y-2">
                   {doctor.languages.map((lang, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{lang}</span>
+                      <span className="text-sm sm:text-base text-foreground">{lang}</span>
                     </li>
                   ))}
                 </ul>
@@ -296,26 +305,28 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
       </section>
 
       {/* Hospital */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-8 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-6 sm:mb-8 text-center leading-tight">
               {t.hospital}
             </h2>
             <Link href={`/${locale}/hospitals/${doctor.hospital.slug}`}>
               <Card hover={true} variant="default">
                 <CardBody>
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
                     {doctor.hospital.accreditations.map((acc, i) => (
                       <span key={i} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
                         {acc}
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-primary mb-2">
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-primary mb-2 leading-snug">
                     {hospitalName}
                   </h3>
-                  <p className="text-muted-foreground mb-4">{doctor.hospital.city}, India</p>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                    {doctor.hospital.city}, India
+                  </p>
                   <div className="flex items-center gap-2 text-accent">
                     <span className="font-medium">{t.viewProfile}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -329,12 +340,12 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
 
       {/* Related Doctors */}
       {relatedDoctors.length > 0 && (
-        <section className="py-16 lg:py-20 bg-secondary/50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary mb-8 sm:mb-12 text-center leading-tight">
               {t.relatedDoctors} {hospitalName}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {relatedDoctors.map((related, index) => (
                 <motion.div
                   key={related.slug}
@@ -349,7 +360,7 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
                         <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
                           <User className="w-10 h-10 text-primary" />
                         </div>
-                        <h3 className="text-lg font-display font-bold text-primary text-center mb-2">
+                        <h3 className="text-base sm:text-lg font-display font-bold text-primary text-center mb-2 leading-snug">
                           {locale === 'ar' ? related.name_ar : related.name_en}
                         </h3>
                         <p className="text-sm text-muted-foreground text-center">

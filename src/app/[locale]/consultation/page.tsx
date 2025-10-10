@@ -8,15 +8,10 @@ import {
   Upload,
   CheckCircle2,
   User,
-
-
-
   Calendar,
-
   Stethoscope,
   ArrowRight,
   ArrowLeft,
-
 } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 
@@ -26,7 +21,8 @@ const translations = {
   en: {
     title: 'Free Medical Consultation',
     subtitle: 'Get Expert Opinion in 24 Hours',
-    description: 'Upload your medical reports and receive a detailed treatment plan with cost estimate',
+    description:
+      'Upload your medical reports and receive a detailed treatment plan with cost estimate',
     steps: [
       { icon: User, title: 'Personal Details', description: 'Basic information' },
       { icon: Stethoscope, title: 'Medical Info', description: 'Condition & reports' },
@@ -52,7 +48,8 @@ const translations = {
     submit: 'Submit Request',
     submitting: 'Submitting...',
     successTitle: 'Consultation Request Submitted!',
-    successMessage: 'Our team will review your case and contact you within 24 hours with a detailed treatment plan.',
+    successMessage:
+      'Our team will review your case and contact you within 24 hours with a detailed treatment plan.',
     countries: ['Saudi Arabia', 'UAE', 'Kuwait', 'Qatar', 'Bahrain', 'Oman', 'Other'],
     genders: ['Male', 'Female'],
     languageOptions: ['Arabic', 'English', 'Both'],
@@ -103,7 +100,9 @@ export default function ConsultationPage() {
     additionalInfo: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -149,7 +148,7 @@ export default function ConsultationPage() {
 
   if (isSubmitted) {
     return (
-      <main className="min-h-screen bg-background pt-24 flex items-center justify-center">
+      <main className="min-h-screen bg-background pt-20 sm:pt-24 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -164,24 +163,16 @@ export default function ConsultationPage() {
             <CheckCircle2 className="w-12 h-12 text-white" />
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-4">
             {t.successTitle}
           </h1>
           <p className="text-lg text-muted-foreground mb-8">{t.successMessage}</p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ButtonLink
-              href="/en"
-              variant="gold"
-              size="lg"
-            >
+            <ButtonLink href="/en" variant="gold" size="lg">
               Back to Home
             </ButtonLink>
-            <ButtonLink
-              href="/en/treatments"
-              variant="outline"
-              size="lg"
-            >
+            <ButtonLink href="/en/treatments" variant="outline" size="lg">
               Browse Treatments
             </ButtonLink>
           </div>
@@ -191,9 +182,9 @@ export default function ConsultationPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background pt-24 pb-16">
+    <main className="min-h-screen bg-background pt-20 sm:pt-24 pb-12 sm:pb-16">
       {/* Hero */}
-      <section className="relative py-12 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 emerald-gradient opacity-5" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -206,7 +197,7 @@ export default function ConsultationPage() {
               <span className="text-sm font-medium text-accent">Free Consultation</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {t.title}
             </h1>
             <p className="text-xl text-muted-foreground mb-4">{t.subtitle}</p>
@@ -216,7 +207,7 @@ export default function ConsultationPage() {
       </section>
 
       {/* Progress Steps */}
-      <section className="py-8">
+      <section className="py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between">
@@ -240,14 +231,20 @@ export default function ConsultationPage() {
                           <Icon className="w-6 h-6 sm:w-8 sm:h-8" />
                         )}
                       </div>
-                      <p className={`text-xs sm:text-sm font-semibold hidden sm:block ${isActive ? 'text-accent' : 'text-muted-foreground'}`}>
+                      <p
+                        className={`text-xs sm:text-sm font-semibold hidden sm:block ${isActive ? 'text-accent' : 'text-muted-foreground'}`}
+                      >
                         {step.title}
                       </p>
-                      <p className="text-xs text-muted-foreground hidden lg:block">{step.description}</p>
+                      <p className="text-xs text-muted-foreground hidden lg:block">
+                        {step.description}
+                      </p>
                     </div>
 
                     {index < t.steps.length - 1 && (
-                      <div className={`h-1 flex-1 mx-2 ${isCompleted ? 'bg-green-500' : 'bg-muted'}`} />
+                      <div
+                        className={`h-1 flex-1 mx-2 ${isCompleted ? 'bg-green-500' : 'bg-muted'}`}
+                      />
                     )}
                   </div>
                 );
@@ -258,67 +255,80 @@ export default function ConsultationPage() {
       </section>
 
       {/* Form */}
-      <section className="py-8">
+      <section className="py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
-            <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-8 sm:p-12 shadow-xl border-2 border-transparent hover:border-accent/30 transition-all">
+            <form
+              onSubmit={handleSubmit}
+              className="bg-card rounded-3xl p-6 sm:p-8 lg:p-12 shadow-xl border-2 border-transparent hover:border-accent/30 transition-all"
+            >
               {/* Step 1: Personal Details */}
               {currentStep === 0 && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="space-y-6"
+                  className="space-y-6 sm:space-y-8"
                 >
-                  <h2 className="text-2xl font-display font-bold text-primary mb-6">Personal Details</h2>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
+                    Personal Details
+                  </h2>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">{t.fullName} *</label>
+                    <label className="block text-sm font-medium text-foreground/80 mb-2">
+                      {t.fullName} *
+                    </label>
                     <input
                       type="text"
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
                       required
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                      className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.email} *</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.email} *
+                      </label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.phone} *</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.phone} *
+                      </label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.country} *</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.country} *
+                      </label>
                       <select
                         name="country"
                         value={formData.country}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
                       >
                         <option value="">Select</option>
                         {t.countries.map((country, index) => (
@@ -330,7 +340,9 @@ export default function ConsultationPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.age} *</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.age} *
+                      </label>
                       <input
                         type="number"
                         name="age"
@@ -339,18 +351,20 @@ export default function ConsultationPage() {
                         required
                         min="1"
                         max="120"
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.gender} *</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.gender} *
+                      </label>
                       <select
                         name="gender"
                         value={formData.gender}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
                       >
                         <option value="">Select</option>
                         {t.genders.map((gender, index) => (
@@ -370,18 +384,22 @@ export default function ConsultationPage() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="space-y-6"
+                  className="space-y-6 sm:space-y-8"
                 >
-                  <h2 className="text-2xl font-display font-bold text-primary mb-6">Medical Information</h2>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
+                    Medical Information
+                  </h2>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">{t.treatment} *</label>
+                    <label className="block text-sm font-medium text-foreground/80 mb-2">
+                      {t.treatment} *
+                    </label>
                     <select
                       name="treatment"
                       value={formData.treatment}
                       onChange={handleChange}
                       required
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
+                      className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
                     >
                       <option value="">Select Treatment</option>
                       {t.treatments.map((treatment, index) => (
@@ -393,7 +411,9 @@ export default function ConsultationPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">{t.medicalCondition} *</label>
+                    <label className="block text-sm font-medium text-foreground/80 mb-2">
+                      {t.medicalCondition} *
+                    </label>
                     <textarea
                       name="medicalCondition"
                       value={formData.medicalCondition}
@@ -401,12 +421,14 @@ export default function ConsultationPage() {
                       required
                       rows={5}
                       placeholder="Please describe your medical condition, symptoms, and any previous treatments..."
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
+                      className="w-full px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">{t.uploadReports}</label>
+                    <label className="block text-sm font-medium text-foreground/80 mb-2">
+                      {t.uploadReports}
+                    </label>
                     <div className="border-2 border-dashed border-muted hover:border-accent transition-all rounded-2xl p-8 text-center">
                       <input
                         type="file"
@@ -451,30 +473,36 @@ export default function ConsultationPage() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="space-y-6"
+                  className="space-y-6 sm:space-y-8"
                 >
-                  <h2 className="text-2xl font-display font-bold text-primary mb-6">Travel Preferences</h2>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
+                    Travel Preferences
+                  </h2>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.preferredDate}</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.preferredDate}
+                      </label>
                       <input
                         type="date"
                         name="preferredDate"
                         value={formData.preferredDate}
                         onChange={handleChange}
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground/80 mb-2">{t.languages} *</label>
+                      <label className="block text-sm font-medium text-foreground/80 mb-2">
+                        {t.languages} *
+                      </label>
                       <select
                         name="languages"
                         value={formData.languages}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
+                        className="w-full min-h-[52px] px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all appearance-none"
                       >
                         <option value="">Select</option>
                         {t.languageOptions.map((lang, index) => (
@@ -487,14 +515,16 @@ export default function ConsultationPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">{t.additionalInfo}</label>
+                    <label className="block text-sm font-medium text-foreground/80 mb-2">
+                      {t.additionalInfo}
+                    </label>
                     <textarea
                       name="additionalInfo"
                       value={formData.additionalInfo}
                       onChange={handleChange}
                       rows={5}
                       placeholder="Any specific requirements, questions, or concerns..."
-                      className="w-full px-6 py-4 bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
+                      className="w-full px-6 py-4 text-base bg-secondary border-2 border-transparent rounded-2xl focus:border-accent focus:outline-none transition-all resize-none"
                     />
                   </div>
                 </motion.div>
@@ -506,9 +536,11 @@ export default function ConsultationPage() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="space-y-6"
+                  className="space-y-6 sm:space-y-8"
                 >
-                  <h2 className="text-2xl font-display font-bold text-primary mb-6">Review Your Information</h2>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-primary leading-tight mb-6">
+                    Review Your Information
+                  </h2>
 
                   <div className="space-y-4">
                     <div className="bg-secondary p-4 rounded-2xl">

@@ -270,14 +270,16 @@ export default function FAQClient({ locale }: Props) {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
 
   // Filter FAQs based on search
-  const filteredFAQs = t.faqs.map((category) => ({
-    ...category,
-    questions: category.questions.filter(
-      (faq) =>
-        faq.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        faq.a.toLowerCase().includes(searchQuery.toLowerCase())
-    ),
-  })).filter((category) => category.questions.length > 0);
+  const filteredFAQs = t.faqs
+    .map((category) => ({
+      ...category,
+      questions: category.questions.filter(
+        (faq) =>
+          faq.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          faq.a.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    }))
+    .filter((category) => category.questions.length > 0);
 
   const toggleFAQ = (categoryIndex: number, questionIndex: number) => {
     const key = `${categoryIndex}-${questionIndex}`;
@@ -290,18 +292,18 @@ export default function FAQClient({ locale }: Props) {
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-primary/5 to-transparent">
+      <section className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pb-20 bg-gradient-to-b from-primary/5 to-transparent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {t.title}
             </h1>
-            <p className="text-2xl text-accent mb-4">{t.subtitle}</p>
-            <p className="text-lg text-muted-foreground mb-8">{t.tagline}</p>
+            <p className="text-xl sm:text-2xl md:text-3xl text-accent mb-4">{t.subtitle}</p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-8">{t.tagline}</p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -316,7 +318,7 @@ export default function FAQClient({ locale }: Props) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t.search}
-                  className={`w-full py-4 rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent ${
+                  className={`w-full min-h-[52px] py-4 text-base rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent ${
                     locale === 'ar' ? 'pr-12 pl-4' : 'pl-12 pr-4'
                   }`}
                 />
@@ -327,7 +329,7 @@ export default function FAQClient({ locale }: Props) {
       </section>
 
       {/* FAQ Categories */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           {filteredFAQs.map((category, categoryIndex) => (
             <motion.div
@@ -337,7 +339,9 @@ export default function FAQClient({ locale }: Props) {
               viewport={{ once: true }}
               className="mb-12 last:mb-0"
             >
-              <h2 className="text-3xl font-bold text-primary mb-6">{category.category}</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">
+                {category.category}
+              </h2>
               <div className="space-y-4">
                 {category.questions.map((faq, questionIndex) => {
                   const key = `${categoryIndex}-${questionIndex}`;
@@ -350,7 +354,7 @@ export default function FAQClient({ locale }: Props) {
                         className="w-full text-left"
                       >
                         <CardBody className="flex items-center justify-between gap-4">
-                          <h3 className="text-lg font-semibold text-foreground flex-1">
+                          <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-snug flex-1">
                             {faq.q}
                           </h3>
                           <ChevronDown
@@ -369,7 +373,9 @@ export default function FAQClient({ locale }: Props) {
                             transition={{ duration: 0.3 }}
                           >
                             <div className="px-6 pb-6">
-                              <p className="text-muted-foreground leading-relaxed">{faq.a}</p>
+                              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                                {faq.a}
+                              </p>
                             </div>
                           </motion.div>
                         )}
@@ -387,11 +393,11 @@ export default function FAQClient({ locale }: Props) {
               animate={{ opacity: 1 }}
               className="text-center py-20"
             >
-              <Search className="w-16 h-16 text-muted-foreground mx-auto opacity-30 mb-4" />
-              <h3 className="text-2xl font-bold text-foreground mb-2">
+              <Search className="w-12 h-12 sm:w-14 sm:h-14 text-muted-foreground mx-auto opacity-30 mb-4" />
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
                 {locale === 'ar' ? 'لم يتم العثور على أسئلة' : 'No questions found'}
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-base sm:text-lg text-muted-foreground">
                 {locale === 'ar' ? 'حاول بحثًا مختلفًا' : 'Try a different search'}
               </p>
             </motion.div>
@@ -400,7 +406,7 @@ export default function FAQClient({ locale }: Props) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-accent">
+      <section className="py-12 sm:py-16 lg:py-20 bg-accent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -408,10 +414,10 @@ export default function FAQClient({ locale }: Props) {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight mb-6">
               {t.cta.title}
             </h2>
-            <p className="text-xl text-white/90 mb-8">{t.cta.description}</p>
+            <p className="text-base sm:text-lg text-white/90 mb-8">{t.cta.description}</p>
             <ButtonLink
               href={`/${locale}/contact`}
               variant="gold"

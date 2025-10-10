@@ -81,11 +81,11 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
 
   return (
     <main
-      className={`min-h-screen bg-background pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      className={`min-h-screen bg-background pt-20 sm:pt-24 ${locale === 'ar' ? 'font-arabic' : ''}`}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
       {/* Hero */}
-      <section className="relative py-12 lg:py-16">
+      <section className="relative py-12 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-4xl">
           {/* Breadcrumb */}
@@ -126,12 +126,14 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-primary mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-6">
               {title}
             </h1>
 
             {excerpt && (
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">{excerpt}</p>
+              <p className="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed">
+                {excerpt}
+              </p>
             )}
 
             {/* Meta */}
@@ -186,12 +188,12 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <section className="py-16 lg:py-20 bg-secondary/50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-12 text-center">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-primary mb-12 text-center">
               {t.relatedArticles}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
               {relatedPosts.map((related, index) => (
                 <motion.div
                   key={related.slug}
@@ -212,11 +214,11 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
                             />
                           </div>
                         )}
-                        <h3 className="text-xl font-display font-bold text-primary mb-2 line-clamp-2">
+                        <h3 className="text-lg sm:text-xl font-display font-bold text-primary leading-snug mb-2 line-clamp-2">
                           {locale === 'ar' ? related.title_ar : related.title_en}
                         </h3>
                         {(locale === 'ar' ? related.excerpt_ar : related.excerpt_en) && (
-                          <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                          <p className="text-base sm:text-lg text-muted-foreground mb-4 line-clamp-3">
                             {locale === 'ar' ? related.excerpt_ar : related.excerpt_en}
                           </p>
                         )}
@@ -235,7 +237,7 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
       )}
 
       {/* CTA */}
-      <section className="py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -243,10 +245,10 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto glass rounded-3xl p-8 sm:p-12 text-center"
           >
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-primary mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary leading-tight mb-4">
               {t.getStarted}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">{t.getStartedDesc}</p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-8">{t.getStartedDesc}</p>
             <ButtonLink href={`/${locale}/consultation`} variant="gold" size="lg">
               {t.bookConsultation}
             </ButtonLink>
