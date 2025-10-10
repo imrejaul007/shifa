@@ -1,0 +1,4 @@
+Force Render deployment trigger
+Timestamp: 2025-10-10T18:20:00Z
+Latest commit: e814756
+Purpose: Ensure Render deploys the critical SSR fix
