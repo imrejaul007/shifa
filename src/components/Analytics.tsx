@@ -3,6 +3,7 @@
 import Script from 'next/script';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export function GoogleAnalytics() {
   if (process.env.NODE_ENV !== 'production') {
@@ -11,20 +12,48 @@ export function GoogleAnalytics() {
 
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            page_path: window.location.pathname,
-          });
-        `}
-      </Script>
+      {/* Google Tag Manager */}
+      {GTM_ID && (
+        <>
+          <Script id="google-tag-manager" strategy="afterInteractive">
+            {`
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
+            `}
+          </Script>
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        </>
+      )}
+
+      {/* Google Analytics (fallback if GTM is not configured) */}
+      {!GTM_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
+            `}
+          </Script>
+        </>
+      )}
     </>
   );
 }
@@ -32,12 +61,19 @@ export function GoogleAnalytics() {
 // Extend window type for gtag
 declare global {
   interface Window {
-    gtag?: (command: string, targetId: string, config?: Record<string, string | number | boolean>) => void;
+    gtag?: (
+      command: string,
+      targetId: string,
+      config?: Record<string, string | number | boolean>
+    ) => void;
   }
 }
 
 // Event tracking utilities
-export const trackEvent = (eventName: string, parameters?: Record<string, string | number | boolean>) => {
+export const trackEvent = (
+  eventName: string,
+  parameters?: Record<string, string | number | boolean>
+) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, parameters);
   }
@@ -113,4 +149,35 @@ export function usePageTracking() {
     const url = pathname + (searchParams ? `?${searchParams}` : '');
     trackPageView(url);
   }, [pathname, searchParams]);
+}
+
+// Microsoft Clarity for heatmaps and session recording
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+
+export function MicrosoftClarity() {
+  if (process.env.NODE_ENV !== 'production' || !CLARITY_ID) {
+    return null;
+  }
+
+  return (
+    <Script id="microsoft-clarity" strategy="afterInteractive">
+      {`
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${CLARITY_ID}");
+      `}
+    </Script>
+  );
+}
+
+// Combined Analytics Component
+export function Analytics() {
+  return (
+    <>
+      <GoogleAnalytics />
+      <MicrosoftClarity />
+    </>
+  );
 }

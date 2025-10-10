@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import { JsonValue } from '@prisma/client/runtime/library';
-import { generateMetadata as genMeta } from '@/lib/metadata';
+import { generateFullMetadata } from '@/lib/seo-helpers';
+import Breadcrumb from '@/components/SEO/Breadcrumb';
 import HospitalsClient from './HospitalsClient';
 
 // Force dynamic rendering
@@ -16,30 +17,36 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const isArabic = locale === 'ar';
 
-  const title =
-    locale === 'ar' ? 'المستشفيات الشريكة - شفاء الهند' : 'Partner Hospitals - Shifa AlHind';
+  const title = isArabic
+    ? 'أفضل المستشفيات المعتمدة من JCI في بنغالور، الهند'
+    : 'Top JCI-Accredited Hospitals in Bangalore, India';
 
-  const description =
-    locale === 'ar'
-      ? 'اكتشف أفضل المستشفيات المعتمدة من JCI في بنغالور، الهند. مرافق رعاية صحية عالمية المستوى مع دعم اللغة العربية للمرضى من دول مجلس التعاون الخليجي.'
-      : 'Discover top JCI-accredited hospitals in Bangalore, India. World-class healthcare facilities with Arabic language support for GCC patients.';
+  const description = isArabic
+    ? 'اكتشف أفضل المستشفيات المعتمدة من JCI وNABH في بنغالور، الهند. مرافق رعاية صحية عالمية المستوى مع أطباء خبراء ودعم اللغة العربية الكامل للمرضى من دول مجلس التعاون الخليجي. مستشفيات متعددة التخصصات مع معدات طبية حديثة.'
+    : 'Discover top JCI and NABH-accredited hospitals in Bangalore, India. World-class healthcare facilities with expert doctors and complete Arabic language support for GCC patients. Multispecialty hospitals with state-of-the-art medical equipment.';
 
-  return genMeta({
+  const keywords = [
+    'JCI accredited hospitals Bangalore',
+    'best hospitals India',
+    'NABH hospitals Bangalore',
+    'multispecialty hospitals India',
+    'medical tourism hospitals Bangalore',
+    'GCC patients hospitals India',
+    'Arabic support hospitals',
+    'international patient care India',
+    'top hospitals Bangalore Karnataka',
+    'hospital facilities India',
+  ];
+
+  return generateFullMetadata({
     title,
     description,
-    locale,
+    keywords,
+    locale: locale as 'en' | 'ar',
     canonical: `/${locale}/hospitals`,
-    keywords: [
-      'hospitals India',
-      'Bangalore hospitals',
-      'JCI accredited hospitals',
-      'NABH hospitals India',
-      'multispecialty hospitals',
-      'medical tourism hospitals',
-      'GCC patients hospitals',
-      'Arabic support hospitals',
-    ],
+    ogType: 'website',
   });
 }
 
@@ -98,5 +105,20 @@ export default async function HospitalsPage({ params }: PageProps) {
     console.error(error);
   }
 
-  return <HospitalsClient hospitals={hospitals} locale={locale} />;
+  // Breadcrumb items for navigation and schema
+  const breadcrumbItems = [
+    { name: locale === 'ar' ? 'الرئيسية' : 'Home', url: '/' },
+    { name: locale === 'ar' ? 'المستشفيات' : 'Hospitals', url: '/hospitals' },
+  ];
+
+  return (
+    <>
+      {/* Breadcrumb with JSON-LD Schema */}
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumb items={breadcrumbItems} locale={locale} />
+      </div>
+
+      <HospitalsClient hospitals={hospitals} locale={locale} />
+    </>
+  );
 }

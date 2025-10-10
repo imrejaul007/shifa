@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
-import { generateMetadata as genMeta } from '@/lib/metadata';
+import { generateFullMetadata, seoKeywords } from '@/lib/seo-helpers';
+import Breadcrumb from '@/components/SEO/Breadcrumb';
 import TreatmentsClient from './TreatmentsClient';
 
 // Force dynamic rendering
@@ -15,29 +16,33 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const isArabic = locale === 'ar';
 
-  const title = locale === 'ar' ? 'جميع العلاجات - شفاء الهند' : 'All Treatments - Shifa AlHind';
+  const title = isArabic
+    ? 'جميع العلاجات الطبية في الهند - أسعار معقولة 60-70% أقل'
+    : 'All Medical Treatments in India - Save 60-70% on Healthcare';
 
-  const description =
-    locale === 'ar'
-      ? 'اكتشف مجموعة واسعة من العلاجات الطبية المتخصصة في أفضل المستشفيات في بنغالور، الهند. جراحة القلب، استبدال المفاصل، علاج السرطان، وأكثر من ذلك بأسعار معقولة.'
-      : 'Explore a wide range of specialized medical treatments at top hospitals in Bangalore, India. Cardiac surgery, joint replacement, cancer treatment, and more at affordable prices.';
+  const description = isArabic
+    ? 'اكتشف مجموعة واسعة من العلاجات الطبية المتخصصة في أفضل مستشفيات JCI في بنغالور، الهند. جراحة القلب، استبدال المفاصل، علاج السرطان، IVF، زراعة الأعضاء، وأكثر من ذلك بأسعار معقولة 60-70٪ أقل مع دعم عربي كامل للمرضى من دول الخليج.'
+    : 'Explore a comprehensive range of specialized medical treatments at top JCI hospitals in Bangalore, India. Cardiac surgery, joint replacement, cancer treatment, IVF, organ transplants, and more at 60-70% lower costs with complete Arabic support for GCC patients.';
 
-  return genMeta({
+  const keywords = [
+    ...seoKeywords.homepage,
+    'medical treatments India',
+    'Bangalore hospitals treatments',
+    'affordable surgery India',
+    'specialized medical care India',
+    'all treatments India hospitals',
+    'comprehensive healthcare India',
+  ];
+
+  return generateFullMetadata({
     title,
     description,
-    locale,
+    keywords,
+    locale: locale as 'en' | 'ar',
     canonical: `/${locale}/treatments`,
-    keywords: [
-      'medical treatments India',
-      'Bangalore hospitals',
-      'affordable surgery',
-      'cardiac surgery India',
-      'orthopedic treatment',
-      'cancer treatment Bangalore',
-      'medical tourism treatments',
-      'GCC patients India',
-    ],
+    ogType: 'website',
   });
 }
 
@@ -78,5 +83,20 @@ export default async function TreatmentsPage({ params }: PageProps) {
     console.error(error);
   }
 
-  return <TreatmentsClient treatments={treatments} locale={locale} />;
+  // Breadcrumb items for navigation and schema
+  const breadcrumbItems = [
+    { name: locale === 'ar' ? 'الرئيسية' : 'Home', url: '/' },
+    { name: locale === 'ar' ? 'العلاجات' : 'Treatments', url: '/treatments' },
+  ];
+
+  return (
+    <>
+      {/* Breadcrumb with JSON-LD Schema */}
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumb items={breadcrumbItems} locale={locale} />
+      </div>
+
+      <TreatmentsClient treatments={treatments} locale={locale} />
+    </>
+  );
 }

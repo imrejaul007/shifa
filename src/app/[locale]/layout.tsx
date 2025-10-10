@@ -50,15 +50,20 @@ export async function generateMetadata({
     ? 'شفاء الهند - شريكك الموثوق للسياحة العلاجية من الخليج إلى الهند. مستشفيات معتمدة من JCI، علاجات بأسعار معقولة 60-70٪ أقل، دعم عربي كامل، ومساعدة في التأشيرة. رعاية صحية عالمية المستوى في بنغالور للمرضى من الإمارات، السعودية، الكويت، عُمان، قطر، البحرين.'
     : 'Shifa AlHind - Your trusted medical tourism partner from GCC to India. JCI-accredited hospitals, affordable treatments 60-70% less, complete Arabic support, and visa assistance. World-class healthcare in Bangalore for patients from UAE, Saudi Arabia, Kuwait, Oman, Qatar, Bahrain.';
 
-  return generateFullMetadata({
-    title,
-    description,
-    keywords: seoKeywords.homepage,
-    locale: locale as 'en' | 'ar',
-    canonical: `/${locale}`,
-    ogImage: '/og-homepage.jpg',
-    ogType: 'website',
-  });
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://shifaalhind.com';
+
+  return {
+    metadataBase: new URL(baseUrl),
+    ...generateFullMetadata({
+      title,
+      description,
+      keywords: seoKeywords.homepage,
+      locale: locale as 'en' | 'ar',
+      canonical: `/${locale}`,
+      ogImage: '/og-homepage.jpg',
+      ogType: 'website',
+    }),
+  };
 }
 
 export default async function LocaleLayout({
