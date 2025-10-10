@@ -11,6 +11,7 @@ import TreatmentDetailClient from './TreatmentDetailClient';
 
 // Force dynamic rendering to prevent SSR errors
 export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Cache for 1 hour
 
 interface PageProps {
   params: Promise<{
@@ -22,7 +23,9 @@ interface PageProps {
 // Generate static params for all published treatments
 export async function generateStaticParams() {
   try {
+    // Limit to first 10 items for build-time generation, rest will be ISR
     const treatments = await prisma.treatment.findMany({
+      take: 10, // Only pre-generate 10 pages at build time
       where: { published: true, isArchived: false },
       select: { slug: true },
     });

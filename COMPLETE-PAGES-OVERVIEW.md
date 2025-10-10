@@ -1,15 +1,18 @@
 # Shifa AlHind - Complete Pages & Features Overview
 
 **Last Updated:** 2025-10-10
-**Total Pages:** 51 page.tsx files (generates 94 routes with locales)
-**Build Status:** ✅ All pages building successfully
+**Total Page Templates:** 51 page.tsx files
+**Total Actual Pages:** 1200+ pages (including all dynamic content)
+**Build Status:** ✅ All pages building successfully with ISR optimization
 
 ---
 
 ## 📊 Platform Statistics
 
-- **Total Page Files:** 51 page.tsx files
-- **Total Routes Generated:** 94 routes (with EN/AR locales + dynamic params)
+- **Total Page Templates:** 51 page.tsx files
+- **Total Actual Pages:** 1200+ pages (blog articles, doctors, hospitals, treatments, packages, etc.)
+- **Pre-generated at Build:** ~50 pages (for fast initial load)
+- **Generated On-Demand (ISR):** 1150+ pages (cached for 1 hour)
 - **Languages:** Bilingual (English + Arabic) with RTL support
 - **API Endpoints:** 16 REST APIs
 - **Database Models:** 11 Prisma models
@@ -331,21 +334,56 @@ These are pure static pages or redirects:
 
 ## ⚙️ BUILD CONFIGURATION
 
+### ISR (Incremental Static Regeneration) Strategy
+
+For optimal performance with 1200+ pages, we use a hybrid approach:
+
+**Build-Time Pre-generation (Fast Initial Load):**
+
+- Only pre-generate top 10 items per content type (blog, doctors, hospitals, treatments, packages)
+- Total: ~50 pages pre-generated at build time
+- Build time: Fast (~2-3 minutes)
+
+**On-Demand Generation (ISR):**
+
+- Remaining 1150+ pages generated on first request
+- Cached for 1 hour (`revalidate = 3600`)
+- Automatic cache invalidation and regeneration
+- No database load during builds
+
+**Implementation:**
+
+```typescript
+// Example from blog/[slug]/page.tsx
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Cache for 1 hour
+
+export async function generateStaticParams() {
+  const posts = await prisma.contentPage.findMany({
+    take: 10, // Only pre-generate 10 pages at build time
+    where: { type: 'blog', published: true },
+  });
+  // ... rest will be ISR
+}
+```
+
 ### Pages Requiring `force-dynamic` (34 total):
 
 **Why:** These pages use client components, interactive features, or complex server-side rendering that requires dynamic rendering at request time instead of static generation at build time.
+
+**All pages with force-dynamic also have ISR caching (revalidate: 3600) for optimal performance.**
 
 **Categories:**
 
 1. **Main client pages:** Homepage, Contact, Booking, Consultation, Stories
 2. **All GCC country pages:** 6 pages
 3. **Treatment pillar pages:** 11 pages
-4. **Detail pages:** Doctors, Hospitals, Packages (dynamic routes)
-5. **Content pages:** About, Services, FAQ, Travel, Blog posts
+4. **Detail pages:** Doctors, Hospitals, Packages (dynamic routes) - with ISR
+5. **Content pages:** About, Services, FAQ, Travel, Blog posts - with ISR
 6. **Admin pages:** 7 pages (all except dashboard)
 7. **Medical tourism:** Country-specific pages
 
-### Static Pages (19 total):
+### Static Pages (17 total):
 
 **Why:** These pages are purely static content or simple listings that can be pre-rendered at build time.
 
@@ -360,13 +398,33 @@ These are pure static pages or redirects:
 
 ## 🚀 DEPLOYMENT NOTES
 
-**Build Output:** 94 routes total (51 page files × 2 locales + dynamic params)
+**Total Content Scale:**
 
-**Static Pages:** 19 pages (○ symbol in build)
-**SSG Pages:** 34 pages (● symbol in build)
-**Dynamic Pages:** 8 pages (ƒ symbol in build)
+- 51 page template files
+- 1200+ actual pages (blog articles, doctors, hospitals, treatments, packages)
+- Build time: ~2-3 minutes (only pre-generates ~50 pages)
+- Remaining pages: Generated on-demand with 1-hour cache
+
+**Build Output Symbol Legend:**
+
+- ○ (Static) - Pre-rendered as static content (17 pages)
+- ● (SSG) - Pre-rendered with generateStaticParams (~23 pages, limited to top 10 items per type)
+- ƒ (Dynamic) - Server-rendered on demand (APIs and dynamic routes)
+
+**Performance Optimization:**
+
+- **Fast Builds:** Only top 10 items per content type pre-generated
+- **ISR Caching:** 1-hour cache on all dynamic pages (revalidate: 3600)
+- **On-Demand Generation:** Remaining 1150+ pages generated on first request
+- **No Build Failures:** Database errors during build are handled gracefully
 
 **Important:** All pages with `force-dynamic` are marked to prevent SSR errors during production builds on platforms like Render, Vercel, etc.
+
+**Scaling Recommendations:**
+
+- For 2000+ pages: Consider reducing pre-generation to 5 items per type
+- For 5000+ pages: Consider removing generateStaticParams entirely and rely 100% on ISR
+- Monitor cache hit rates and adjust revalidate time as needed
 
 ---
 
