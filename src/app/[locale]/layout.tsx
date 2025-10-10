@@ -29,6 +29,9 @@ const tajawal = Tajawal({
 
 const locales = ['en', 'ar'];
 
+// Force dynamic rendering for all pages to prevent SSR errors on client components
+export const dynamic = 'force-dynamic';
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }

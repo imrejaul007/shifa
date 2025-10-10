@@ -1,8 +1,5 @@
 'use client';
 
-// Client components in dynamic routes need this directive
-export const dynamic = 'force-dynamic';
-
 import Navigation from '@/components/public/Navigation';
 import Hero from '@/components/public/Hero';
 import WhatsAppButton from '@/components/public/WhatsAppButton';
