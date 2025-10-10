@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { generateFullMetadata, seoKeywords } from '@/lib/seo-helpers';
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

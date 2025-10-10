@@ -9,6 +9,9 @@ import {
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import TreatmentDetailClient from './TreatmentDetailClient';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';

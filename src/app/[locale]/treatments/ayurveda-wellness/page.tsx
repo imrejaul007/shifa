@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import AyurvedaPillarClient from './AyurvedaPillarClient';
 
+// Force dynamic rendering to prevent SSR errors
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{
     locale: 'en' | 'ar';
