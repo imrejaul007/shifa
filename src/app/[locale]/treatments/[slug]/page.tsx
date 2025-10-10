@@ -1,7 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import { generateMetadata as genMeta } from '@/lib/metadata';
+import {
+  generateFullMetadata,
+  generateMedicalProcedureSchema,
+  seoKeywords,
+} from '@/lib/seo-helpers';
+import Breadcrumb from '@/components/SEO/Breadcrumb';
 import TreatmentDetailClient from './TreatmentDetailClient';
 
 interface PageProps {
@@ -65,30 +70,57 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title =
-    locale === 'ar'
-      ? treatment.seoTitle_ar || treatment.title_ar
-      : treatment.seoTitle_en || treatment.title_en;
-  const description =
-    locale === 'ar'
-      ? treatment.seoDesc_ar || treatment.summary_ar
-      : treatment.seoDesc_en || treatment.summary_en;
+  const isArabic = locale === 'ar';
+  const title = isArabic
+    ? treatment.seoTitle_ar || `${treatment.title_ar} في الهند - التكلفة والمستشفيات`
+    : treatment.seoTitle_en || `${treatment.title_en} in India - Cost, Hospitals & Success Rates`;
 
-  return genMeta({
+  const costRange =
+    treatment.costMin && treatment.costMax
+      ? `$${treatment.costMin.toLocaleString()}-$${treatment.costMax.toLocaleString()}`
+      : 'Affordable pricing';
+
+  const description = isArabic
+    ? treatment.seoDesc_ar ||
+      `${treatment.title_ar} في الهند: وفر 60-70٪ مع مستشفيات JCI عالمية المستوى. التكلفة: ${costRange}. دعم عربي كامل لمرضى الخليج.`
+    : treatment.seoDesc_en ||
+      `${treatment.title_en} in India: Save 60-70% with world-class JCI hospitals. Cost: ${costRange}. Complete Arabic support for GCC patients.`;
+
+  // Get treatment-specific keywords
+  const treatmentKeywords = getTreatmentKeywords(slug);
+
+  return generateFullMetadata({
     title,
     description,
-    locale,
+    keywords: treatmentKeywords,
+    locale: locale as 'en' | 'ar',
     canonical: `/${locale}/treatments/${slug}`,
-    keywords: [
-      treatment.title_en,
-      treatment.title_ar,
-      'medical tourism',
-      'India healthcare',
-      'Bangalore treatment',
-      `${treatment.title_en} cost`,
-      `${treatment.title_en} India`,
-    ],
+    ogType: 'article',
   });
+}
+
+// Helper function to get treatment-specific keywords
+function getTreatmentKeywords(slug: string): string[] {
+  const baseKeywords = [
+    'medical tourism India',
+    'GCC patients India',
+    'affordable treatment India',
+    'JCI hospitals Bangalore',
+    'Arabic support hospitals',
+  ];
+
+  // Map slugs to keyword categories
+  const keywordMap: Record<string, string[]> = {
+    'ivf-fertility': seoKeywords.treatments.ivf,
+    'heart-surgery': seoKeywords.treatments.heart,
+    'joint-replacement': seoKeywords.treatments.knee,
+    'cancer-treatment': seoKeywords.treatments.cancer,
+    'organ-transplant': seoKeywords.treatments.transplant,
+    'cosmetic-surgery': seoKeywords.treatments.cosmetic,
+    'dental-implants': seoKeywords.treatments.dental,
+  };
+
+  return [...baseKeywords, ...(keywordMap[slug] || [])];
 }
 
 export default async function TreatmentDetailPage({ params }: PageProps) {
@@ -177,33 +209,20 @@ export default async function TreatmentDetailPage({ params }: PageProps) {
     take: 3,
   });
 
-  // Generate JSON-LD structured data for MedicalProcedure
-  const medicalProcedureSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'MedicalProcedure',
+  // Generate JSON-LD structured data for MedicalProcedure using SEO helper
+  const medicalProcedureSchema = generateMedicalProcedureSchema({
     name: treatment.title_en,
-    alternateName: treatment.title_ar,
-    description: treatment.summary_en,
-    procedureType: 'TherapeuticProcedure',
-    offers: {
-      '@type': 'Offer',
-      priceRange: `${treatment.costMin}-${treatment.costMax} ${treatment.currency}`,
-      priceCurrency: treatment.currency,
-      availability: 'https://schema.org/InStock',
-    },
-    provider: {
-      '@type': 'MedicalBusiness',
-      name: 'Shifa AlHind',
-      url: 'https://shifaalhind.com',
-    },
-    ...(hospitals.length > 0 && {
-      availableAt: hospitals.map((h) => ({
-        '@type': 'Hospital',
-        name: h.name_en,
-        alternateName: h.name_ar,
-      })),
-    }),
-  };
+    description: treatment.summary_en || '',
+    procedureType: 'Medical Treatment',
+    cost:
+      treatment.costMin && treatment.costMax
+        ? {
+            minPrice: treatment.costMin,
+            maxPrice: treatment.costMax,
+            currency: treatment.currency || 'USD',
+          }
+        : undefined,
+  });
 
   // Generate FAQ schema if FAQ data exists
   let faqSchema = null;
@@ -225,39 +244,26 @@ export default async function TreatmentDetailPage({ params }: PageProps) {
     };
   }
 
-  // Generate BreadcrumbList schema
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: `https://shifaalhind.com/${locale}`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Treatments',
-        item: `https://shifaalhind.com/${locale}/treatments`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: treatment.title_en,
-        item: `https://shifaalhind.com/${locale}/treatments/${slug}`,
-      },
-    ],
-  };
+  // Breadcrumb items for navigation and schema
+  const breadcrumbItems = [
+    { name: locale === 'ar' ? 'الرئيسية' : 'Home', url: '/' },
+    { name: locale === 'ar' ? 'العلاجات' : 'Treatments', url: '/treatments' },
+    { name: locale === 'ar' ? treatment.title_ar : treatment.title_en, url: `/treatments/${slug}` },
+  ];
 
   return (
     <>
+      {/* Breadcrumb with JSON-LD Schema */}
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumb items={breadcrumbItems} locale={locale} />
+      </div>
+
       {/* MedicalProcedure Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureSchema) }}
       />
+
       {/* FAQ Schema */}
       {faqSchema && (
         <script
@@ -265,11 +271,7 @@ export default async function TreatmentDetailPage({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
-      {/* Breadcrumb Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+
       <TreatmentDetailClient
         treatment={treatment}
         hospitals={hospitals}
