@@ -5,8 +5,6 @@ import Link from 'next/link';
 import {
   DollarSign,
   Award,
-  Heart,
-  Users,
   Clock,
   CheckCircle2,
   Shield,
@@ -14,7 +12,6 @@ import {
   Eye,
   Sparkles,
   FileText,
-  Star,
 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';

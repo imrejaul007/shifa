@@ -4,16 +4,13 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   DollarSign,
-  Award,
   Heart,
   Users,
   Clock,
   CheckCircle2,
-  ArrowRight,
   Shield,
   Globe,
   TrendingUp,
-  FileText,
   Activity,
   Stethoscope,
 } from 'lucide-react';

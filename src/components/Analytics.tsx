@@ -61,11 +61,7 @@ export function GoogleAnalytics() {
 // Extend window type for gtag
 declare global {
   interface Window {
-    gtag?: (
-      command: string,
-      targetId: string,
-      config?: Record<string, string | number | boolean>
-    ) => void;
+    gtag?: (command: string, targetId: string, config?: Record<string, unknown>) => void;
   }
 }
 

@@ -211,22 +211,171 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching blog posts for sitemap:', error);
   }
 
-  // GCC country-specific pages
-  const gccCountries = ['uae', 'saudi-arabia', 'kuwait', 'oman', 'qatar', 'bahrain'];
-  for (const country of gccCountries) {
-    for (const locale of locales) {
-      sitemap.push({
-        url: `${baseUrl}/${locale}/medical-tourism/${country}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.8,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/medical-tourism/${country}`,
-            ar: `${baseUrl}/ar/medical-tourism/${country}`,
-          },
+  // Medical Tourism landing page
+  for (const locale of locales) {
+    sitemap.push({
+      url: `${baseUrl}/${locale}/medical-tourism`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/en/medical-tourism`,
+          ar: `${baseUrl}/ar/medical-tourism`,
         },
-      });
+      },
+    });
+  }
+
+  // GCC country-specific pages with cities and treatments
+  const gccCities = [
+    { country: 'saudi-arabia', cities: ['riyadh', 'jeddah'] },
+    { country: 'united-arab-emirates', cities: ['dubai', 'abu-dhabi'] },
+    { country: 'qatar', cities: ['doha'] },
+    { country: 'oman', cities: ['muscat'] },
+    { country: 'kuwait', cities: ['kuwait-city'] },
+    { country: 'bahrain', cities: ['manama'] },
+  ];
+
+  const treatments = [
+    'heart-surgery',
+    'knee-replacement',
+    'hip-replacement',
+    'ivf',
+    'dental-implants',
+    'hair-transplant',
+    'cataract-surgery',
+    'oncology-treatment',
+    'cosmetic-surgery',
+    'bariatric-surgery',
+  ];
+
+  const articleSlugs = [
+    'understanding-cabg-procedure',
+    'heart-valve-replacement-guide',
+    'cardiac-surgery-cost-comparison',
+    'top-cardiac-hospitals-india',
+    'heart-surgery-recovery-tips',
+    'total-knee-replacement-guide',
+    'when-do-you-need-knee-replacement',
+    'knee-replacement-cost-india-vs-gcc',
+    'best-orthopedic-hospitals-india',
+    'knee-replacement-rehabilitation',
+    'hip-replacement-surgery-explained',
+    'minimally-invasive-hip-surgery',
+    'hip-replacement-cost-savings-india',
+    'top-hip-replacement-surgeons-india',
+    'life-after-hip-replacement',
+    'ivf-process-step-by-step',
+    'ivf-success-rates-by-age',
+    'ivf-cost-india-comprehensive-guide',
+    'best-ivf-clinics-india',
+    'preparing-for-ivf-treatment',
+    'dental-implants-complete-guide',
+    'all-on-4-dental-implants',
+    'dental-implant-costs-india-vs-gcc',
+    'best-dental-clinics-india',
+    'dental-implant-care-maintenance',
+    'fue-vs-fut-hair-transplant',
+    'hair-transplant-procedure-explained',
+    'hair-transplant-cost-india',
+    'best-hair-transplant-clinics-india',
+    'hair-transplant-recovery-timeline',
+    'cataract-surgery-complete-guide',
+    'premium-vs-standard-iol',
+    'cataract-surgery-cost-india',
+    'best-eye-hospitals-india-cataract',
+    'after-cataract-surgery-care',
+    'cancer-treatment-options-india',
+    'immunotherapy-cancer-treatment',
+    'cancer-treatment-costs-india',
+    'best-cancer-hospitals-india',
+    'cancer-patient-support-india',
+    'cosmetic-surgery-types-costs',
+    'rhinoplasty-nose-surgery-guide',
+    'cosmetic-surgery-cost-comparison',
+    'best-cosmetic-surgeons-india',
+    'cosmetic-surgery-recovery-tips',
+    'bariatric-surgery-types-explained',
+    'gastric-sleeve-surgery-guide',
+    'bariatric-surgery-cost-india',
+    'best-bariatric-surgeons-india',
+    'life-after-bariatric-surgery',
+  ];
+
+  // City pages
+  for (const { country, cities } of gccCities) {
+    for (const city of cities) {
+      for (const locale of locales) {
+        sitemap.push({
+          url: `${baseUrl}/${locale}/medical-tourism/${country}/${city}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/medical-tourism/${country}/${city}`,
+              ar: `${baseUrl}/ar/medical-tourism/${country}/${city}`,
+            },
+          },
+        });
+      }
+
+      // Treatment pages for each city
+      for (const treatment of treatments) {
+        for (const locale of locales) {
+          sitemap.push({
+            url: `${baseUrl}/${locale}/medical-tourism/${country}/${city}/${treatment}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
+            alternates: {
+              languages: {
+                en: `${baseUrl}/en/medical-tourism/${country}/${city}/${treatment}`,
+                ar: `${baseUrl}/ar/medical-tourism/${country}/${city}/${treatment}`,
+              },
+            },
+          });
+        }
+      }
+    }
+  }
+
+  // Blog article pages (5 articles per treatment)
+  const treatmentArticles: Record<string, string[]> = {
+    'heart-surgery': articleSlugs.slice(0, 5),
+    'knee-replacement': articleSlugs.slice(5, 10),
+    'hip-replacement': articleSlugs.slice(10, 15),
+    ivf: articleSlugs.slice(15, 20),
+    'dental-implants': articleSlugs.slice(20, 25),
+    'hair-transplant': articleSlugs.slice(25, 30),
+    'cataract-surgery': articleSlugs.slice(30, 35),
+    'oncology-treatment': articleSlugs.slice(35, 40),
+    'cosmetic-surgery': articleSlugs.slice(40, 45),
+    'bariatric-surgery': articleSlugs.slice(45, 50),
+  };
+
+  for (const { country, cities } of gccCities) {
+    for (const city of cities) {
+      for (const treatment of treatments) {
+        const articles = treatmentArticles[treatment] || [];
+        for (const article of articles) {
+          for (const locale of locales) {
+            sitemap.push({
+              url: `${baseUrl}/${locale}/blog/${country}/${city}/${treatment}/${article}`,
+              lastModified: new Date(),
+              changeFrequency: 'monthly',
+              priority: 0.7,
+              alternates: {
+                languages: {
+                  en: `${baseUrl}/en/blog/${country}/${city}/${treatment}/${article}`,
+                  ar: `${baseUrl}/ar/blog/${country}/${city}/${treatment}/${article}`,
+                },
+              },
+            });
+          }
+        }
+      }
     }
   }
 

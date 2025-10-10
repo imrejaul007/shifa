@@ -34,6 +34,9 @@ const content = {
     by: 'By',
     noResults: 'No articles found',
     tryAgain: 'Try adjusting your search',
+    medicalTourismTitle: 'Medical Tourism Guides by City',
+    medicalTourismSubtitle: 'Comprehensive treatment guides tailored for your city',
+    viewAllCities: 'View All Cities & Treatments',
     ctaTitle: 'Have Questions?',
     ctaDesc: 'Schedule a free consultation with our medical experts',
     ctaButton: 'Book Free Consultation',
@@ -47,11 +50,50 @@ const content = {
     by: 'بواسطة',
     noResults: 'لم يتم العثور على مقالات',
     tryAgain: 'حاول تعديل بحثك',
+    medicalTourismTitle: 'أدلة السياحة العلاجية حسب المدينة',
+    medicalTourismSubtitle: 'أدلة علاج شاملة مصممة خصيصًا لمدينتك',
+    viewAllCities: 'عرض جميع المدن والعلاجات',
     ctaTitle: 'هل لديك أسئلة؟',
     ctaDesc: 'احجز استشارة مجانية مع خبرائنا الطبيين',
     ctaButton: 'احجز استشارة مجانية',
   },
 };
+
+// Featured cities for medical tourism
+const FEATURED_CITIES = [
+  {
+    country: 'saudi-arabia',
+    slug: 'riyadh',
+    name_en: 'Riyadh',
+    name_ar: 'الرياض',
+    description_en: 'World-class treatment options with 60-70% cost savings',
+    description_ar: 'خيارات علاج عالمية مع توفير 60-70٪ من التكاليف',
+  },
+  {
+    country: 'united-arab-emirates',
+    slug: 'dubai',
+    name_en: 'Dubai',
+    name_ar: 'دبي',
+    description_en: 'Premium healthcare solutions at affordable Indian prices',
+    description_ar: 'حلول رعاية صحية متميزة بأسعار هندية معقولة',
+  },
+  {
+    country: 'qatar',
+    slug: 'doha',
+    name_en: 'Doha',
+    name_ar: 'الدوحة',
+    description_en: 'Comprehensive medical packages for Qatari patients',
+    description_ar: 'باقات طبية شاملة للمرضى القطريين',
+  },
+  {
+    country: 'kuwait',
+    slug: 'kuwait-city',
+    name_en: 'Kuwait City',
+    name_ar: 'مدينة الكويت',
+    description_en: 'Specialized treatments with Arabic-speaking support',
+    description_ar: 'علاجات متخصصة مع دعم يتحدث العربية',
+  },
+];
 
 export default function BlogClient({ posts, locale }: Props) {
   const t = content[locale];
@@ -212,6 +254,68 @@ export default function BlogClient({ posts, locale }: Props) {
               <p className="text-base sm:text-lg text-muted-foreground">{t.tryAgain}</p>
             </motion.div>
           )}
+        </div>
+      </section>
+
+      {/* Medical Tourism Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-blue-50 to-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-primary leading-tight mb-4">
+              {t.medicalTourismTitle}
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t.medicalTourismSubtitle}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {FEATURED_CITIES.map((city, index) => (
+              <motion.div
+                key={city.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}>
+                  <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 h-full border border-border hover:border-accent">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold">
+                        {(locale === 'ar' ? city.name_ar : city.name_en).charAt(0)}
+                      </div>
+                      <h3 className="text-xl font-bold text-primary">
+                        {locale === 'ar' ? city.name_ar : city.name_en}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {locale === 'ar' ? city.description_ar : city.description_en}
+                    </p>
+                    <div className="flex items-center text-accent font-medium text-sm">
+                      <span>{t.readMore}</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <ButtonLink
+              href={`/${locale}/medical-tourism`}
+              variant="outline"
+              size="lg"
+              rightIcon={<ArrowRight className="w-5 h-5" />}
+            >
+              {t.viewAllCities}
+            </ButtonLink>
+          </div>
         </div>
       </section>
 

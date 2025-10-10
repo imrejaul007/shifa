@@ -75,8 +75,8 @@ const content = {
 };
 
 export default function BookingForm({
-  doctorId,
-  packageId,
+  doctorId: _doctorId,
+  packageId: _packageId,
   hospitalId,
   treatmentId,
   locale,

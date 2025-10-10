@@ -13,8 +13,6 @@ import {
   Globe,
   FileText,
   Activity,
-  Stethoscope,
-  UserCheck,
 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';

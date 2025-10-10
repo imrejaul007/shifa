@@ -9,10 +9,8 @@ import {
   Users,
   Clock,
   CheckCircle2,
-  ArrowRight,
   Shield,
   Globe,
-  TrendingUp,
   FileText,
 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';

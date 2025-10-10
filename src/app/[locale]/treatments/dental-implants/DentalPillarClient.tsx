@@ -12,7 +12,6 @@ import {
   Shield,
   Globe,
   FileText,
-  Star,
 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';

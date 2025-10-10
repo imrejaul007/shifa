@@ -6,7 +6,6 @@ import {
   DollarSign,
   Award,
   Heart,
-  Users,
   Clock,
   CheckCircle2,
   Leaf,
