@@ -61,8 +61,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Doctor Not Found' };
   }
 
-  const title = locale === 'ar' ? doctor.seoTitle_ar || doctor.name_ar : doctor.seoTitle_en || doctor.name_en;
-  const description = locale === 'ar' ? doctor.seoDesc_ar || doctor.bio_ar.substring(0, 160) : doctor.seoDesc_en || doctor.bio_en.substring(0, 160);
+  const title =
+    locale === 'ar' ? doctor.seoTitle_ar || doctor.name_ar : doctor.seoTitle_en || doctor.name_en;
+  const description =
+    locale === 'ar'
+      ? doctor.seoDesc_ar || doctor.bio_ar.substring(0, 160)
+      : doctor.seoDesc_en || doctor.bio_en.substring(0, 160);
 
   return genMeta({
     title,
@@ -124,8 +128,8 @@ export default async function DoctorProfilePage({ params }: PageProps) {
     take: 3,
   });
 
-  // Generate JSON-LD
-  const jsonLd = {
+  // Generate Physician/MedicalDoctor Schema
+  const physicianSchema = {
     '@context': 'https://schema.org',
     '@type': 'Physician',
     name: doctor.name_en,
@@ -135,21 +139,59 @@ export default async function DoctorProfilePage({ params }: PageProps) {
     worksFor: {
       '@type': 'Hospital',
       name: doctor.hospital.name_en,
+      alternateName: doctor.hospital.name_ar,
+      url: `https://shifaalhind.com/${locale}/hospitals/${doctor.hospital.slug}`,
     },
     availableLanguage: doctor.languages,
+    knowsLanguage: doctor.languages,
+    ...(doctor.qualifications.length > 0 && {
+      hasCredential: doctor.qualifications.map((qual) => ({
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'degree',
+        name: qual,
+      })),
+    }),
+  };
+
+  // BreadcrumbList Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `https://shifaalhind.com/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Doctors',
+        item: `https://shifaalhind.com/${locale}/doctors`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: doctor.name_en,
+        item: `https://shifaalhind.com/${locale}/doctors/${slug}`,
+      },
+    ],
   };
 
   return (
     <>
+      {/* Physician Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }}
       />
-      <DoctorProfileClient
-        doctor={doctor}
-        relatedDoctors={relatedDoctors}
-        locale={locale}
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <DoctorProfileClient doctor={doctor} relatedDoctors={relatedDoctors} locale={locale} />
     </>
   );
 }

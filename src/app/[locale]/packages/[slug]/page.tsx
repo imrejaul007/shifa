@@ -13,21 +13,21 @@ interface PageProps {
 
 export async function generateStaticParams() {
   try {
-  const packages = await prisma.package.findMany({
-    where: { published: true, isArchived: false },
-    select: { slug: true },
-  });
+    const packages = await prisma.package.findMany({
+      where: { published: true, isArchived: false },
+      select: { slug: true },
+    });
 
-  const locales = ['en', 'ar'];
-  const params = [];
+    const locales = ['en', 'ar'];
+    const params = [];
 
-  for (const locale of locales) {
-    for (const pkg of packages) {
-      params.push({ locale, slug: pkg.slug });
+    for (const locale of locales) {
+      for (const pkg of packages) {
+        params.push({ locale, slug: pkg.slug });
+      }
     }
-  }
 
-  return params;
+    return params;
   } catch {
     console.warn('Database not available during build, skipping static generation');
     return [];
@@ -106,24 +106,66 @@ export default async function PackageDetailPage({ params }: PageProps) {
     take: 2,
   });
 
-  const jsonLd = {
+  // Product/MedicalPackage Schema
+  const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: pkg.name_en,
+    alternateName: pkg.name_ar,
     description: pkg.description_en,
+    category: 'Medical Tourism Package',
     offers: {
       '@type': 'Offer',
       price: pkg.price,
       priceCurrency: pkg.currency,
       availability: 'https://schema.org/InStock',
+      url: `https://shifaalhind.com/${locale}/packages/${slug}`,
+      priceValidUntil: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 6 months
     },
+    provider: {
+      '@type': 'MedicalBusiness',
+      name: 'Shifa AlHind',
+      url: 'https://shifaalhind.com',
+    },
+  };
+
+  // BreadcrumbList Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `https://shifaalhind.com/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Packages',
+        item: `https://shifaalhind.com/${locale}/packages`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: pkg.name_en,
+        item: `https://shifaalhind.com/${locale}/packages/${slug}`,
+      },
+    ],
   };
 
   return (
     <>
+      {/* Product Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <PackageDetailClient pkg={pkg} otherPackages={allPackages} locale={locale} />
     </>

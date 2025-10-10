@@ -177,13 +177,14 @@ export default async function TreatmentDetailPage({ params }: PageProps) {
     take: 3,
   });
 
-  // Generate JSON-LD structured data
-  const jsonLd = {
+  // Generate JSON-LD structured data for MedicalProcedure
+  const medicalProcedureSchema = {
     '@context': 'https://schema.org',
     '@type': 'MedicalProcedure',
     name: treatment.title_en,
     alternateName: treatment.title_ar,
     description: treatment.summary_en,
+    procedureType: 'TherapeuticProcedure',
     offers: {
       '@type': 'Offer',
       priceRange: `${treatment.costMin}-${treatment.costMax} ${treatment.currency}`,
@@ -195,13 +196,79 @@ export default async function TreatmentDetailPage({ params }: PageProps) {
       name: 'Shifa AlHind',
       url: 'https://shifaalhind.com',
     },
+    ...(hospitals.length > 0 && {
+      availableAt: hospitals.map((h) => ({
+        '@type': 'Hospital',
+        name: h.name_en,
+        alternateName: h.name_ar,
+      })),
+    }),
+  };
+
+  // Generate FAQ schema if FAQ data exists
+  let faqSchema = null;
+  if (treatment.faq && Array.isArray(treatment.faq) && treatment.faq.length > 0) {
+    faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: treatment.faq.map((item: unknown) => {
+        const faqItem = item as Record<string, unknown>;
+        return {
+          '@type': 'Question',
+          name: String(faqItem.q_en || faqItem.question || ''),
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: String(faqItem.a_en || faqItem.answer || ''),
+          },
+        };
+      }),
+    };
+  }
+
+  // Generate BreadcrumbList schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `https://shifaalhind.com/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Treatments',
+        item: `https://shifaalhind.com/${locale}/treatments`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: treatment.title_en,
+        item: `https://shifaalhind.com/${locale}/treatments/${slug}`,
+      },
+    ],
   };
 
   return (
     <>
+      {/* MedicalProcedure Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureSchema) }}
+      />
+      {/* FAQ Schema */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <TreatmentDetailClient
         treatment={treatment}
