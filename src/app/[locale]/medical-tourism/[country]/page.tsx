@@ -70,7 +70,15 @@ export default async function CountryLandingPage({ params }: PageProps) {
   }
 
   // Fetch popular treatments with error handling
-  let treatments = [];
+  let treatments: Array<{
+    slug: string;
+    title_en: string;
+    title_ar: string;
+    summary_en: string | null;
+    summary_ar: string | null;
+    costMin: number | null;
+    costMax: number | null;
+  }> = [];
   try {
     treatments = await prisma.treatment.findMany({
       where: { published: true, isArchived: false },
@@ -92,7 +100,15 @@ export default async function CountryLandingPage({ params }: PageProps) {
   }
 
   // Fetch hospitals with error handling
-  let hospitals = [];
+  let hospitals: Array<{
+    slug: string;
+    name_en: string;
+    name_ar: string;
+    description_en: string | null;
+    description_ar: string | null;
+    images: unknown;
+    accreditations: string[];
+  }> = [];
   try {
     hospitals = await prisma.hospital.findMany({
       where: { published: true, isArchived: false },
@@ -100,6 +116,9 @@ export default async function CountryLandingPage({ params }: PageProps) {
         slug: true,
         name_en: true,
         name_ar: true,
+        description_en: true,
+        description_ar: true,
+        images: true,
         accreditations: true,
       },
       take: 6,
@@ -135,8 +154,10 @@ export default async function CountryLandingPage({ params }: PageProps) {
     <CountryLandingClient
       country={country}
       locale={locale}
-      treatments={treatments}
-      hospitals={hospitals}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      treatments={treatments as any}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      hospitals={hospitals as any}
       bookingCount={bookings.length}
     />
   );

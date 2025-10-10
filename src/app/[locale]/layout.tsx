@@ -6,6 +6,8 @@ import Footer from '@/components/public/Footer';
 import WhatsAppButton from '@/components/public/WhatsAppButton';
 import { GoogleAnalytics } from '@/components/Analytics';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { generateFullMetadata, seoKeywords } from '@/lib/seo-helpers';
+import { OrganizationSchema, WebSiteSchema } from '@/components/SEO/SchemaMarkup';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -37,21 +39,26 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isArabic = locale === 'ar';
 
-  return {
-    title: {
-      default: locale === 'ar' ? 'شفاء الهند - الرعاية الطبية الموثوقة' : 'Shifa AlHind - Trusted Medical Care',
-      template: locale === 'ar' ? '%s | شفاء الهند' : '%s | Shifa AlHind',
-    },
-    description:
-      locale === 'ar'
-        ? 'الرعاية الطبية الموثوقة لمرضى الخليج في بنغالور. مستشفيات معتمدة من JCI، دعم عربي، مساعدة في التأشيرة.'
-        : 'Trusted Medical Care in Bangalore for GCC Patients. JCI-accredited hospitals, Arabic support, visa assistance.',
-    keywords:
-      locale === 'ar'
-        ? ['السياحة العلاجية', 'الهند', 'بنغالور', 'مستشفيات', 'دول الخليج', 'علاج طبي']
-        : ['medical tourism', 'India', 'Bangalore', 'hospitals', 'GCC', 'medical treatment'],
-  };
+  // Homepage SEO metadata
+  const title = isArabic
+    ? 'أفضل السياحة العلاجية في الهند لمرضى دول الخليج'
+    : 'Best Medical Tourism in India for GCC Patients';
+
+  const description = isArabic
+    ? 'شفاء الهند - شريكك الموثوق للسياحة العلاجية من الخليج إلى الهند. مستشفيات معتمدة من JCI، علاجات بأسعار معقولة 60-70٪ أقل، دعم عربي كامل، ومساعدة في التأشيرة. رعاية صحية عالمية المستوى في بنغالور للمرضى من الإمارات، السعودية، الكويت، عُمان، قطر، البحرين.'
+    : 'Shifa AlHind - Your trusted medical tourism partner from GCC to India. JCI-accredited hospitals, affordable treatments 60-70% less, complete Arabic support, and visa assistance. World-class healthcare in Bangalore for patients from UAE, Saudi Arabia, Kuwait, Oman, Qatar, Bahrain.';
+
+  return generateFullMetadata({
+    title,
+    description,
+    keywords: seoKeywords.homepage,
+    locale: locale as 'en' | 'ar',
+    canonical: `/${locale}`,
+    ogImage: '/og-homepage.jpg',
+    ogType: 'website',
+  });
 }
 
 export default async function LocaleLayout({
@@ -71,7 +78,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body className={`${playfair.variable} ${inter.variable} ${tajawal.variable} ${locale === 'ar' ? 'font-arabic' : ''}`}>
+      <head>
+        <OrganizationSchema />
+        <WebSiteSchema locale={locale as 'en' | 'ar'} />
+      </head>
+      <body
+        className={`${playfair.variable} ${inter.variable} ${tajawal.variable} ${locale === 'ar' ? 'font-arabic' : ''}`}
+      >
         <GoogleAnalytics />
         <ErrorBoundary>
           <Navigation locale={locale as 'en' | 'ar'} />

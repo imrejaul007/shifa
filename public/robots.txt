@@ -1,0 +1,73 @@
+# Robots.txt for Shifa AlHind Medical Tourism Platform
+# Optimized for SEO and proper crawling
+
+# Allow all crawlers to access the site
+User-agent: *
+Allow: /
+
+# Disallow admin, API, and private routes
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /dashboard/
+
+# Disallow search result pages (if added in future)
+Disallow: /search?
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+
+# Disallow authentication pages
+Disallow: /auth/
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+
+# Allow important resources
+Allow: /api/og
+Allow: /_next/static/
+Allow: /_next/image
+
+# Crawl-delay for respectful crawling (optional, most modern bots ignore this)
+# Crawl-delay: 1
+
+# Specific rules for major search engines
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /
+Allow: /_next/image
+Allow: /images/
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Yandex (popular in some GCC regions)
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Baidu (for Chinese speakers in GCC)
+User-agent: Baiduspider
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemaps
+Sitemap: https://shifaalhind.com/sitemap.xml
+Sitemap: https://shifaalhind.com/sitemap-blog.xml
+Sitemap: https://shifaalhind.com/sitemap-treatments.xml
+Sitemap: https://shifaalhind.com/sitemap-hospitals.xml
+
+# Host directive (for multi-domain sites)
+Host: https://shifaalhind.com

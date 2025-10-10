@@ -45,7 +45,15 @@ export default async function TreatmentsPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Fetch all published treatments with error handling
-  let treatments = [];
+  let treatments: Array<{
+    slug: string;
+    title_en: string;
+    title_ar: string;
+    summary_en: string | null;
+    summary_ar: string | null;
+    costMin: number | null;
+    costMax: number | null;
+  }> = [];
   try {
     treatments = await prisma.treatment.findMany({
       where: {

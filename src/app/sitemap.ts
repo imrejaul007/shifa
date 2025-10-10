@@ -1,3 +1,8 @@
+/**
+ * Enhanced Sitemap for Shifa AlHind
+ * Includes hreflang alternates, comprehensive page coverage, and optimized SEO metadata
+ */
+
 import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/prisma';
 
@@ -7,31 +12,66 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const sitemap: MetadataRoute.Sitemap = [];
 
-  // Static pages
+  // Static pages with priority levels
   const staticPages = [
-    '',
-    '/about',
-    '/treatments',
-    '/doctors',
-    '/hospitals',
-    '/packages',
-    '/services',
-    '/blog',
-    '/stories',
-    '/faq',
-    '/contact',
-    '/consultation',
-    '/booking',
+    { path: '', priority: 1.0, changeFreq: 'daily' as const },
+    { path: '/about', priority: 0.8, changeFreq: 'monthly' as const },
+    { path: '/treatments', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/doctors', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/hospitals', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/packages', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/services', priority: 0.8, changeFreq: 'monthly' as const },
+    { path: '/blog', priority: 0.8, changeFreq: 'daily' as const },
+    { path: '/stories', priority: 0.7, changeFreq: 'weekly' as const },
+    { path: '/faq', priority: 0.7, changeFreq: 'monthly' as const },
+    { path: '/contact', priority: 0.9, changeFreq: 'monthly' as const },
+    { path: '/consultation', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/booking', priority: 0.9, changeFreq: 'weekly' as const },
+    { path: '/terms-and-conditions', priority: 0.3, changeFreq: 'yearly' as const },
+    { path: '/privacy-policy', priority: 0.3, changeFreq: 'yearly' as const },
+    { path: '/refund-policy', priority: 0.3, changeFreq: 'yearly' as const },
   ];
 
-  // Add static pages for both locales
-  for (const locale of locales) {
-    for (const page of staticPages) {
+  // Add static pages for both locales with hreflang alternates
+  for (const page of staticPages) {
+    for (const locale of locales) {
       sitemap.push({
-        url: `${baseUrl}/${locale}${page}`,
+        url: `${baseUrl}/${locale}${page.path}`,
         lastModified: new Date(),
-        changeFrequency: page === '' || page === '/blog' ? 'daily' : 'weekly',
-        priority: page === '' ? 1 : 0.8,
+        changeFrequency: page.changeFreq,
+        priority: page.priority,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en${page.path}`,
+            ar: `${baseUrl}/ar${page.path}`,
+          },
+        },
+      });
+    }
+  }
+
+  // Service-specific pages
+  const servicePages = [
+    'visa-assistance',
+    'airport-pickup',
+    'accommodation',
+    'medical-translation',
+    'post-treatment-care',
+  ];
+
+  for (const service of servicePages) {
+    for (const locale of locales) {
+      sitemap.push({
+        url: `${baseUrl}/${locale}/services/${service}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.7,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/services/${service}`,
+            ar: `${baseUrl}/ar/services/${service}`,
+          },
+        },
       });
     }
   }
@@ -50,6 +90,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: treatment.updatedAt,
           changeFrequency: 'weekly',
           priority: 0.9,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/treatments/${treatment.slug}`,
+              ar: `${baseUrl}/ar/treatments/${treatment.slug}`,
+            },
+          },
         });
       }
     }
@@ -71,6 +117,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: doctor.updatedAt,
           changeFrequency: 'monthly',
           priority: 0.7,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/doctors/${doctor.slug}`,
+              ar: `${baseUrl}/ar/doctors/${doctor.slug}`,
+            },
+          },
         });
       }
     }
@@ -91,7 +143,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           url: `${baseUrl}/${locale}/hospitals/${hospital.slug}`,
           lastModified: hospital.updatedAt,
           changeFrequency: 'monthly',
-          priority: 0.7,
+          priority: 0.8,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/hospitals/${hospital.slug}`,
+              ar: `${baseUrl}/ar/hospitals/${hospital.slug}`,
+            },
+          },
         });
       }
     }
@@ -113,6 +171,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: pkg.updatedAt,
           changeFrequency: 'monthly',
           priority: 0.7,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/packages/${pkg.slug}`,
+              ar: `${baseUrl}/ar/packages/${pkg.slug}`,
+            },
+          },
         });
       }
     }
@@ -133,7 +197,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           url: `${baseUrl}/${locale}/blog/${post.slug}`,
           lastModified: post.updatedAt,
           changeFrequency: 'monthly',
-          priority: 0.6,
+          priority: 0.7,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/blog/${post.slug}`,
+              ar: `${baseUrl}/ar/blog/${post.slug}`,
+            },
+          },
         });
       }
     }
@@ -146,10 +216,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const country of gccCountries) {
     for (const locale of locales) {
       sitemap.push({
-        url: `${baseUrl}/${locale}/medical-tourism/from-${country}`,
+        url: `${baseUrl}/${locale}/medical-tourism/${country}`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.8,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/medical-tourism/${country}`,
+            ar: `${baseUrl}/ar/medical-tourism/${country}`,
+          },
+        },
       });
     }
   }

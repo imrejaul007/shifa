@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
+import { JsonValue } from '@prisma/client/runtime/library';
 import { generateMetadata as genMeta } from '@/lib/metadata';
 import HospitalsClient from './HospitalsClient';
 
@@ -46,7 +47,21 @@ export default async function HospitalsPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Fetch all published hospitals with counts and error handling
-  let hospitals = [];
+  type HospitalData = {
+    slug: string;
+    name_en: string;
+    name_ar: string;
+    description_en: string;
+    description_ar: string;
+    address: string;
+    accreditations: string[];
+    images: JsonValue;
+    languagesSupported: string[];
+    _count: {
+      doctors: number;
+    };
+  };
+  let hospitals: HospitalData[] = [];
   try {
     hospitals = await prisma.hospital.findMany({
       where: {

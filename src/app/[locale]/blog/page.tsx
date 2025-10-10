@@ -46,7 +46,17 @@ export default async function BlogPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Fetch all published blog posts with error handling
-  let posts = [];
+  let posts: Array<{
+    slug: string;
+    title_en: string;
+    title_ar: string;
+    excerpt_en: string | null;
+    excerpt_ar: string | null;
+    featuredImage: string | null;
+    author: string | null;
+    publishedAt: Date | null;
+    type: string;
+  }> = [];
   try {
     posts = await prisma.contentPage.findMany({
       where: {
