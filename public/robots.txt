@@ -63,11 +63,11 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-# Sitemaps
+# Sitemaps (980 pages - medical tourism content)
+Sitemap: https://shifaalhind.com/sitemap_index.xml
+Sitemap: https://shifaalhind.com/sitemap_en.xml
+Sitemap: https://shifaalhind.com/sitemap_ar.xml
 Sitemap: https://shifaalhind.com/sitemap.xml
-Sitemap: https://shifaalhind.com/sitemap-blog.xml
-Sitemap: https://shifaalhind.com/sitemap-treatments.xml
-Sitemap: https://shifaalhind.com/sitemap-hospitals.xml
 
 # Host directive (for multi-domain sites)
 Host: https://shifaalhind.com
