@@ -6,9 +6,6 @@ import DataTable from '@/components/admin/DataTable';
 import { Plus, Edit2, Trash2, Eye, FileText } from 'lucide-react';
 import ContentFormModal from './ContentFormModal';
 
-// Force dynamic rendering to prevent SSR errors
-export const dynamic = 'force-dynamic';
-
 interface ContentPage extends Record<string, unknown> {
   id: string;
   slug: string;

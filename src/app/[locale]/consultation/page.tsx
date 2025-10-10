@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { trackConsultationRequest } from '@/components/Analytics';
 
-// Force dynamic rendering for this client component page
-export const dynamic = 'force-dynamic';
 import {
   FileText,
   Upload,

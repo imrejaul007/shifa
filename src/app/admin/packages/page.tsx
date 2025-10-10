@@ -6,9 +6,6 @@ import DataTable from '@/components/admin/DataTable';
 import { Plus, Edit2, Trash2, Star } from 'lucide-react';
 import PackageFormModal from './PackageFormModal';
 
-// Force dynamic rendering to prevent SSR errors
-export const dynamic = 'force-dynamic';
-
 interface Package extends Record<string, unknown> {
   id: string;
   slug: string;

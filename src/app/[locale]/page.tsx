@@ -1,8 +1,5 @@
 'use client';
 
-// Force dynamic rendering for client component page
-export const dynamic = 'force-dynamic';
-
 import Navigation from '@/components/public/Navigation';
 import Hero from '@/components/public/Hero';
 import WhatsAppButton from '@/components/public/WhatsAppButton';
