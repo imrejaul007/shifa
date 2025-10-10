@@ -93,10 +93,10 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary mb-6 leading-tight">
               {t.title}
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">{t.subtitle}</p>
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8">{t.subtitle}</p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -111,8 +111,8 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t.search}
-                  className={`w-full py-4 rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent ${
-                    locale === 'ar' ? 'pr-12 pl-4' : 'pl-12 pr-4'
+                  className={`w-full py-4 text-base rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent min-h-[52px] ${
+                    locale === 'ar' ? 'pr-14 pl-5' : 'pl-14 pr-5'
                   }`}
                 />
               </div>
@@ -137,7 +137,7 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {filteredHospitals.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filteredHospitals.map((hospital, index) => {
                 const name = locale === 'ar' ? hospital.name_ar : hospital.name_en;
                 const description =
@@ -160,7 +160,7 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
                       <Card hover={true} variant="default" className="h-full flex flex-col">
                         {firstImage && <CardImage src={firstImage} alt={name} aspectRatio="16/9" />}
                         <CardBody className="flex-1 flex flex-col">
-                          <h3 className="text-2xl font-display font-bold text-primary mb-2">
+                          <h3 className="text-xl sm:text-2xl font-display font-bold text-primary mb-2 leading-snug">
                             {name}
                           </h3>
                           {description && (
@@ -245,10 +245,10 @@ export default function HospitalsClient({ hospitals, locale }: Props) {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center glass rounded-3xl p-8 sm:p-12"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-primary mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-6 leading-tight">
               {t.ctaTitle}
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">{t.ctaDesc}</p>
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8">{t.ctaDesc}</p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

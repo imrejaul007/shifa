@@ -93,7 +93,7 @@ export default function Hero({ locale }: HeroProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={`text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-white mb-6 ${
+            className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-white mb-6 leading-tight ${
               locale === 'ar' ? 'font-arabic' : ''
             }`}
           >
@@ -105,7 +105,7 @@ export default function Hero({ locale }: HeroProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className={`text-xl sm:text-2xl text-white/90 mb-12 max-w-3xl mx-auto ${
+            className={`text-lg sm:text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed ${
               locale === 'ar' ? 'font-arabic' : 'font-body'
             }`}
           >
@@ -117,11 +117,11 @@ export default function Hero({ locale }: HeroProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 mb-16 w-full sm:w-auto px-4 sm:px-0"
           >
             <Link
               href={`/${locale}/contact`}
-              className="group px-8 py-4 gold-gradient text-foreground font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse"
+              className="group w-full sm:w-auto px-8 py-5 sm:py-4 gold-gradient text-foreground font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse text-base sm:text-base min-h-[52px]"
             >
               <span>{t.cta1}</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
@@ -129,7 +129,7 @@ export default function Hero({ locale }: HeroProps) {
 
             <Link
               href={`/${locale}/treatments`}
-              className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-full border-2 border-white/30 hover:bg-white/20 hover:border-accent transition-all duration-300"
+              className="w-full sm:w-auto px-8 py-5 sm:py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-full border-2 border-white/30 hover:bg-white/20 hover:border-accent transition-all duration-300 text-center text-base sm:text-base min-h-[52px] flex items-center justify-center"
             >
               {t.cta2}
             </Link>
@@ -140,7 +140,7 @@ export default function Hero({ locale }: HeroProps) {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto"
           >
             {t.stats.map((stat, index) => (
               <motion.div
@@ -148,11 +148,15 @@ export default function Hero({ locale }: HeroProps) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                className="glass-dark p-6 rounded-2xl hover:scale-105 transition-transform duration-300"
+                className="glass-dark p-8 sm:p-6 rounded-2xl hover:scale-105 transition-transform duration-300"
               >
-                <stat.icon className="w-10 h-10 text-accent mx-auto mb-3" />
-                <div className="text-3xl font-display font-bold text-white mb-1">{stat.value}</div>
-                <div className={`text-sm text-white/80 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+                <stat.icon className="w-12 h-12 sm:w-10 sm:h-10 text-accent mx-auto mb-4 sm:mb-3" />
+                <div className="text-4xl sm:text-3xl font-display font-bold text-white mb-2 sm:mb-1">
+                  {stat.value}
+                </div>
+                <div
+                  className={`text-base sm:text-sm text-white/80 ${locale === 'ar' ? 'font-arabic' : ''}`}
+                >
                   {stat.label}
                 </div>
               </motion.div>

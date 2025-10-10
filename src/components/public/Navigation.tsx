@@ -85,7 +85,10 @@ export default function Navigation({ locale }: NavigationProps) {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center space-x-3 rtl:space-x-reverse group">
+          <Link
+            href={`/${locale}`}
+            className="flex items-center space-x-3 rtl:space-x-reverse group"
+          >
             <div className="w-12 h-12 rounded-full emerald-gradient flex items-center justify-center ring-2 ring-accent/20 group-hover:ring-accent/50 transition-all">
               <span className="text-2xl font-bold text-white">ش</span>
             </div>
@@ -142,9 +145,10 @@ export default function Navigation({ locale }: NavigationProps) {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-accent transition-colors"
+            className="lg:hidden p-3 text-foreground hover:text-accent transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
 
@@ -157,7 +161,7 @@ export default function Navigation({ locale }: NavigationProps) {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden overflow-hidden"
             >
-              <div className="py-4 space-y-2">
+              <div className="py-6 space-y-2">
                 {menuItems.map((item, index) => (
                   <motion.div
                     key={item.href}
@@ -168,26 +172,26 @@ export default function Navigation({ locale }: NavigationProps) {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-4 py-3 text-base font-medium text-foreground hover:bg-accent/10 hover:text-accent rounded-lg transition-colors"
+                      className="block px-6 py-4 text-lg font-medium text-foreground hover:bg-accent/10 hover:text-accent rounded-lg transition-colors min-h-[52px] flex items-center"
                     >
                       {item.label}
                     </Link>
                   </motion.div>
                 ))}
 
-                <div className="pt-4 border-t border-accent/20 space-y-2">
+                <div className="pt-6 mt-4 border-t border-accent/20 space-y-3">
                   <Link
                     href={`/${nextLocale}`}
-                    className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-3 text-base font-medium text-foreground hover:bg-accent/10 hover:text-accent rounded-lg transition-colors"
+                    className="flex items-center justify-center space-x-2 rtl:space-x-reverse px-6 py-4 text-lg font-medium text-foreground hover:bg-accent/10 hover:text-accent rounded-lg transition-colors min-h-[52px]"
                   >
-                    <Globe className="w-5 h-5" />
+                    <Globe className="w-6 h-6" />
                     <span>{t.language}</span>
                   </Link>
 
                   <Link
                     href={`/${locale}/booking`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-4 py-3 gold-gradient text-center font-semibold rounded-lg"
+                    className="block px-6 py-5 gold-gradient text-center text-lg font-semibold rounded-full min-h-[56px] flex items-center justify-center"
                   >
                     {t.cta}
                   </Link>
@@ -195,7 +199,7 @@ export default function Navigation({ locale }: NavigationProps) {
                   <Link
                     href={`/${locale}/consultation`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-4 py-3 border-2 border-accent text-accent text-center font-semibold rounded-lg hover:bg-accent hover:text-primary transition-all"
+                    className="block px-6 py-5 border-2 border-accent text-accent text-center text-lg font-semibold rounded-full hover:bg-accent hover:text-primary transition-all min-h-[56px] flex items-center justify-center"
                   >
                     Free Consultation
                   </Link>

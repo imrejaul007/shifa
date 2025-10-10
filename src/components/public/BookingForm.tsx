@@ -197,20 +197,24 @@ export default function BookingForm({
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-8">
+    <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
       <h3
-        className={`text-3xl font-bold text-gray-900 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+        className={`text-2xl sm:text-3xl font-bold text-gray-900 mb-3 ${locale === 'ar' ? 'font-arabic' : ''}`}
       >
         {t.title}
       </h3>
-      <p className={`text-gray-600 mb-8 ${locale === 'ar' ? 'font-arabic' : ''}`}>{t.subtitle}</p>
+      <p
+        className={`text-base sm:text-base text-gray-600 mb-6 sm:mb-8 ${locale === 'ar' ? 'font-arabic' : ''}`}
+      >
+        {t.subtitle}
+      </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
         {/* Name */}
         <div>
           <label
             htmlFor="patientName"
-            className={`block text-sm font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            className={`block text-base font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
           >
             {t.name} <span className="text-red-500">*</span>
           </label>
@@ -220,7 +224,7 @@ export default function BookingForm({
             name="patientName"
             value={formData.patientName}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+            className={`w-full px-5 py-4 text-base border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent min-h-[52px] ${
               errors.patientName ? 'border-red-500' : 'border-gray-300'
             }`}
             dir={locale === 'ar' ? 'rtl' : 'ltr'}
@@ -232,7 +236,7 @@ export default function BookingForm({
         <div>
           <label
             htmlFor="email"
-            className={`block text-sm font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            className={`block text-base font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
           >
             {t.email} <span className="text-red-500">*</span>
           </label>
@@ -242,7 +246,7 @@ export default function BookingForm({
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+            className={`w-full px-5 py-4 text-base border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent min-h-[52px] ${
               errors.email ? 'border-red-500' : 'border-gray-300'
             }`}
             dir="ltr"
@@ -254,7 +258,7 @@ export default function BookingForm({
         <div>
           <label
             htmlFor="phone"
-            className={`block text-sm font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            className={`block text-base font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
           >
             {t.phone} <span className="text-red-500">*</span>
           </label>
@@ -265,7 +269,7 @@ export default function BookingForm({
             value={formData.phone}
             onChange={handleChange}
             placeholder="+971501234567"
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+            className={`w-full px-5 py-4 text-base border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent min-h-[52px] ${
               errors.phone ? 'border-red-500' : 'border-gray-300'
             }`}
             dir="ltr"
@@ -277,7 +281,7 @@ export default function BookingForm({
         <div>
           <label
             htmlFor="countryOfOrigin"
-            className={`block text-sm font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            className={`block text-base font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
           >
             {t.country} <span className="text-red-500">*</span>
           </label>
@@ -286,7 +290,7 @@ export default function BookingForm({
             name="countryOfOrigin"
             value={formData.countryOfOrigin}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+            className={`w-full px-5 py-4 text-base border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent min-h-[52px] ${
               errors.countryOfOrigin ? 'border-red-500' : 'border-gray-300'
             } ${locale === 'ar' ? 'font-arabic' : ''}`}
             dir={locale === 'ar' ? 'rtl' : 'ltr'}
@@ -307,7 +311,7 @@ export default function BookingForm({
         <div>
           <label
             htmlFor="notes"
-            className={`block text-sm font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            className={`block text-base font-medium text-gray-700 mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
           >
             {t.notes}
           </label>
@@ -317,7 +321,7 @@ export default function BookingForm({
             value={formData.notes}
             onChange={handleChange}
             rows={4}
-            className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none ${locale === 'ar' ? 'font-arabic' : ''}`}
+            className={`w-full px-5 py-4 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none ${locale === 'ar' ? 'font-arabic' : ''}`}
             dir={locale === 'ar' ? 'rtl' : 'ltr'}
           />
         </div>

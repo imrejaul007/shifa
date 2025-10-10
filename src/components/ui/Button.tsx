@@ -25,20 +25,22 @@ export function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-semibold rounded-full transition-all inline-flex items-center justify-center gap-2';
+  const baseStyles =
+    'font-semibold rounded-full transition-all inline-flex items-center justify-center gap-2';
 
   const variants = {
     primary: 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg',
     secondary: 'bg-secondary text-foreground hover:bg-secondary/80',
-    outline: 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
+    outline:
+      'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
     ghost: 'bg-transparent text-foreground hover:bg-muted',
     gold: 'gold-gradient text-primary hover:shadow-xl hover:shadow-accent/30',
   };
 
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    sm: 'px-5 py-3 text-base sm:px-4 sm:py-2 sm:text-sm min-h-[44px]',
+    md: 'px-6 py-4 text-base sm:py-3 min-h-[48px]',
+    lg: 'px-8 py-5 text-lg sm:py-4 min-h-[52px]',
   };
 
   const isDisabled = disabled || isLoading;
@@ -89,20 +91,22 @@ export function ButtonLink({
   className = '',
   external = false,
 }: ButtonLinkProps) {
-  const baseStyles = 'font-semibold rounded-full transition-all inline-flex items-center justify-center gap-2';
+  const baseStyles =
+    'font-semibold rounded-full transition-all inline-flex items-center justify-center gap-2';
 
   const variants = {
     primary: 'bg-primary text-white hover:bg-primary/90 hover:shadow-lg',
     secondary: 'bg-secondary text-foreground hover:bg-secondary/80',
-    outline: 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
+    outline:
+      'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
     ghost: 'bg-transparent text-foreground hover:bg-muted',
     gold: 'gold-gradient text-primary hover:shadow-xl hover:shadow-accent/30',
   };
 
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    sm: 'px-5 py-3 text-base sm:px-4 sm:py-2 sm:text-sm min-h-[44px]',
+    md: 'px-6 py-4 text-base sm:py-3 min-h-[48px]',
+    lg: 'px-8 py-5 text-lg sm:py-4 min-h-[52px]',
   };
 
   const Component = motion(external ? 'a' : Link);

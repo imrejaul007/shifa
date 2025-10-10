@@ -85,10 +85,10 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary mb-6 leading-tight">
               {t.title}
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">{t.subtitle}</p>
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8">{t.subtitle}</p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -103,8 +103,8 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t.search}
-                  className={`w-full py-4 rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent ${
-                    locale === 'ar' ? 'pr-12 pl-4' : 'pl-12 pr-4'
+                  className={`w-full py-4 text-base rounded-full bg-white border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent min-h-[52px] ${
+                    locale === 'ar' ? 'pr-14 pl-5' : 'pl-14 pr-5'
                   }`}
                 />
               </div>
@@ -129,7 +129,7 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {filteredTreatments.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filteredTreatments.map((treatment, index) => {
                 const title = locale === 'ar' ? treatment.title_ar : treatment.title_en;
                 const summary = locale === 'ar' ? treatment.summary_ar : treatment.summary_en;
@@ -146,7 +146,7 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
                     <Link href={`/${locale}/treatments/${treatment.slug}`}>
                       <Card hover={true} variant="default" className="h-full flex flex-col">
                         <CardBody className="flex-1 flex flex-col">
-                          <h3 className="text-2xl font-display font-bold text-primary mb-3">
+                          <h3 className="text-xl sm:text-2xl font-display font-bold text-primary mb-3 leading-snug">
                             {title}
                           </h3>
                           {summary && (
@@ -200,10 +200,10 @@ export default function TreatmentsClient({ treatments, locale }: Props) {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center glass rounded-3xl p-8 sm:p-12"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-primary mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-6 leading-tight">
               {t.ctaTitle}
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">{t.ctaDesc}</p>
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8">{t.ctaDesc}</p>
             <ButtonLink
               href={`/${locale}/consultation`}
               variant="gold"

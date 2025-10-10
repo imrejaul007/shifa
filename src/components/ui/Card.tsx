@@ -39,7 +39,7 @@ interface CardHeaderProps {
 }
 
 export function CardHeader({ children, className = '' }: CardHeaderProps) {
-  return <div className={`p-6 ${className}`}>{children}</div>;
+  return <div className={`p-6 sm:p-6 ${className}`}>{children}</div>;
 }
 
 interface CardBodyProps {
@@ -48,7 +48,7 @@ interface CardBodyProps {
 }
 
 export function CardBody({ children, className = '' }: CardBodyProps) {
-  return <div className={`p-6 ${className}`}>{children}</div>;
+  return <div className={`p-6 sm:p-6 ${className}`}>{children}</div>;
 }
 
 interface CardFooterProps {

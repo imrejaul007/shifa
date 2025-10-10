@@ -7,13 +7,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { Card, CardImage } from '@/components/ui/Card';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  Heart,
-  Users,
-  Shield,
-  Award,
-  ArrowRight,
-} from 'lucide-react';
+import { Heart, Users, Shield, Award, ArrowRight } from 'lucide-react';
 import { use } from 'react';
 import { trackTreatmentView } from '@/components/Analytics';
 
@@ -153,11 +147,7 @@ const hospitals = [
   { name: 'Narayana Health', logo: '🏥' },
 ];
 
-export default function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: 'en' | 'ar' }>;
-}) {
+export default function HomePage({ params }: { params: Promise<{ locale: 'en' | 'ar' }> }) {
   const { locale } = use(params);
   const t = content[locale];
 
@@ -173,17 +163,21 @@ export default function HomePage({
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <h2 className={`text-4xl md:text-5xl font-display font-bold text-primary mb-4 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <h2
+              className={`text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-4 leading-tight ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               {t.sections.treatments.title}
             </h2>
-            <p className={`text-xl text-muted-foreground ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <p
+              className={`text-lg sm:text-xl text-muted-foreground ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               {t.sections.treatments.subtitle}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {treatments.map((treatment, index) => (
               <motion.div
                 key={treatment.id}
@@ -203,13 +197,17 @@ export default function HomePage({
                       aspectRatio="4/3"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className={`text-2xl font-display font-bold mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-6 text-white">
+                      <h3
+                        className={`text-xl sm:text-2xl font-display font-bold mb-3 sm:mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+                      >
                         {treatment.title[locale]}
                       </h3>
                       <div className="flex items-center justify-between">
-                        <span className="text-accent font-semibold text-lg">{treatment.price[locale]}</span>
-                        <ArrowRight className="w-6 h-6 group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-transform" />
+                        <span className="text-accent font-semibold text-lg sm:text-lg">
+                          {treatment.price[locale]}
+                        </span>
+                        <ArrowRight className="w-6 h-6 sm:w-6 sm:h-6 group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-transform" />
                       </div>
                     </div>
                   </Card>
@@ -243,17 +241,21 @@ export default function HomePage({
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <h2 className={`text-4xl md:text-5xl font-display font-bold mb-4 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <h2
+              className={`text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4 leading-tight ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               {t.sections.why.title}
             </h2>
-            <p className={`text-xl text-white/80 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <p
+              className={`text-lg sm:text-xl text-white/80 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               {t.sections.why.subtitle}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {t.sections.why.reasons.map((reason, index) => (
               <motion.div
                 key={index}
@@ -261,11 +263,19 @@ export default function HomePage({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="glass-dark p-8 rounded-2xl hover:scale-105 transition-transform duration-300"
+                className="glass-dark p-8 sm:p-8 rounded-2xl hover:scale-105 transition-transform duration-300"
               >
-                <reason.icon className="w-12 h-12 text-accent mb-4 mx-auto" />
-                <h3 className={`text-xl font-bold mb-3 ${locale === 'ar' ? 'font-arabic' : ''}`}>{reason.title}</h3>
-                <p className={`text-white/80 ${locale === 'ar' ? 'font-arabic' : ''}`}>{reason.description}</p>
+                <reason.icon className="w-14 h-14 sm:w-12 sm:h-12 text-accent mb-5 sm:mb-4 mx-auto" />
+                <h3
+                  className={`text-xl sm:text-xl font-bold mb-3 leading-snug ${locale === 'ar' ? 'font-arabic' : ''}`}
+                >
+                  {reason.title}
+                </h3>
+                <p
+                  className={`text-base sm:text-base text-white/80 leading-relaxed ${locale === 'ar' ? 'font-arabic' : ''}`}
+                >
+                  {reason.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -279,17 +289,21 @@ export default function HomePage({
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <h2 className={`text-4xl md:text-5xl font-display font-bold text-primary mb-4 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <h2
+              className={`text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-4 leading-tight ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               {t.sections.hospitals.title}
             </h2>
-            <p className={`text-xl text-muted-foreground ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <p
+              className={`text-lg sm:text-xl text-muted-foreground ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               {t.sections.hospitals.subtitle}
             </p>
           </motion.div>
 
-          <div className="flex flex-wrap items-center justify-center gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
             {hospitals.map((hospital, index) => (
               <motion.div
                 key={index}
@@ -314,7 +328,9 @@ export default function HomePage({
             <div className="w-16 h-16 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6">
               <span className="text-3xl font-bold text-primary">ش</span>
             </div>
-            <h3 className={`text-3xl font-display font-bold mb-4 ${locale === 'ar' ? 'font-arabic' : ''}`}>
+            <h3
+              className={`text-3xl font-display font-bold mb-4 ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
               Shifa AlHind
             </h3>
             <p className={`text-xl text-white/80 mb-8 ${locale === 'ar' ? 'font-arabic' : ''}`}>
