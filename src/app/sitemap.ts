@@ -78,10 +78,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic treatment pages
   try {
-    const treatments = await prisma.treatment.findMany({
-      where: { published: true, isArchived: false },
-      select: { slug: true, updatedAt: true },
-    });
+    const treatments = await Promise.race([
+      prisma.treatment.findMany({
+        where: { published: true, isArchived: false },
+        select: { slug: true, updatedAt: true },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Database timeout')), 5000)
+      ),
+    ]);
 
     for (const treatment of treatments) {
       for (const locale of locales) {
@@ -101,14 +106,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('Error fetching treatments for sitemap:', error);
+    // Continue without dynamic treatment pages
   }
 
   // Dynamic doctor pages
   try {
-    const doctors = await prisma.doctor.findMany({
-      where: { published: true, isArchived: false },
-      select: { slug: true, updatedAt: true },
-    });
+    const doctors = await Promise.race([
+      prisma.doctor.findMany({
+        where: { published: true, isArchived: false },
+        select: { slug: true, updatedAt: true },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Database timeout')), 5000)
+      ),
+    ]);
 
     for (const doctor of doctors) {
       for (const locale of locales) {
@@ -128,14 +139,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('Error fetching doctors for sitemap:', error);
+    // Continue without dynamic doctor pages
   }
 
   // Dynamic hospital pages
   try {
-    const hospitals = await prisma.hospital.findMany({
-      where: { published: true, isArchived: false },
-      select: { slug: true, updatedAt: true },
-    });
+    const hospitals = await Promise.race([
+      prisma.hospital.findMany({
+        where: { published: true, isArchived: false },
+        select: { slug: true, updatedAt: true },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Database timeout')), 5000)
+      ),
+    ]);
 
     for (const hospital of hospitals) {
       for (const locale of locales) {
@@ -155,14 +172,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('Error fetching hospitals for sitemap:', error);
+    // Continue without dynamic hospital pages
   }
 
   // Dynamic package pages
   try {
-    const packages = await prisma.package.findMany({
-      where: { published: true, isArchived: false },
-      select: { slug: true, updatedAt: true },
-    });
+    const packages = await Promise.race([
+      prisma.package.findMany({
+        where: { published: true, isArchived: false },
+        select: { slug: true, updatedAt: true },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Database timeout')), 5000)
+      ),
+    ]);
 
     for (const pkg of packages) {
       for (const locale of locales) {
@@ -182,14 +205,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('Error fetching packages for sitemap:', error);
+    // Continue without dynamic package pages
   }
 
   // Dynamic blog posts
   try {
-    const blogPosts = await prisma.contentPage.findMany({
-      where: { type: 'blog', published: true, isArchived: false },
-      select: { slug: true, updatedAt: true },
-    });
+    const blogPosts = await Promise.race([
+      prisma.contentPage.findMany({
+        where: { type: 'blog', published: true, isArchived: false },
+        select: { slug: true, updatedAt: true },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Database timeout')), 5000)
+      ),
+    ]);
 
     for (const post of blogPosts) {
       for (const locale of locales) {
@@ -209,6 +238,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error);
+    // Continue without dynamic blog pages
   }
 
   // Medical Tourism landing page
