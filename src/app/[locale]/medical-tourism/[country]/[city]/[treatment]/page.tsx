@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { generateFullMetadata } from '@/lib/seo-helpers';
+import { generateFullMetadata, generateMedicalProcedureSchema } from '@/lib/seo-helpers';
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import Link from 'next/link';
+import { getArticlesByTreatment } from '@/lib/content-service';
 
 interface PageProps {
   params: Promise<{
@@ -116,6 +117,28 @@ export default async function TreatmentPage({ params }: PageProps) {
   const cityName = city.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   const countryName = country.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
+  // Get related blog articles (5 articles per treatment)
+  const relatedArticles = getArticlesByTreatment(treatment, locale).slice(0, 5);
+
+  // Generate Medical Procedure schema
+  const procedureSchema = generateMedicalProcedureSchema({
+    name: treatmentName,
+    description: isArabic ? treatmentData.description_ar : treatmentData.description_en,
+    procedureType: treatmentName,
+    bodyLocation: 'As required',
+    preparation:
+      'Consultation with our medical team required. Pre-procedure tests and evaluations.',
+    followup:
+      'Post-procedure care instructions provided. Video consultations available for 3 months.',
+    howPerformed:
+      'Performed by internationally trained surgeons in JCI-accredited hospitals in Bangalore, India.',
+    cost: {
+      minPrice: treatmentData.price_min,
+      maxPrice: treatmentData.price_max,
+      currency: 'USD',
+    },
+  });
+
   const breadcrumbItems = [
     { name: isArabic ? 'الرئيسية' : 'Home', url: '/' },
     { name: isArabic ? 'السياحة العلاجية' : 'Medical Tourism', url: '/medical-tourism' },
@@ -126,6 +149,12 @@ export default async function TreatmentPage({ params }: PageProps) {
 
   return (
     <>
+      {/* Medical Procedure Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }}
+      />
+
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 py-4">
         <Breadcrumb items={breadcrumbItems} locale={locale} />
@@ -392,6 +421,42 @@ export default async function TreatmentPage({ params }: PageProps) {
           </Link>
         </div>
       </section>
+
+      {/* Related Blog Articles */}
+      {relatedArticles.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              {isArabic ? 'مقالات ذات صلة' : 'Related Articles'}
+            </h2>
+            <p className="text-center text-gray-600 mb-8">
+              {isArabic
+                ? 'اقرأ المزيد عن هذا العلاج ونصائح الخبراء'
+                : 'Read more about this treatment and expert advice'}
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {relatedArticles.map((article) => {
+                const articleSlug = article.url.split('/').pop();
+                return (
+                  <Link
+                    key={article.url}
+                    href={`/${locale}/blog/${country}/${city}/${treatment}/${articleSlug}`}
+                    className="block p-6 bg-gray-50 rounded-lg shadow hover:shadow-lg transition-shadow"
+                  >
+                    <h3 className="font-semibold text-lg mb-2 text-gray-900 line-clamp-2">
+                      {article.h1}
+                    </h3>
+                    <p className="text-gray-600 text-sm line-clamp-3 mb-3">{article.meta_desc}</p>
+                    <span className="text-primary text-sm font-medium">
+                      {isArabic ? 'اقرأ المزيد →' : 'Read More →'}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related Links */}
       <section className="py-12 bg-gray-50">
