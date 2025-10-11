@@ -2,7 +2,6 @@
 
 import Navigation from '@/components/public/Navigation';
 import Hero from '@/components/public/Hero';
-import WhatsAppButton from '@/components/public/WhatsAppButton';
 import { ButtonLink } from '@/components/ui/Button';
 import { Card, CardImage } from '@/components/ui/Card';
 import { motion } from 'framer-motion';
@@ -669,31 +668,6 @@ export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-primary text-white py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="w-16 h-16 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl font-bold text-primary">ش</span>
-            </div>
-            <h3
-              className={`text-3xl font-display font-bold mb-4 ${locale === 'ar' ? 'font-arabic' : ''}`}
-            >
-              Shifa AlHind
-            </h3>
-            <p className={`text-xl text-white/80 mb-8 ${locale === 'ar' ? 'font-arabic' : ''}`}>
-              {t.footer.tagline}
-            </p>
-            <div className="w-24 h-1 gold-gradient mx-auto mb-8"></div>
-            <p className={`text-sm text-white/60 ${locale === 'ar' ? 'font-arabic' : ''}`}>
-              © 2025 Shifa AlHind. {t.footer.rights}
-            </p>
-          </div>
-        </div>
-      </footer>
-
-      <WhatsAppButton locale={locale} />
     </div>
   );
 }
