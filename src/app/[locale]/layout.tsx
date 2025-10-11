@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import { Playfair_Display, Inter, Tajawal } from 'next/font/google';
 import Navigation from '@/components/public/Navigation';
 import Footer from '@/components/public/Footer';
@@ -93,7 +94,7 @@ export default async function LocaleLayout({
         <GoogleAnalytics />
         <ErrorBoundary>
           <Navigation locale={locale as 'en' | 'ar'} />
-          {children}
+          <Suspense fallback={null}>{children}</Suspense>
           <WhatsAppButton locale={locale as 'en' | 'ar'} />
           <Footer locale={locale as 'en' | 'ar'} />
         </ErrorBoundary>

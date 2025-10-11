@@ -26,7 +26,10 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    // Only log in development to avoid console spam in production
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error caught by boundary:', error, errorInfo);
+    }
     // You can log to error reporting service here (Sentry, etc.)
   }
 
@@ -58,7 +61,8 @@ export class ErrorBoundary extends Component<Props, State> {
               Something Went Wrong
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
-              We encountered an unexpected error. Don&apos;t worry, our team has been notified and we&apos;re working on it.
+              We encountered an unexpected error. Don&apos;t worry, our team has been notified and
+              we&apos;re working on it.
             </p>
 
             {/* Error Details (dev only) */}
