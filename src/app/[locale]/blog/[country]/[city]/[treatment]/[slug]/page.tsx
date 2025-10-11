@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { getArticle, getRelatedArticles } from '@/lib/content-service';
 import ReactMarkdown from 'react-markdown';
 
@@ -68,6 +69,16 @@ export default async function ArticlePage({ params }: PageProps) {
   // Parse JSON-LD if available
   const jsonLd = article.json_ld ? JSON.parse(article.json_ld) : null;
 
+  // Format treatment and city names from slugs for display
+  const treatmentName = treatment
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  const cityName = city
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
   return (
     <>
       {/* JSON-LD Schema */}
@@ -110,6 +121,49 @@ export default async function ArticlePage({ params }: PageProps) {
             </time>
           )}
         </header>
+
+        {/* Related Resources Box */}
+        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl p-6 mb-8 border-l-4 border-primary">
+          <h3 className="text-lg font-bold mb-4 text-primary">
+            {locale === 'ar' ? '🔗 موارد ذات صلة' : '🔗 Related Resources'}
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link
+              href={`/${locale}/medical-tourism/${country}/${city}/${treatment}`}
+              className="flex items-center gap-2 text-gray-700 hover:text-primary transition font-medium"
+            >
+              <span>📋</span>
+              <span>
+                {locale === 'ar'
+                  ? `معلومات ${treatmentName} الكاملة`
+                  : `Complete ${treatmentName} Information`}
+              </span>
+            </Link>
+            <Link
+              href={`/${locale}/medical-tourism/${country}/${city}`}
+              className="flex items-center gap-2 text-gray-700 hover:text-primary transition font-medium"
+            >
+              <span>🏙️</span>
+              <span>
+                {locale === 'ar' ? `جميع العلاجات في ${cityName}` : `All Treatments in ${cityName}`}
+              </span>
+            </Link>
+            <Link
+              href={`/${locale}/consultation`}
+              className="flex items-center gap-2 text-gray-700 hover:text-primary transition font-medium"
+            >
+              <span>💬</span>
+              <span>{locale === 'ar' ? 'احجز استشارة مجانية' : 'Book Free Consultation'}</span>
+            </Link>
+            <Link
+              href={`/${locale}/hospitals`}
+              className="flex items-center gap-2 text-gray-700 hover:text-primary transition font-medium"
+            >
+              <span>🏥</span>
+              <span>{locale === 'ar' ? 'المستشفيات الشريكة' : 'Partner Hospitals'}</span>
+            </Link>
+          </div>
+        </div>
 
         {/* Article Content */}
         <div className="prose prose-lg max-w-none">

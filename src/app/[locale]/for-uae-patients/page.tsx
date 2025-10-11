@@ -169,8 +169,65 @@ export default async function UAEPatientsPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Popular UAE Cities Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            {isArabic ? 'علاج طبي من مدن الإمارات' : 'Medical Treatment from UAE Cities'}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            {isArabic
+              ? 'نخدم المرضى من جميع أنحاء الإمارات. اختر مدينتك لمعرفة الخيارات المتاحة'
+              : 'We serve patients from all across UAE. Select your city to explore treatment options'}
+          </p>
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                nameEn: 'Dubai',
+                nameAr: 'دبي',
+                country: 'united-arab-emirates',
+                slug: 'dubai',
+                icon: '🏙️',
+                description: '3-4 hours to Bangalore',
+              },
+              {
+                nameEn: 'Abu Dhabi',
+                nameAr: 'أبو ظبي',
+                country: 'united-arab-emirates',
+                slug: 'abu-dhabi',
+                icon: '🏛️',
+                description: '3-4 hours to Bangalore',
+              },
+              {
+                nameEn: 'Sharjah',
+                nameAr: 'الشارقة',
+                country: 'united-arab-emirates',
+                slug: 'sharjah',
+                icon: '🕌',
+                description: '3-4 hours to Bangalore',
+              },
+            ].map((city) => (
+              <a
+                key={city.slug}
+                href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
+                className="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-md hover:shadow-xl transition group"
+              >
+                <div className="text-5xl mb-4 text-center">{city.icon}</div>
+                <h3 className="text-xl font-bold text-center mb-2 group-hover:text-primary transition">
+                  {isArabic ? city.nameAr : city.nameEn}
+                </h3>
+                <p className="text-sm text-gray-600 text-center">{city.description}</p>
+                <p className="text-primary text-center mt-4 font-semibold">
+                  {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Popular Treatments Section */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             {isArabic

@@ -169,8 +169,57 @@ export default async function SaudiPatientsPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Popular Saudi Cities Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            {isArabic ? 'علاج طبي من مدن المملكة' : 'Medical Treatment from Saudi Cities'}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            {isArabic
+              ? 'نخدم المرضى من جميع أنحاء المملكة. اختر مدينتك لمعرفة الخيارات المتاحة'
+              : 'We serve patients from all across Saudi Arabia. Select your city to explore treatment options'}
+          </p>
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {[
+              {
+                nameEn: 'Riyadh',
+                nameAr: 'الرياض',
+                country: 'saudi-arabia',
+                slug: 'riyadh',
+                icon: '🏛️',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Jeddah',
+                nameAr: 'جدة',
+                country: 'saudi-arabia',
+                slug: 'jeddah',
+                icon: '🌊',
+                description: '4-5 hours to Bangalore',
+              },
+            ].map((city) => (
+              <a
+                key={city.slug}
+                href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
+                className="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-md hover:shadow-xl transition group"
+              >
+                <div className="text-5xl mb-4 text-center">{city.icon}</div>
+                <h3 className="text-xl font-bold text-center mb-2 group-hover:text-primary transition">
+                  {isArabic ? city.nameAr : city.nameEn}
+                </h3>
+                <p className="text-sm text-gray-600 text-center">{city.description}</p>
+                <p className="text-primary text-center mt-4 font-semibold">
+                  {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Popular Treatments Section */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             {isArabic

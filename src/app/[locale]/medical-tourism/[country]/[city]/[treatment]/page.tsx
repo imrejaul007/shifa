@@ -458,6 +458,69 @@ export default async function TreatmentPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* Related Treatments */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            {isArabic
+              ? `علاجات أخرى لمرضى ${cityName}`
+              : `Other Treatments for ${cityName} Patients`}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            {isArabic
+              ? 'اكتشف المزيد من العلاجات الطبية المتاحة من ${cityName} إلى الهند'
+              : `Explore more medical treatments available from ${cityName} to India`}
+          </p>
+          <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {[
+              { slug: 'heart-surgery', name: 'Heart Surgery', nameAr: 'جراحة القلب', icon: '❤️' },
+              {
+                slug: 'knee-replacement',
+                name: 'Knee Replacement',
+                nameAr: 'استبدال الركبة',
+                icon: '🦴',
+              },
+              { slug: 'ivf', name: 'IVF Treatment', nameAr: 'علاج أطفال الأنابيب', icon: '👶' },
+              {
+                slug: 'dental-implants',
+                name: 'Dental Implants',
+                nameAr: 'زراعة الأسنان',
+                icon: '🦷',
+              },
+              {
+                slug: 'hair-transplant',
+                name: 'Hair Transplant',
+                nameAr: 'زراعة الشعر',
+                icon: '💇',
+              },
+              {
+                slug: 'oncology-treatment',
+                name: 'Cancer Treatment',
+                nameAr: 'علاج السرطان',
+                icon: '🎗️',
+              },
+            ]
+              .filter((t) => t.slug !== treatment)
+              .slice(0, 4)
+              .map((relatedTreatment) => (
+                <Link
+                  key={relatedTreatment.slug}
+                  href={`/${locale}/medical-tourism/${country}/${city}/${relatedTreatment.slug}`}
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 text-center hover:shadow-lg transition group"
+                >
+                  <div className="text-4xl mb-3">{relatedTreatment.icon}</div>
+                  <h3 className="font-bold text-lg group-hover:text-primary transition">
+                    {isArabic ? relatedTreatment.nameAr : relatedTreatment.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {isArabic ? 'اعرف المزيد →' : 'Learn More →'}
+                  </p>
+                </Link>
+              ))}
+          </div>
+        </div>
+      </section>
+
       {/* Related Links */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">

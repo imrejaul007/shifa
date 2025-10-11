@@ -511,6 +511,57 @@ export default async function CityMedicalTourismPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Related GCC Cities */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            {isArabic ? 'مدن أخرى من دول الخليج' : 'Other Popular GCC Cities'}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            {isArabic
+              ? 'اكتشف خدماتنا الطبية من مدن أخرى في الخليج'
+              : 'Explore our medical services from other GCC cities'}
+          </p>
+          <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                name: 'Dubai',
+                nameAr: 'دبي',
+                country: 'united-arab-emirates',
+                slug: 'dubai',
+                icon: '🏙️',
+              },
+              {
+                name: 'Riyadh',
+                nameAr: 'الرياض',
+                country: 'saudi-arabia',
+                slug: 'riyadh',
+                icon: '🏛️',
+              },
+              { name: 'Doha', nameAr: 'الدوحة', country: 'qatar', slug: 'doha', icon: '🌆' },
+              { name: 'Muscat', nameAr: 'مسقط', country: 'oman', slug: 'muscat', icon: '🕌' },
+            ]
+              .filter((c) => c.slug !== city)
+              .slice(0, 4)
+              .map((relatedCity) => (
+                <Link
+                  key={relatedCity.slug}
+                  href={`/${locale}/medical-tourism/${relatedCity.country}/${relatedCity.slug}`}
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 text-center hover:shadow-lg transition group"
+                >
+                  <div className="text-4xl mb-3">{relatedCity.icon}</div>
+                  <h3 className="font-bold text-lg group-hover:text-primary transition">
+                    {isArabic ? relatedCity.nameAr : relatedCity.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
+                  </p>
+                </Link>
+              ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
