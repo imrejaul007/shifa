@@ -13,18 +13,48 @@ from typing import List, Dict
 BASE_URL = "https://shifaalhind.com"
 DATA_DIR = "src/data"
 
-# All GCC cities with metadata
+# All 27 GCC cities with metadata - Complete SEO Coverage
 CITIES = [
-    {"slug": "dubai", "name": "Dubai", "nameAr": "دبي", "country": "united-arab-emirates", "countryAr": "الإمارات"},
-    {"slug": "abu-dhabi", "name": "Abu Dhabi", "nameAr": "أبو ظبي", "country": "united-arab-emirates", "countryAr": "الإمارات"},
-    {"slug": "sharjah", "name": "Sharjah", "nameAr": "الشارقة", "country": "united-arab-emirates", "countryAr": "الإمارات"},
-    {"slug": "riyadh", "name": "Riyadh", "nameAr": "الرياض", "country": "saudi-arabia", "countryAr": "السعودية"},
-    {"slug": "jeddah", "name": "Jeddah", "nameAr": "جدة", "country": "saudi-arabia", "countryAr": "السعودية"},
-    {"slug": "dammam", "name": "Dammam", "nameAr": "الدمام", "country": "saudi-arabia", "countryAr": "السعودية"},
-    {"slug": "doha", "name": "Doha", "nameAr": "الدوحة", "country": "qatar", "countryAr": "قطر"},
-    {"slug": "muscat", "name": "Muscat", "nameAr": "مسقط", "country": "oman", "countryAr": "عمان"},
-    {"slug": "kuwait-city", "name": "Kuwait City", "nameAr": "مدينة الكويت", "country": "kuwait", "countryAr": "الكويت"},
-    {"slug": "manama", "name": "Manama", "nameAr": "المنامة", "country": "bahrain", "countryAr": "البحرين"},
+    # United Arab Emirates (7 cities)
+    {"slug": "dubai", "name": "Dubai", "nameAr": "دبي", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "3.6M"},
+    {"slug": "abu-dhabi", "name": "Abu Dhabi", "nameAr": "أبو ظبي", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "1.5M"},
+    {"slug": "sharjah", "name": "Sharjah", "nameAr": "الشارقة", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "1.7M"},
+    {"slug": "ajman", "name": "Ajman", "nameAr": "عجمان", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "540K"},
+    {"slug": "ras-al-khaimah", "name": "Ras Al Khaimah", "nameAr": "رأس الخيمة", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "400K"},
+    {"slug": "fujairah", "name": "Fujairah", "nameAr": "الفجيرة", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "260K"},
+    {"slug": "al-ain", "name": "Al Ain", "nameAr": "العين", "country": "united-arab-emirates", "countryAr": "الإمارات", "population": "850K"},
+
+    # Saudi Arabia (8 cities)
+    {"slug": "riyadh", "name": "Riyadh", "nameAr": "الرياض", "country": "saudi-arabia", "countryAr": "السعودية", "population": "7.6M"},
+    {"slug": "jeddah", "name": "Jeddah", "nameAr": "جدة", "country": "saudi-arabia", "countryAr": "السعودية", "population": "4.7M"},
+    {"slug": "dammam", "name": "Dammam", "nameAr": "الدمام", "country": "saudi-arabia", "countryAr": "السعودية", "population": "1.5M"},
+    {"slug": "khobar", "name": "Khobar", "nameAr": "الخبر", "country": "saudi-arabia", "countryAr": "السعودية", "population": "730K"},
+    {"slug": "mecca", "name": "Mecca", "nameAr": "مكة", "country": "saudi-arabia", "countryAr": "السعودية", "population": "2.0M"},
+    {"slug": "medina", "name": "Medina", "nameAr": "المدينة", "country": "saudi-arabia", "countryAr": "السعودية", "population": "1.5M"},
+    {"slug": "taif", "name": "Taif", "nameAr": "الطائف", "country": "saudi-arabia", "countryAr": "السعودية", "population": "690K"},
+    {"slug": "tabuk", "name": "Tabuk", "nameAr": "تبوك", "country": "saudi-arabia", "countryAr": "السعودية", "population": "570K"},
+
+    # Qatar (3 cities)
+    {"slug": "doha", "name": "Doha", "nameAr": "الدوحة", "country": "qatar", "countryAr": "قطر", "population": "2.4M"},
+    {"slug": "al-wakrah", "name": "Al Wakrah", "nameAr": "الوكرة", "country": "qatar", "countryAr": "قطر", "population": "300K"},
+    {"slug": "al-khor", "name": "Al Khor", "nameAr": "الخور", "country": "qatar", "countryAr": "قطر", "population": "200K"},
+
+    # Oman (4 cities)
+    {"slug": "muscat", "name": "Muscat", "nameAr": "مسقط", "country": "oman", "countryAr": "عمان", "population": "1.7M"},
+    {"slug": "sohar", "name": "Sohar", "nameAr": "صحار", "country": "oman", "countryAr": "عمان", "population": "230K"},
+    {"slug": "salalah", "name": "Salalah", "nameAr": "صلالة", "country": "oman", "countryAr": "عمان", "population": "330K"},
+    {"slug": "nizwa", "name": "Nizwa", "nameAr": "نزوى", "country": "oman", "countryAr": "عمان", "population": "100K"},
+
+    # Kuwait (4 cities)
+    {"slug": "kuwait-city", "name": "Kuwait City", "nameAr": "مدينة الكويت", "country": "kuwait", "countryAr": "الكويت", "population": "4.3M"},
+    {"slug": "hawalli", "name": "Hawalli", "nameAr": "حولي", "country": "kuwait", "countryAr": "الكويت", "population": "165K"},
+    {"slug": "salmiya", "name": "Salmiya", "nameAr": "السالمية", "country": "kuwait", "countryAr": "الكويت", "population": "150K"},
+    {"slug": "farwaniya", "name": "Farwaniya", "nameAr": "الفروانية", "country": "kuwait", "countryAr": "الكويت", "population": "900K"},
+
+    # Bahrain (3 cities)
+    {"slug": "manama", "name": "Manama", "nameAr": "المنامة", "country": "bahrain", "countryAr": "البحرين", "population": "640K"},
+    {"slug": "muharraq", "name": "Muharraq", "nameAr": "المحرق", "country": "bahrain", "countryAr": "البحرين", "population": "230K"},
+    {"slug": "riffa", "name": "Riffa", "nameAr": "الرفاع", "country": "bahrain", "countryAr": "البحرين", "population": "120K"},
 ]
 
 # New treatments to add
