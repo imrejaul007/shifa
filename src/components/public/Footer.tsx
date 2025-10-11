@@ -41,8 +41,8 @@ const content = {
     legal: {
       title: 'Legal',
       links: [
-        { href: '/terms', label: 'Terms of Service' },
-        { href: '/privacy', label: 'Privacy Policy' },
+        { href: '/terms-and-conditions', label: 'Terms of Service' },
+        { href: '/privacy-policy', label: 'Privacy Policy' },
       ],
     },
     social: {
@@ -84,8 +84,8 @@ const content = {
     legal: {
       title: 'قانوني',
       links: [
-        { href: '/terms', label: 'شروط الخدمة' },
-        { href: '/privacy', label: 'سياسة الخصوصية' },
+        { href: '/terms-and-conditions', label: 'شروط الخدمة' },
+        { href: '/privacy-policy', label: 'سياسة الخصوصية' },
       ],
     },
     social: {
@@ -113,7 +113,9 @@ export default function Footer({ locale }: FooterProps) {
               </div>
               <div className="flex flex-col">
                 <span className="font-display text-xl font-bold text-white">Shifa AlHind</span>
-                <span className="text-xs text-accent font-arabic">{locale === 'ar' ? 'شفاء الهند' : 'شفاء الهند'}</span>
+                <span className="text-xs text-accent font-arabic">
+                  {locale === 'ar' ? 'شفاء الهند' : 'شفاء الهند'}
+                </span>
               </div>
             </Link>
             <p className="text-sm text-white/80 leading-relaxed">{t.tagline}</p>
@@ -168,7 +170,9 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-display font-bold text-accent mb-4">{t.quickLinks.title}</h3>
+            <h3 className="text-lg font-display font-bold text-accent mb-4">
+              {t.quickLinks.title}
+            </h3>
             <ul className="space-y-2">
               {t.quickLinks.links.map((link) => (
                 <li key={link.href}>
@@ -210,13 +214,19 @@ export default function Footer({ locale }: FooterProps) {
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <Mail className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                <a href={`mailto:${t.contact.email}`} className="text-white/80 hover:text-accent transition-colors">
+                <a
+                  href={`mailto:${t.contact.email}`}
+                  className="text-white/80 hover:text-accent transition-colors"
+                >
                   {t.contact.email}
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <Phone className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                <a href={`tel:${t.contact.phone}`} className="text-white/80 hover:text-accent transition-colors">
+                <a
+                  href={`tel:${t.contact.phone}`}
+                  className="text-white/80 hover:text-accent transition-colors"
+                >
                   {t.contact.phone}
                 </a>
               </li>
