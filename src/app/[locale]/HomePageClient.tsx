@@ -1,6 +1,5 @@
 'use client';
 
-import Navigation from '@/components/public/Navigation';
 import Hero from '@/components/public/Hero';
 import { ButtonLink } from '@/components/ui/Button';
 import { Card, CardImage } from '@/components/ui/Card';
@@ -426,7 +425,6 @@ export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
 
   return (
     <div className="min-h-screen">
-      <Navigation locale={locale} />
       <Hero locale={locale} />
 
       {/* Treatments Section */}
