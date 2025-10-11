@@ -146,7 +146,9 @@ const hospitals = [
   { name: 'Narayana Health', logo: '🏥' },
 ];
 
+// All 27 GCC Cities - Complete Coverage
 const gccCities = [
+  // United Arab Emirates (7 cities)
   {
     nameEn: 'Dubai',
     nameAr: 'دبي',
@@ -154,22 +156,7 @@ const gccCities = [
     slug: 'dubai',
     flag: '🇦🇪',
     flights: '3-4h',
-  },
-  {
-    nameEn: 'Riyadh',
-    nameAr: 'الرياض',
-    country: 'saudi-arabia',
-    slug: 'riyadh',
-    flag: '🇸🇦',
-    flights: '4-5h',
-  },
-  {
-    nameEn: 'Doha',
-    nameAr: 'الدوحة',
-    country: 'qatar',
-    slug: 'doha',
-    flag: '🇶🇦',
-    flights: '4-5h',
+    population: '3.6M',
   },
   {
     nameEn: 'Abu Dhabi',
@@ -178,22 +165,63 @@ const gccCities = [
     slug: 'abu-dhabi',
     flag: '🇦🇪',
     flights: '3-4h',
+    population: '1.5M',
   },
   {
-    nameEn: 'Muscat',
-    nameAr: 'مسقط',
-    country: 'oman',
-    slug: 'muscat',
-    flag: '🇴🇲',
+    nameEn: 'Sharjah',
+    nameAr: 'الشارقة',
+    country: 'united-arab-emirates',
+    slug: 'sharjah',
+    flag: '🇦🇪',
     flights: '3-4h',
+    population: '1.7M',
   },
   {
-    nameEn: 'Kuwait City',
-    nameAr: 'مدينة الكويت',
-    country: 'kuwait',
-    slug: 'kuwait-city',
-    flag: '🇰🇼',
+    nameEn: 'Ajman',
+    nameAr: 'عجمان',
+    country: 'united-arab-emirates',
+    slug: 'ajman',
+    flag: '🇦🇪',
+    flights: '3-4h',
+    population: '540K',
+  },
+  {
+    nameEn: 'Ras Al Khaimah',
+    nameAr: 'رأس الخيمة',
+    country: 'united-arab-emirates',
+    slug: 'ras-al-khaimah',
+    flag: '🇦🇪',
+    flights: '3-4h',
+    population: '400K',
+  },
+  {
+    nameEn: 'Fujairah',
+    nameAr: 'الفجيرة',
+    country: 'united-arab-emirates',
+    slug: 'fujairah',
+    flag: '🇦🇪',
+    flights: '3-4h',
+    population: '260K',
+  },
+  {
+    nameEn: 'Al Ain',
+    nameAr: 'العين',
+    country: 'united-arab-emirates',
+    slug: 'al-ain',
+    flag: '🇦🇪',
+    flights: '3-4h',
+    population: '850K',
+  },
+
+  // Saudi Arabia (8 cities)
+  {
+    nameEn: 'Riyadh',
+    nameAr: 'الرياض',
+    country: 'saudi-arabia',
+    slug: 'riyadh',
+    flag: '🇸🇦',
     flights: '4-5h',
+    population: '7.6M',
   },
   {
     nameEn: 'Jeddah',
@@ -202,7 +230,169 @@ const gccCities = [
     slug: 'jeddah',
     flag: '🇸🇦',
     flights: '4-5h',
+    population: '4.7M',
   },
+  {
+    nameEn: 'Dammam',
+    nameAr: 'الدمام',
+    country: 'saudi-arabia',
+    slug: 'dammam',
+    flag: '🇸🇦',
+    flights: '4-5h',
+    population: '1.5M',
+  },
+  {
+    nameEn: 'Khobar',
+    nameAr: 'الخبر',
+    country: 'saudi-arabia',
+    slug: 'khobar',
+    flag: '🇸🇦',
+    flights: '4-5h',
+    population: '730K',
+  },
+  {
+    nameEn: 'Mecca',
+    nameAr: 'مكة',
+    country: 'saudi-arabia',
+    slug: 'mecca',
+    flag: '🇸🇦',
+    flights: '4-5h',
+    population: '2.0M',
+  },
+  {
+    nameEn: 'Medina',
+    nameAr: 'المدينة',
+    country: 'saudi-arabia',
+    slug: 'medina',
+    flag: '🇸🇦',
+    flights: '4-5h',
+    population: '1.5M',
+  },
+  {
+    nameEn: 'Taif',
+    nameAr: 'الطائف',
+    country: 'saudi-arabia',
+    slug: 'taif',
+    flag: '🇸🇦',
+    flights: '4-5h',
+    population: '690K',
+  },
+  {
+    nameEn: 'Tabuk',
+    nameAr: 'تبوك',
+    country: 'saudi-arabia',
+    slug: 'tabuk',
+    flag: '🇸🇦',
+    flights: '5-6h',
+    population: '570K',
+  },
+
+  // Qatar (3 cities)
+  {
+    nameEn: 'Doha',
+    nameAr: 'الدوحة',
+    country: 'qatar',
+    slug: 'doha',
+    flag: '🇶🇦',
+    flights: '4-5h',
+    population: '2.4M',
+  },
+  {
+    nameEn: 'Al Wakrah',
+    nameAr: 'الوكرة',
+    country: 'qatar',
+    slug: 'al-wakrah',
+    flag: '🇶🇦',
+    flights: '4-5h',
+    population: '300K',
+  },
+  {
+    nameEn: 'Al Khor',
+    nameAr: 'الخور',
+    country: 'qatar',
+    slug: 'al-khor',
+    flag: '🇶🇦',
+    flights: '4-5h',
+    population: '200K',
+  },
+
+  // Oman (4 cities)
+  {
+    nameEn: 'Muscat',
+    nameAr: 'مسقط',
+    country: 'oman',
+    slug: 'muscat',
+    flag: '🇴🇲',
+    flights: '3-4h',
+    population: '1.7M',
+  },
+  {
+    nameEn: 'Sohar',
+    nameAr: 'صحار',
+    country: 'oman',
+    slug: 'sohar',
+    flag: '🇴🇲',
+    flights: '3-4h',
+    population: '230K',
+  },
+  {
+    nameEn: 'Salalah',
+    nameAr: 'صلالة',
+    country: 'oman',
+    slug: 'salalah',
+    flag: '🇴🇲',
+    flights: '4-5h',
+    population: '330K',
+  },
+  {
+    nameEn: 'Nizwa',
+    nameAr: 'نزوى',
+    country: 'oman',
+    slug: 'nizwa',
+    flag: '🇴🇲',
+    flights: '3-4h',
+    population: '100K',
+  },
+
+  // Kuwait (4 cities)
+  {
+    nameEn: 'Kuwait City',
+    nameAr: 'مدينة الكويت',
+    country: 'kuwait',
+    slug: 'kuwait-city',
+    flag: '🇰🇼',
+    flights: '4-5h',
+    population: '4.3M',
+  },
+  {
+    nameEn: 'Hawalli',
+    nameAr: 'حولي',
+    country: 'kuwait',
+    slug: 'hawalli',
+    flag: '🇰🇼',
+    flights: '4-5h',
+    population: '165K',
+  },
+  {
+    nameEn: 'Salmiya',
+    nameAr: 'السالمية',
+    country: 'kuwait',
+    slug: 'salmiya',
+    flag: '🇰🇼',
+    flights: '4-5h',
+    population: '150K',
+  },
+  {
+    nameEn: 'Farwaniya',
+    nameAr: 'الفروانية',
+    country: 'kuwait',
+    slug: 'farwaniya',
+    flag: '🇰🇼',
+    flights: '4-5h',
+    population: '900K',
+  },
+
+  // Bahrain (3 cities)
   {
     nameEn: 'Manama',
     nameAr: 'المنامة',
@@ -210,6 +400,25 @@ const gccCities = [
     slug: 'manama',
     flag: '🇧🇭',
     flights: '4-5h',
+    population: '640K',
+  },
+  {
+    nameEn: 'Muharraq',
+    nameAr: 'المحرق',
+    country: 'bahrain',
+    slug: 'muharraq',
+    flag: '🇧🇭',
+    flights: '4-5h',
+    population: '230K',
+  },
+  {
+    nameEn: 'Riffa',
+    nameAr: 'الرفاع',
+    country: 'bahrain',
+    slug: 'riffa',
+    flag: '🇧🇭',
+    flights: '4-5h',
+    population: '120K',
   },
 ];
 
@@ -347,7 +556,7 @@ export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
         </div>
       </section>
 
-      {/* GCC Cities Section */}
+      {/* GCC Cities Section - Complete 27-City Coverage */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -356,44 +565,45 @@ export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
+            <div className="inline-block bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              {locale === 'ar' ? '27 مدينة من دول الخليج ✓' : '27 GCC Cities Coverage ✓'}
+            </div>
             <h2
               className={`text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-4 leading-tight ${locale === 'ar' ? 'font-arabic' : ''}`}
             >
-              {locale === 'ar' ? 'وجهات شعبية من دول الخليج' : 'Popular Destinations from GCC'}
+              {locale === 'ar' ? 'تغطية كاملة لدول الخليج' : 'Complete GCC Coverage'}
             </h2>
             <p
               className={`text-lg sm:text-xl text-muted-foreground ${locale === 'ar' ? 'font-arabic' : ''}`}
             >
               {locale === 'ar'
-                ? 'اكتشف أفضل المستشفيات في بنغالور من مدينتك'
-                : 'Discover world-class healthcare in Bangalore from your city'}
+                ? 'اكتشف أفضل المستشفيات في بنغالور من 27 مدينة رئيسية'
+                : 'Discover world-class healthcare from 27 major GCC cities'}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
             {gccCities.map((city, index) => (
               <motion.div
                 key={city.slug}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.02 }}
               >
                 <Link
                   href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
-                  className="block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+                  className="block bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
                 >
                   <div className="text-center">
-                    <div className="text-5xl mb-3">{city.flag}</div>
+                    <div className="text-4xl mb-2">{city.flag}</div>
                     <h3
-                      className={`text-lg font-bold text-primary group-hover:text-accent transition-colors mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+                      className={`text-base font-bold text-primary group-hover:text-accent transition-colors mb-1 ${locale === 'ar' ? 'font-arabic' : ''}`}
                     >
                       {locale === 'ar' ? city.nameAr : city.nameEn}
                     </h3>
-                    <p className="text-sm text-gray-600">
-                      ✈️ {city.flights}
-                      {locale === 'ar' ? ' ساعات' : ' hours'}
-                    </p>
+                    <p className="text-xs text-gray-500 mb-1">👥 {city.population}</p>
+                    <p className="text-xs text-gray-600">✈️ {city.flights}</p>
                   </div>
                 </Link>
               </motion.div>
@@ -406,11 +616,16 @@ export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
+            <p className="text-sm text-muted-foreground mb-4">
+              {locale === 'ar'
+                ? '🇦🇪 الإمارات (7) • 🇸🇦 السعودية (8) • 🇶🇦 قطر (3) • 🇴🇲 عمان (4) • 🇰🇼 الكويت (4) • 🇧🇭 البحرين (3)'
+                : '🇦🇪 UAE (7) • 🇸🇦 Saudi (8) • 🇶🇦 Qatar (3) • 🇴🇲 Oman (4) • 🇰🇼 Kuwait (4) • 🇧🇭 Bahrain (3)'}
+            </p>
             <Link
               href={`/${locale}/medical-tourism`}
               className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition"
             >
-              {locale === 'ar' ? 'استكشف جميع المدن' : 'Explore All Cities'}
+              {locale === 'ar' ? 'استكشف جميع المدن والعلاجات' : 'Explore All Cities & Treatments'}
             </Link>
           </motion.div>
         </div>

@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : 'Medical Services for UAE Patients - Shifa AlHind';
 
   const description = isArabic
-    ? 'خدمات رعاية صحية متخصصة للمرضى من الإمارات العربية المتحدة في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل. علاج عالمي المستوى بأسعار معقولة لمرضى دبي، أبو ظبي، والشارقة.'
-    : 'Specialized healthcare services for patients from UAE in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services. World-class treatment at affordable prices for patients from Dubai, Abu Dhabi, and Sharjah.';
+    ? 'خدمات رعاية صحية متخصصة للمرضى من جميع أنحاء الإمارات (دبي، أبو ظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، العين) في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل.'
+    : 'Specialized healthcare services for patients from all across UAE (Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, Al Ain) in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services.';
 
   const keywords = [
     ...seoKeywords.homepage,
@@ -29,6 +29,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     'Dubai to India medical tourism',
     'Abu Dhabi patients treatment India',
     'Sharjah medical tourism',
+    'Ajman to India healthcare',
+    'Ras Al Khaimah medical tourism',
+    'Fujairah patients India',
+    'Al Ain to Bangalore healthcare',
     'UAE to Bangalore healthcare',
     'Emirates patients India hospitals',
     'medical visa UAE to India',
@@ -169,18 +173,23 @@ export default async function UAEPatientsPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Popular UAE Cities Section */}
+      {/* All 7 UAE Cities Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-4">
+            <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-2">
+              {isArabic ? '7 مدن من الإمارات ✓' : '7 UAE Cities Covered ✓'}
+            </div>
+          </div>
           <h2 className="text-3xl font-bold text-center mb-4">
-            {isArabic ? 'علاج طبي من مدن الإمارات' : 'Medical Treatment from UAE Cities'}
+            {isArabic ? 'علاج طبي من جميع مدن الإمارات' : 'Medical Treatment from All UAE Cities'}
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             {isArabic
-              ? 'نخدم المرضى من جميع أنحاء الإمارات. اختر مدينتك لمعرفة الخيارات المتاحة'
-              : 'We serve patients from all across UAE. Select your city to explore treatment options'}
+              ? 'نخدم المرضى من جميع أنحاء الإمارات السبع. اختر مدينتك لمعرفة الخيارات المتاحة'
+              : 'We serve patients from all 7 emirates. Select your city to explore treatment options'}
           </p>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
               {
                 nameEn: 'Dubai',
@@ -188,6 +197,7 @@ export default async function UAEPatientsPage({ params }: PageProps) {
                 country: 'united-arab-emirates',
                 slug: 'dubai',
                 icon: '🏙️',
+                population: '3.6M',
                 description: '3-4 hours to Bangalore',
               },
               {
@@ -196,6 +206,7 @@ export default async function UAEPatientsPage({ params }: PageProps) {
                 country: 'united-arab-emirates',
                 slug: 'abu-dhabi',
                 icon: '🏛️',
+                population: '1.5M',
                 description: '3-4 hours to Bangalore',
               },
               {
@@ -204,20 +215,58 @@ export default async function UAEPatientsPage({ params }: PageProps) {
                 country: 'united-arab-emirates',
                 slug: 'sharjah',
                 icon: '🕌',
+                population: '1.7M',
+                description: '3-4 hours to Bangalore',
+              },
+              {
+                nameEn: 'Ajman',
+                nameAr: 'عجمان',
+                country: 'united-arab-emirates',
+                slug: 'ajman',
+                icon: '🌆',
+                population: '540K',
+                description: '3-4 hours to Bangalore',
+              },
+              {
+                nameEn: 'Ras Al Khaimah',
+                nameAr: 'رأس الخيمة',
+                country: 'united-arab-emirates',
+                slug: 'ras-al-khaimah',
+                icon: '🏔️',
+                population: '400K',
+                description: '3-4 hours to Bangalore',
+              },
+              {
+                nameEn: 'Fujairah',
+                nameAr: 'الفجيرة',
+                country: 'united-arab-emirates',
+                slug: 'fujairah',
+                icon: '🏖️',
+                population: '260K',
+                description: '3-4 hours to Bangalore',
+              },
+              {
+                nameEn: 'Al Ain',
+                nameAr: 'العين',
+                country: 'united-arab-emirates',
+                slug: 'al-ain',
+                icon: '🌴',
+                population: '850K',
                 description: '3-4 hours to Bangalore',
               },
             ].map((city) => (
               <a
                 key={city.slug}
                 href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
-                className="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-md hover:shadow-xl transition group"
+                className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl shadow-md hover:shadow-xl transition group"
               >
-                <div className="text-5xl mb-4 text-center">{city.icon}</div>
-                <h3 className="text-xl font-bold text-center mb-2 group-hover:text-primary transition">
+                <div className="text-4xl mb-3 text-center">{city.icon}</div>
+                <h3 className="text-lg font-bold text-center mb-1 group-hover:text-primary transition">
                   {isArabic ? city.nameAr : city.nameEn}
                 </h3>
-                <p className="text-sm text-gray-600 text-center">{city.description}</p>
-                <p className="text-primary text-center mt-4 font-semibold">
+                <p className="text-xs text-gray-500 text-center mb-1">👥 {city.population}</p>
+                <p className="text-xs text-gray-600 text-center mb-3">✈️ {city.description}</p>
+                <p className="text-primary text-center text-sm font-semibold">
                   {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
                 </p>
               </a>

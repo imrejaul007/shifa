@@ -20,13 +20,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : 'Medical Services for Qatar Patients - Shifa AlHind';
 
   const description = isArabic
-    ? 'خدمات رعاية صحية متخصصة للمرضى من دولة قطر في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل. علاج عالمي المستوى بأسعار معقولة لمرضى الدوحة.'
-    : 'Specialized healthcare services for patients from Qatar in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services. World-class treatment at affordable prices for patients from Doha.';
+    ? 'خدمات رعاية صحية متخصصة للمرضى من جميع مدن قطر (الدوحة، الوكرة، الخور) في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل.'
+    : 'Specialized healthcare services for patients from all Qatar cities (Doha, Al Wakrah, Al Khor) in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services.';
 
   const keywords = [
     ...seoKeywords.homepage,
     'Qatar patients India',
     'Doha to India medical tourism',
+    'Al Wakrah medical tourism',
+    'Al Khor to India healthcare',
     'Qatari patients treatment India',
     'Qatar medical tourism',
     'Qatar to Bangalore healthcare',
@@ -169,8 +171,74 @@ export default async function QatarPatientsPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* All 3 Qatar Cities Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-4">
+            <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-2">
+              {isArabic ? '3 مدن من قطر ✓' : '3 Qatar Cities Covered ✓'}
+            </div>
+          </div>
+          <h2 className="text-3xl font-bold text-center mb-4">
+            {isArabic ? 'علاج طبي من جميع مدن قطر' : 'Medical Treatment from All Qatar Cities'}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            {isArabic
+              ? 'نخدم المرضى من جميع مدن قطر الرئيسية. اختر مدينتك لمعرفة الخيارات المتاحة'
+              : 'We serve patients from all major Qatar cities. Select your city to explore treatment options'}
+          </p>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                nameEn: 'Doha',
+                nameAr: 'الدوحة',
+                country: 'qatar',
+                slug: 'doha',
+                icon: '🏙️',
+                population: '2.4M',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Al Wakrah',
+                nameAr: 'الوكرة',
+                country: 'qatar',
+                slug: 'al-wakrah',
+                icon: '🏖️',
+                population: '300K',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Al Khor',
+                nameAr: 'الخور',
+                country: 'qatar',
+                slug: 'al-khor',
+                icon: '⚓',
+                population: '200K',
+                description: '4-5 hours to Bangalore',
+              },
+            ].map((city) => (
+              <a
+                key={city.slug}
+                href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
+                className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl shadow-md hover:shadow-xl transition group"
+              >
+                <div className="text-4xl mb-3 text-center">{city.icon}</div>
+                <h3 className="text-lg font-bold text-center mb-1 group-hover:text-primary transition">
+                  {isArabic ? city.nameAr : city.nameEn}
+                </h3>
+                <p className="text-xs text-gray-500 text-center mb-1">👥 {city.population}</p>
+                <p className="text-xs text-gray-600 text-center mb-3">✈️ {city.description}</p>
+                <p className="text-primary text-center text-sm font-semibold">
+                  {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Popular Treatments Section */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             {isArabic

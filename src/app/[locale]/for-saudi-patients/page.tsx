@@ -20,14 +20,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : 'Medical Services for Saudi Patients - Shifa AlHind';
 
   const description = isArabic
-    ? 'خدمات رعاية صحية متخصصة للمرضى من المملكة العربية السعودية في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل. علاج عالمي المستوى بأسعار معقولة لمرضى الرياض، جدة، ومكة.'
-    : 'Specialized healthcare services for patients from Saudi Arabia in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services. World-class treatment at affordable prices for patients from Riyadh, Jeddah, and Makkah.';
+    ? 'خدمات رعاية صحية متخصصة للمرضى من جميع مدن السعودية (الرياض، جدة، الدمام، الخبر، مكة، المدينة، الطائف، تبوك) في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل.'
+    : 'Specialized healthcare services for patients from all Saudi cities (Riyadh, Jeddah, Dammam, Khobar, Mecca, Medina, Taif, Tabuk) in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services.';
 
   const keywords = [
     ...seoKeywords.homepage,
     'Saudi patients India',
     'Riyadh to India medical tourism',
     'Jeddah patients treatment India',
+    'Dammam to India healthcare',
+    'Khobar medical tourism',
+    'Mecca patients India',
+    'Medina to Bangalore healthcare',
+    'Taif medical tourism',
+    'Tabuk patients India',
     'Saudi Arabia medical tourism',
     'KSA to Bangalore healthcare',
     'Saudi patients India hospitals',
@@ -169,18 +175,23 @@ export default async function SaudiPatientsPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Popular Saudi Cities Section */}
+      {/* All 8 Saudi Cities Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-4">
+            <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-2">
+              {isArabic ? '8 مدن من السعودية ✓' : '8 Saudi Cities Covered ✓'}
+            </div>
+          </div>
           <h2 className="text-3xl font-bold text-center mb-4">
-            {isArabic ? 'علاج طبي من مدن المملكة' : 'Medical Treatment from Saudi Cities'}
+            {isArabic ? 'علاج طبي من جميع مدن المملكة' : 'Medical Treatment from All Saudi Cities'}
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             {isArabic
-              ? 'نخدم المرضى من جميع أنحاء المملكة. اختر مدينتك لمعرفة الخيارات المتاحة'
-              : 'We serve patients from all across Saudi Arabia. Select your city to explore treatment options'}
+              ? 'نخدم المرضى من جميع مدن المملكة الثمانية الرئيسية. اختر مدينتك لمعرفة الخيارات المتاحة'
+              : 'We serve patients from all 8 major Saudi cities. Select your city to explore treatment options'}
           </p>
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
               {
                 nameEn: 'Riyadh',
@@ -188,6 +199,7 @@ export default async function SaudiPatientsPage({ params }: PageProps) {
                 country: 'saudi-arabia',
                 slug: 'riyadh',
                 icon: '🏛️',
+                population: '7.6M',
                 description: '4-5 hours to Bangalore',
               },
               {
@@ -196,20 +208,76 @@ export default async function SaudiPatientsPage({ params }: PageProps) {
                 country: 'saudi-arabia',
                 slug: 'jeddah',
                 icon: '🌊',
+                population: '4.7M',
                 description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Dammam',
+                nameAr: 'الدمام',
+                country: 'saudi-arabia',
+                slug: 'dammam',
+                icon: '⚡',
+                population: '1.5M',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Khobar',
+                nameAr: 'الخبر',
+                country: 'saudi-arabia',
+                slug: 'khobar',
+                icon: '🏙️',
+                population: '730K',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Mecca',
+                nameAr: 'مكة',
+                country: 'saudi-arabia',
+                slug: 'mecca',
+                icon: '🕋',
+                population: '2.0M',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Medina',
+                nameAr: 'المدينة',
+                country: 'saudi-arabia',
+                slug: 'medina',
+                icon: '🕌',
+                population: '1.5M',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Taif',
+                nameAr: 'الطائف',
+                country: 'saudi-arabia',
+                slug: 'taif',
+                icon: '🏔️',
+                population: '690K',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Tabuk',
+                nameAr: 'تبوك',
+                country: 'saudi-arabia',
+                slug: 'tabuk',
+                icon: '🌄',
+                population: '570K',
+                description: '5-6 hours to Bangalore',
               },
             ].map((city) => (
               <a
                 key={city.slug}
                 href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
-                className="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-md hover:shadow-xl transition group"
+                className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl shadow-md hover:shadow-xl transition group"
               >
-                <div className="text-5xl mb-4 text-center">{city.icon}</div>
-                <h3 className="text-xl font-bold text-center mb-2 group-hover:text-primary transition">
+                <div className="text-4xl mb-3 text-center">{city.icon}</div>
+                <h3 className="text-lg font-bold text-center mb-1 group-hover:text-primary transition">
                   {isArabic ? city.nameAr : city.nameEn}
                 </h3>
-                <p className="text-sm text-gray-600 text-center">{city.description}</p>
-                <p className="text-primary text-center mt-4 font-semibold">
+                <p className="text-xs text-gray-500 text-center mb-1">👥 {city.population}</p>
+                <p className="text-xs text-gray-600 text-center mb-3">✈️ {city.description}</p>
+                <p className="text-primary text-center text-sm font-semibold">
                   {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
                 </p>
               </a>

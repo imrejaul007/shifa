@@ -20,13 +20,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : 'Medical Services for Bahrain Patients - Shifa AlHind';
 
   const description = isArabic
-    ? 'خدمات رعاية صحية متخصصة للمرضى من مملكة البحرين في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل. علاج عالمي المستوى بأسعار معقولة لمرضى المنامة والمحرق.'
-    : 'Specialized healthcare services for patients from Bahrain in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services. World-class treatment at affordable prices for patients from Manama and Muharraq.';
+    ? 'خدمات رعاية صحية متخصصة للمرضى من جميع مدن البحرين (المنامة، المحرق، الرفاع) في أفضل مستشفيات الهند. وفر 60-70٪ مع مستشفيات معتمدة من JCI، دعم عربي كامل، مساعدة في التأشيرة، وخدمات النقل.'
+    : 'Specialized healthcare services for patients from all Bahrain cities (Manama, Muharraq, Riffa) in top Indian hospitals. Save 60-70% with JCI-accredited hospitals, complete Arabic support, visa assistance, and transportation services.';
 
   const keywords = [
     ...seoKeywords.homepage,
     'Bahrain patients India',
     'Manama to India medical tourism',
+    'Muharraq medical tourism',
+    'Riffa patients India',
     'Bahraini patients treatment India',
     'Bahrain medical tourism',
     'Bahrain to Bangalore healthcare',
@@ -169,8 +171,76 @@ export default async function BahrainPatientsPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* All 3 Bahrain Cities Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-4">
+            <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-2">
+              {isArabic ? '3 مدن من البحرين ✓' : '3 Bahrain Cities Covered ✓'}
+            </div>
+          </div>
+          <h2 className="text-3xl font-bold text-center mb-4">
+            {isArabic
+              ? 'علاج طبي من جميع مدن البحرين'
+              : 'Medical Treatment from All Bahrain Cities'}
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            {isArabic
+              ? 'نخدم المرضى من جميع مدن البحرين الرئيسية. اختر مدينتك لمعرفة الخيارات المتاحة'
+              : 'We serve patients from all major Bahrain cities. Select your city to explore treatment options'}
+          </p>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                nameEn: 'Manama',
+                nameAr: 'المنامة',
+                country: 'bahrain',
+                slug: 'manama',
+                icon: '🏙️',
+                population: '640K',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Muharraq',
+                nameAr: 'المحرق',
+                country: 'bahrain',
+                slug: 'muharraq',
+                icon: '✈️',
+                population: '230K',
+                description: '4-5 hours to Bangalore',
+              },
+              {
+                nameEn: 'Riffa',
+                nameAr: 'الرفاع',
+                country: 'bahrain',
+                slug: 'riffa',
+                icon: '🏡',
+                population: '120K',
+                description: '4-5 hours to Bangalore',
+              },
+            ].map((city) => (
+              <a
+                key={city.slug}
+                href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
+                className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl shadow-md hover:shadow-xl transition group"
+              >
+                <div className="text-4xl mb-3 text-center">{city.icon}</div>
+                <h3 className="text-lg font-bold text-center mb-1 group-hover:text-primary transition">
+                  {isArabic ? city.nameAr : city.nameEn}
+                </h3>
+                <p className="text-xs text-gray-500 text-center mb-1">👥 {city.population}</p>
+                <p className="text-xs text-gray-600 text-center mb-3">✈️ {city.description}</p>
+                <p className="text-primary text-center text-sm font-semibold">
+                  {isArabic ? 'استكشف العلاجات →' : 'Explore Treatments →'}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Popular Treatments Section */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             {isArabic
