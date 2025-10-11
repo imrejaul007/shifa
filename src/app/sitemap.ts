@@ -6,6 +6,10 @@
 import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/prisma';
 
+// Revalidate sitemap every 24 hours to reduce database load
+export const revalidate = 86400; // 24 hours
+export const dynamic = 'force-static';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://shifaalhind.com';
   const locales = ['en', 'ar'];
