@@ -146,6 +146,73 @@ const hospitals = [
   { name: 'Narayana Health', logo: '🏥' },
 ];
 
+const gccCities = [
+  {
+    nameEn: 'Dubai',
+    nameAr: 'دبي',
+    country: 'united-arab-emirates',
+    slug: 'dubai',
+    flag: '🇦🇪',
+    flights: '3-4h',
+  },
+  {
+    nameEn: 'Riyadh',
+    nameAr: 'الرياض',
+    country: 'saudi-arabia',
+    slug: 'riyadh',
+    flag: '🇸🇦',
+    flights: '4-5h',
+  },
+  {
+    nameEn: 'Doha',
+    nameAr: 'الدوحة',
+    country: 'qatar',
+    slug: 'doha',
+    flag: '🇶🇦',
+    flights: '4-5h',
+  },
+  {
+    nameEn: 'Abu Dhabi',
+    nameAr: 'أبو ظبي',
+    country: 'united-arab-emirates',
+    slug: 'abu-dhabi',
+    flag: '🇦🇪',
+    flights: '3-4h',
+  },
+  {
+    nameEn: 'Muscat',
+    nameAr: 'مسقط',
+    country: 'oman',
+    slug: 'muscat',
+    flag: '🇴🇲',
+    flights: '3-4h',
+  },
+  {
+    nameEn: 'Kuwait City',
+    nameAr: 'مدينة الكويت',
+    country: 'kuwait',
+    slug: 'kuwait-city',
+    flag: '🇰🇼',
+    flights: '4-5h',
+  },
+  {
+    nameEn: 'Jeddah',
+    nameAr: 'جدة',
+    country: 'saudi-arabia',
+    slug: 'jeddah',
+    flag: '🇸🇦',
+    flights: '4-5h',
+  },
+  {
+    nameEn: 'Manama',
+    nameAr: 'المنامة',
+    country: 'bahrain',
+    slug: 'manama',
+    flag: '🇧🇭',
+    flights: '4-5h',
+  },
+];
+
 export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
   const t = content[locale];
 
@@ -280,8 +347,77 @@ export default function HomePageClient({ locale }: { locale: 'en' | 'ar' }) {
         </div>
       </section>
 
-      {/* Partner Hospitals */}
+      {/* GCC Cities Section */}
       <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2
+              className={`text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary mb-4 leading-tight ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
+              {locale === 'ar' ? 'وجهات شعبية من دول الخليج' : 'Popular Destinations from GCC'}
+            </h2>
+            <p
+              className={`text-lg sm:text-xl text-muted-foreground ${locale === 'ar' ? 'font-arabic' : ''}`}
+            >
+              {locale === 'ar'
+                ? 'اكتشف أفضل المستشفيات في بنغالور من مدينتك'
+                : 'Discover world-class healthcare in Bangalore from your city'}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+            {gccCities.map((city, index) => (
+              <motion.div
+                key={city.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <Link
+                  href={`/${locale}/medical-tourism/${city.country}/${city.slug}`}
+                  className="block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+                >
+                  <div className="text-center">
+                    <div className="text-5xl mb-3">{city.flag}</div>
+                    <h3
+                      className={`text-lg font-bold text-primary group-hover:text-accent transition-colors mb-2 ${locale === 'ar' ? 'font-arabic' : ''}`}
+                    >
+                      {locale === 'ar' ? city.nameAr : city.nameEn}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      ✈️ {city.flights}
+                      {locale === 'ar' ? ' ساعات' : ' hours'}
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <Link
+              href={`/${locale}/medical-tourism`}
+              className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition"
+            >
+              {locale === 'ar' ? 'استكشف جميع المدن' : 'Explore All Cities'}
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Partner Hospitals */}
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

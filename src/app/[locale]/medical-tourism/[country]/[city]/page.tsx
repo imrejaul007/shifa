@@ -4,6 +4,7 @@ import { generateFullMetadata } from '@/lib/seo-helpers';
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import Link from 'next/link';
 import { CostComparisonCalculator, MedicalTourismInquiryForm } from '@/components/medical-tourism';
+import { getArticlesByCity } from '@/lib/content-service';
 
 interface PageProps {
   params: Promise<{
@@ -267,6 +268,9 @@ export default async function CityMedicalTourismPage({ params }: PageProps) {
   const cityName = isArabic ? cityData.name_ar : cityData.name_en;
   const countryName = isArabic ? cityData.country_ar : cityData.country_en;
 
+  // Get blog articles for this city (top 9 articles)
+  const cityBlogArticles = getArticlesByCity(city, locale).slice(0, 9);
+
   const breadcrumbItems = [
     { name: isArabic ? 'الرئيسية' : 'Home', url: '/' },
     { name: isArabic ? 'السياحة العلاجية' : 'Medical Tourism', url: '/medical-tourism' },
@@ -433,6 +437,70 @@ export default async function CityMedicalTourismPage({ params }: PageProps) {
           <CostComparisonCalculator locale={locale} variant="full" />
         </div>
       </section>
+
+      {/* Featured Blog Articles for City */}
+      {cityBlogArticles.length > 0 && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">
+              {isArabic
+                ? `مقالات مميزة لمرضى ${cityName}`
+                : `Featured Articles for ${cityName} Patients`}
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              {isArabic
+                ? 'اقرأ أحدث الأفكار والنصائح الطبية المصممة خصيصاً لمرضى ${cityName}'
+                : `Read the latest medical insights and expert advice tailored for ${cityName} patients`}
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {cityBlogArticles.map((article) => {
+                const urlParts = article.url.split('/');
+                const articleCountry = urlParts[5];
+                const articleCity = urlParts[6];
+                const articleTreatment = urlParts[7];
+                const articleSlug = urlParts[8];
+
+                return (
+                  <Link
+                    key={article.url}
+                    href={`/${locale}/blog/${articleCountry}/${articleCity}/${articleTreatment}/${articleSlug}`}
+                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition group"
+                  >
+                    <h3 className="text-lg font-semibold mb-3 text-gray-900 line-clamp-2 group-hover:text-primary">
+                      {article.h1}
+                    </h3>
+                    <p className="text-gray-600 text-sm line-clamp-3 mb-4">{article.meta_desc}</p>
+                    <span className="text-primary text-sm font-medium inline-flex items-center">
+                      {isArabic ? 'اقرأ المزيد' : 'Read More'}
+                      <svg
+                        className="w-4 h-4 ml-2 rtl:mr-2 rtl:ml-0 rtl:rotate-180 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="text-center mt-8">
+              <Link
+                href={`/${locale}/blog`}
+                className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition"
+              >
+                {isArabic ? 'عرض جميع المقالات' : 'View All Articles'}
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Inquiry Form */}
       <section className="py-16 bg-gray-50">
