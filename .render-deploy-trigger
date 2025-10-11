@@ -1,4 +1,5 @@
-Force Render deployment trigger
-Timestamp: 2025-10-10T18:20:00Z
-Latest commit: e814756
-Purpose: Ensure Render deploys the critical SSR fix
+Force Render deployment - Routing fix
+Timestamp: 2025-10-11T10:25:00Z
+Latest commit: cb9f2eb
+Purpose: Deploy critical routing conflict fix - blog posts moved to /blog/posts/[slug]
+Changes: Fixed "different slug names for same dynamic path" error
