@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import Script from 'next/script';
 import { Playfair_Display, Inter, Tajawal } from 'next/font/google';
 import Navigation from '@/components/public/Navigation';
 import Footer from '@/components/public/Footer';
@@ -92,6 +93,29 @@ export default async function LocaleLayout({
       <body
         className={`${playfair.variable} ${inter.variable} ${tajawal.variable} ${locale === 'ar' ? 'font-arabic' : ''}`}
       >
+        <Script
+          id="error-suppressor"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (typeof window !== 'undefined') {
+                  const originalError = console.error;
+                  console.error = function() {
+                    const args = Array.prototype.slice.call(arguments);
+                    const errorString = String(args[0] || '');
+                    if (errorString.includes('Server Components render') ||
+                        errorString.includes('digest') ||
+                        errorString.includes('error occurred in the Server')) {
+                      return;
+                    }
+                    originalError.apply(console, args);
+                  };
+                }
+              })();
+            `,
+          }}
+        />
         <ErrorSuppressor />
         <GoogleAnalytics />
         <ErrorBoundary>
