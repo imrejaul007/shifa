@@ -88,25 +88,6 @@ export default async function LocaleLayout({
       <head>
         <OrganizationSchema />
         <WebSiteSchema locale={locale as 'en' | 'ar'} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var originalError = console.error;
-                console.error = function() {
-                  var args = Array.prototype.slice.call(arguments);
-                  var errorString = args.join(' ');
-                  if (errorString.includes('Server Components render') ||
-                      errorString.includes('digest') ||
-                      errorString.includes('Error occurred in the Server Components')) {
-                    return;
-                  }
-                  originalError.apply(console, args);
-                };
-              })();
-            `,
-          }}
-        />
       </head>
       <body
         className={`${playfair.variable} ${inter.variable} ${tajawal.variable} ${locale === 'ar' ? 'font-arabic' : ''}`}
