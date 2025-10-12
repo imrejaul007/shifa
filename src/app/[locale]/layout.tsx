@@ -7,6 +7,7 @@ import Footer from '@/components/public/Footer';
 import WhatsAppButton from '@/components/public/WhatsAppButton';
 import { GoogleAnalytics } from '@/components/Analytics';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ErrorSuppressor } from '@/components/ErrorSuppressor';
 import { generateFullMetadata, seoKeywords } from '@/lib/seo-helpers';
 import { OrganizationSchema, WebSiteSchema } from '@/components/SEO/SchemaMarkup';
 
@@ -91,6 +92,7 @@ export default async function LocaleLayout({
       <body
         className={`${playfair.variable} ${inter.variable} ${tajawal.variable} ${locale === 'ar' ? 'font-arabic' : ''}`}
       >
+        <ErrorSuppressor />
         <GoogleAnalytics />
         <ErrorBoundary>
           <Navigation locale={locale as 'en' | 'ar'} />
