@@ -110,7 +110,7 @@ export function ButtonLink({
     lg: 'px-8 py-5 text-lg sm:py-4 min-h-[52px]',
   };
 
-  const Component = motion(external ? 'a' : Link);
+  const Component = motion.create(external ? 'a' : Link);
 
   return (
     <Component

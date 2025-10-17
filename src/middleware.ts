@@ -29,10 +29,12 @@ function getLocale(request: NextRequest): string {
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Log 404s to help debug prefetch issues
-  const url = request.nextUrl.toString();
-  if (url.includes('_rsc=')) {
-    console.log('[PREFETCH]', pathname, url);
+  // Log 404s to help debug prefetch issues in development
+  if (process.env.NODE_ENV === 'development') {
+    const url = request.nextUrl.toString();
+    if (url.includes('_rsc=')) {
+      console.log('[PREFETCH]', pathname, url);
+    }
   }
 
   // Check if the pathname is missing a locale
