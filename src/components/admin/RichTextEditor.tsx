@@ -24,11 +24,7 @@ interface RichTextEditorProps {
   placeholder?: string;
 }
 
-export default function RichTextEditor({
-  content,
-  onChange,
-  placeholder: _placeholder = 'Start writing...',
-}: RichTextEditorProps) {
+export default function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,

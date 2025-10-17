@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   User,
   Award,
@@ -133,12 +134,14 @@ export default function DoctorProfileClient({ doctor, relatedDoctors, locale }: 
             >
               <div className="flex items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="flex-shrink-0">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden relative">
                     {doctor.profileImage ? (
-                      <img
+                      <Image
                         src={doctor.profileImage}
                         alt={name}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 96px, 128px"
                       />
                     ) : (
                       <User className="w-16 h-16 sm:w-20 sm:h-20 text-primary" />

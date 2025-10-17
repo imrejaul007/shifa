@@ -1,13 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { generateFullMetadata, generateMedicalProcedureSchema } from '@/lib/seo-helpers';
-import {
-  generateBreadcrumbSchema,
-  generateFAQSchema,
-  generateMedicalTripSchema,
-  generateMedicalBusinessSchema,
-  combineSchemas,
-} from '@/lib/schema-generators';
 import Breadcrumb from '@/components/SEO/Breadcrumb';
 import Link from 'next/link';
 import { getArticlesByTreatment } from '@/lib/content-service';

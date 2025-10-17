@@ -49,7 +49,6 @@ export default function MedicalTourismInquiryForm({
   city,
   country,
   treatment,
-  variant: _variant = 'inline',
 }: MedicalTourismInquiryFormProps) {
   const isArabic = locale === 'ar';
   const [isSubmitting, setIsSubmitting] = useState(false);

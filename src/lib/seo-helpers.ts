@@ -329,10 +329,7 @@ export interface RelatedLink {
   description?: string;
 }
 
-export function generateInternalLinks(
-  _pageType: 'treatment' | 'hospital' | 'blog' | 'service',
-  _currentSlug: string
-): {
+export function generateInternalLinks(): {
   relatedTreatments: RelatedLink[];
   relatedHospitals: RelatedLink[];
   relatedBlogs: RelatedLink[];
@@ -441,9 +438,7 @@ export const seoKeywords = {
 // VOICE SEARCH OPTIMIZATION
 // ============================================================================
 
-export function generateVoiceSearchFAQs(
-  _pageType: 'treatment' | 'hospital' | 'service'
-): FAQItem[] {
+export function generateVoiceSearchFAQs(): FAQItem[] {
   const commonFAQs: FAQItem[] = [
     {
       question: 'How much does medical treatment cost in India?',

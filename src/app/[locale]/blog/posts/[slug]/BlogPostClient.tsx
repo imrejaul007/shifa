@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, User, ArrowLeft, Clock, ArrowRight } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
@@ -164,9 +165,15 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mb-12 rounded-2xl overflow-hidden"
+                className="mb-12 rounded-2xl overflow-hidden relative aspect-video"
               >
-                <img src={post.featuredImage} alt={title} className="w-full h-auto" />
+                <Image
+                  src={post.featuredImage}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                />
               </motion.div>
             )}
 
@@ -206,11 +213,13 @@ export default function BlogPostClient({ post, relatedPosts, locale }: Props) {
                     <Card hover={true} variant="default">
                       <CardBody>
                         {related.featuredImage && (
-                          <div className="mb-4 rounded-lg overflow-hidden aspect-video">
-                            <img
+                          <div className="mb-4 rounded-lg overflow-hidden aspect-video relative">
+                            <Image
                               src={related.featuredImage}
                               alt={locale === 'ar' ? related.title_ar : related.title_en}
-                              className="w-full h-full object-cover"
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             />
                           </div>
                         )}

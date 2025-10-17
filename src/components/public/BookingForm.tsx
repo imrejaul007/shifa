@@ -74,13 +74,7 @@ const content = {
   },
 };
 
-export default function BookingForm({
-  doctorId: _doctorId,
-  packageId: _packageId,
-  hospitalId,
-  treatmentId,
-  locale,
-}: BookingFormProps) {
+export default function BookingForm({ hospitalId, treatmentId, locale }: BookingFormProps) {
   const [formData, setFormData] = useState<BookingFormData>({
     patientName: '',
     email: '',
