@@ -16,34 +16,27 @@ interface PageProps {
   }>;
 }
 
-// Generate static params
-export async function generateStaticParams() {
-  try {
-    // Limit to first 10 items for build-time generation, rest will be ISR
-    const doctors = await prisma.doctor.findMany({
-      take: 10, // Only pre-generate 10 pages at build time
-      where: { published: true, isArchived: false },
-      select: { slug: true },
-    });
-
-    const locales = ['en', 'ar'];
-    const params = [];
-
-    for (const locale of locales) {
-      for (const doctor of doctors) {
-        params.push({
-          locale,
-          slug: doctor.slug,
-        });
-      }
-    }
-
-    return params;
-  } catch {
-    console.warn('Database not available during build, skipping static generation');
-    return [];
-  }
-}
+// Commented out to prevent runtime database errors
+// export async function generateStaticParams() {
+//   try {
+//     const doctors = await prisma.doctor.findMany({
+//       take: 10,
+//       where: { published: true, isArchived: false },
+//       select: { slug: true },
+//     });
+//     const locales = ['en', 'ar'];
+//     const params = [];
+//     for (const locale of locales) {
+//       for (const doctor of doctors) {
+//         params.push({ locale, slug: doctor.slug });
+//       }
+//     }
+//     return params;
+//   } catch {
+//     console.warn('Database not available during build, skipping static generation');
+//     return [];
+//   }
+// }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

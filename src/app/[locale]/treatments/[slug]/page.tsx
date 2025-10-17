@@ -20,34 +20,27 @@ interface PageProps {
   }>;
 }
 
-// Generate static params for all published treatments
-export async function generateStaticParams() {
-  try {
-    // Limit to first 10 items for build-time generation, rest will be ISR
-    const treatments = await prisma.treatment.findMany({
-      take: 10, // Only pre-generate 10 pages at build time
-      where: { published: true, isArchived: false },
-      select: { slug: true },
-    });
-
-    const locales = ['en', 'ar'];
-    const params = [];
-
-    for (const locale of locales) {
-      for (const treatment of treatments) {
-        params.push({
-          locale,
-          slug: treatment.slug,
-        });
-      }
-    }
-
-    return params;
-  } catch {
-    console.warn('Database not available during build, skipping static generation');
-    return [];
-  }
-}
+// DISABLED: Commenting out to prevent runtime database errors
+// export async function generateStaticParams() {
+//   try {
+//     const treatments = await prisma.treatment.findMany({
+//       take: 10,
+//       where: { published: true, isArchived: false },
+//       select: { slug: true },
+//     });
+//     const locales = ['en', 'ar'];
+//     const params = [];
+//     for (const locale of locales) {
+//       for (const treatment of treatments) {
+//         params.push({ locale, slug: treatment.slug });
+//       }
+//     }
+//     return params;
+//   } catch {
+//     console.warn('Database not available during build, skipping static generation');
+//     return [];
+//   }
+// }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
