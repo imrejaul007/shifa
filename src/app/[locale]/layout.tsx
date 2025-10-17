@@ -66,6 +66,26 @@ export async function generateMetadata({
       ogImage: '/og-homepage.jpg',
       ogType: 'website',
     }),
+    manifest: '/manifest.json',
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'default',
+      title: 'Shifa AlHind',
+    },
+    icons: {
+      icon: [
+        { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+        { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+      ],
+      apple: [{ url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' }],
+    },
+    themeColor: '#047857',
+    viewport: {
+      width: 'device-width',
+      initialScale: 1,
+      maximumScale: 5,
+      userScalable: true,
+    },
   };
 }
 
