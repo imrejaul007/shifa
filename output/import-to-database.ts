@@ -67,8 +67,8 @@ async function importContent() {
     try {
       // Extract country and city slugs from URL
       const urlParts = page.url.split('/');
-      const countrySlug = urlParts[urlParts.length - 2];
-      const citySlug = urlParts[urlParts.length - 1];
+      const _countrySlug = urlParts[urlParts.length - 2];
+      const _citySlug = urlParts[urlParts.length - 1];
 
       // Check if this is a city we want to import
       // Note: You may want to filter or customize this logic
@@ -130,10 +130,10 @@ async function importContent() {
     try {
       // Extract metadata from URL
       const urlParts = page.url.split('/');
-      const articleSlug = urlParts[urlParts.length - 1];
-      const treatmentSlug = urlParts[urlParts.length - 2];
-      const citySlug = urlParts[urlParts.length - 3];
-      const countrySlug = urlParts[urlParts.length - 4];
+      const _articleSlug = urlParts[urlParts.length - 1];
+      const _treatmentSlug = urlParts[urlParts.length - 2];
+      const _citySlug = urlParts[urlParts.length - 3];
+      const _countrySlug = urlParts[urlParts.length - 4];
 
       console.log(`   Importing: ${page.url}`);
       articleCount++;

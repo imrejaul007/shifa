@@ -1,0 +1,25 @@
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Dependencies
+node_modules/
+
+# PWA generated files
+public/sw.js
+public/workbox-*.js
+
+# Database utilities (not part of main app)
+output/
+prisma/seed.ts
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Other
+*.log
+.DS_Store
