@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import { GraduationCap, Languages, X, Video, ArrowRight, Search, Stethoscope } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -172,15 +171,13 @@ export default function DoctorsClient({ doctors, locale }: Props) {
                   >
                     <Card hover={true} variant="default" className="h-full flex flex-col">
                       <div className="relative aspect-square overflow-hidden">
-                        <Image
+                        <img
                           src={
                             doctor.profileImage ||
                             'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800'
                           }
                           alt={name}
-                          fill
-                          className="object-cover transition-transform duration-700 hover:scale-110"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
                         {doctor.telemedicineAvailable && (
@@ -274,15 +271,13 @@ export default function DoctorsClient({ doctors, locale }: Props) {
 
                 {/* Header with Image */}
                 <div className="relative aspect-[21/9] overflow-hidden rounded-t-3xl">
-                  <Image
+                  <img
                     src={
                       selectedDoctor.profileImage ||
                       'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800'
                     }
                     alt={locale === 'ar' ? selectedDoctor.name_ar : selectedDoctor.name_en}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 80vw"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent" />
                   <div className={`absolute bottom-8 ${locale === 'ar' ? 'right-8' : 'left-8'}`}>

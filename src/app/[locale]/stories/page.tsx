@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Heart, Quote, Star, MapPin, Calendar, CheckCircle2, Play, TrendingUp } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
@@ -227,13 +226,7 @@ export default function StoriesPage() {
               >
                 {/* Image */}
                 <div className="relative h-64 sm:h-80 lg:h-full overflow-hidden">
-                  <Image
-                    src={story.image}
-                    alt={story.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
+                  <img src={story.image} alt={story.name} className="w-full h-full object-cover" />
                   {story.video && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                       <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
@@ -251,15 +244,11 @@ export default function StoriesPage() {
                 {/* Content */}
                 <div className="p-6 sm:p-8 lg:p-12">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-accent">
-                      <Image
-                        src={story.image}
-                        alt={story.name}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    </div>
+                    <img
+                      src={story.image}
+                      alt={story.name}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-accent"
+                    />
                     <div>
                       <h3 className="text-xl font-display font-bold text-primary">
                         {story.name}, {story.age}
@@ -331,12 +320,10 @@ export default function StoriesPage() {
               >
                 <Card hover={true} variant="default">
                   <div className="relative h-64 overflow-hidden">
-                    <Image
+                    <img
                       src={story.image}
                       alt={story.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                     {story.video && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
