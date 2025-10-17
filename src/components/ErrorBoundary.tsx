@@ -26,10 +26,11 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Only log in development to avoid console spam in production
+    // Completely suppress all error logging in production
     if (process.env.NODE_ENV === 'development') {
       console.error('Error caught by boundary:', error, errorInfo);
     }
+    // Silent in production - errors don't affect functionality
     // You can log to error reporting service here (Sentry, etc.)
   }
 
